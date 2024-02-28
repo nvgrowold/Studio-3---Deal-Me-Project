@@ -1,1 +1,93 @@
+##############################################################################################################################################
+16/02/2024
+Previous task:
+names, go through similar website, self learn React,think about questions asking clients.
+
+Brief meeting with Client this morning for more detailed requirements:
+-- Finalised core users: Merchant, Buyer, Admin and Guest
+-- Finding out appropraite attributes to each user
+-- Optional requirement: Region in filter
+-- Identify user cases for each user how they interact with the website
+-- Figure out what data needed to support each user
+-- Item categories
+
+To do list: 
+
+Tasks each member due by next Tueseday:
+Mitchell: 
+-- Name ideas for the web app
+-- Buyer user's: business requirements, system requirements, then form corresponding user stories
+-- Detailed attribute for buyer user
+-- Identify how buyer user might interact with the website
+-- List out what data needed to support buyer user
+-- Draft buyer framework
+Harikash: 
+-- Name ideas for the web app
+-- Admin user's: business requirements, system requirements, then form corresponding user stories
+-- Detailed attribute for Admin user
+-- Identify how Admin user might interact with the website
+-- List out what data needed to support Admin user
+-- Draft Admin framework
+Liman: 
+-- Name ideas for the web app
+-- Buyer user's: business requirements, system requirements, then form corresponding user stories
+-- Detailed attribute for Merchant and Guest user
+-- Identify how Merchant and Guest users might interact with the website
+-- List out what data needed to support Merchant and Guest users
+-- Draft Merchant and Guest framework
+
+Homework: Pull Request research
+PS: Keep in touch anytime through Microsoft Teams group chat.
+PS: Meeting out of class every Tuesday and Thursday noon.
+PS: Self learning React
+PS: Define Sprints
+PS: Check out coding standard
+###################################################################################################################################################
+22/02/2024
+Previous task:
+-- Agreed on App Name: DealMe
+-- Done with business requirements, system requirements and basic user stories
+
+
+To do list for this session:
+--Sprint plan
+--Agreeing coding standard -- https://www.tatvasoft.com/blog/reactjs-best-practices/
+
+
+To do list before next session (Tomorrow:23/02/2024)
+-- Basic dashboard for Sellers, Buyers and Admin users
+--Detail of how to do pull request and version control practice
+
+PS: Keep self learning React
+PS: List out what data needed to support buyer user
+PS: Adding working document folder
+#####################################################################################################################################################
+23/02/2024
+Previous task:
+-- Basic dashboard for Sellers, Buyers and Admin users: Liman--Home Page, Harikash -- search bar, Mitchell--Figured out the final layout the Admin page, need to try the basic code
+-- Clear about pull request
+
+To do list before next Thursday:
+--Homepage basic function
+--Admin page basic frame
+--Searchging product
+-- PDR
+#####################################################################################################################################################
+29/02/2024
+Notes with client on 27th Feb:
+--ERD diagram: entities
+--Attributes for each entity
+--NoSql database
+
+Previous Task:
+--Home page:80% Basic function working
+--Admin page: 55% Dashboard done, 
+-- Searching product:30% listed category but searching need to be fixed
+-- Liman selflearning: 55%
+-- Mitchell selflearning:35%
+-- Harikash selflearning:50%
+
+
+
+
 
