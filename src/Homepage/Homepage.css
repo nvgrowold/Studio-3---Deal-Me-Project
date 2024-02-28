@@ -1,0 +1,21 @@
+
+
+.homepageCard {
+    background-color: none; /* Bootstrap primary color */
+    color: white;
+    text-decoration: none;
+    padding-top: 20%;
+    cursor: pointer;
+    text-align: center;
+    border-radius: 5px; /* Optional: for rounded corners */
+    margin-top: 130%;
+    width: 180px;
+    height: 120px;
+    transition: transform 0.2s; /* Smooth transform on hover */
+}
+
+.homepageCard:hover {
+background-color: #ECF0F1 !important; /* Darken color on hover */
+transform: scale(1.05) !important; /* Slightly enlarge cards on hover */
+color:rgb(191, 166, 215) !important;
+}

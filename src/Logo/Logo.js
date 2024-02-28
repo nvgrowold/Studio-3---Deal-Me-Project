@@ -1,0 +1,11 @@
+//get background image
+import logoPink from "../assets/logosWhite.png";
+//styling
+import "./Logo.css";
+
+function Logo(){
+  
+    return <img className="logo" src={logoPink} alt=""/>
+}
+
+export default Logo;
