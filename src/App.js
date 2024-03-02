@@ -2,15 +2,17 @@ import { BrowserRouter,Routes,Route } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 //import all pages
-import AdminDashboard from "./Components/AdminDashboard";
-import Homepage from "./Components/Homepage";
-import Login from "./Components/Login";
-import BuyerDashboard from "./Components/BuyerDashboard";
-import ForgotPassword from "./Components/ForgotPassword";
-import GuestPage from "./Components/GuestPage";
-import SellerDashboard from "./Components/SellerDashboard";
-import Register from "./Components/Register";
-import ContactUsPage from "./Components/ContactUsPage";
+import AdminDashboard from "./Pages/AdminDashboard";
+import Homepage from "./Pages/Homepage";
+import Login from "./Pages/Login";
+import BuyerDashboard from "./Pages/BuyerDashboard";
+import ForgotPassword from "./Pages/ForgotPassword";
+import GuestPage from "./Pages/GuestPage";
+import SellerDashboard from "./Pages/SellerDashboard";
+import Register from "./Pages/Register";
+import ContactUsPage from "./Pages/ContactUsPage";
+import UserProfilePage from "./Pages/UserProfilePage";
+
 
 function App() {
   return (
@@ -18,14 +20,15 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route exact path='/' element={<Homepage/>}/>
-          <Route exact path='/Components/AdminDashboard' element={<AdminDashboard/>}/>
-          <Route exact path='/Components/BuyerDashboard' element={<BuyerDashboard/>}/>
-          <Route exact path='/Components/ContactUsPage' element={<ContactUsPage/>}/>
-          <Route exact path='/Components/ForgotPassword' element={<ForgotPassword/>}/>
-          <Route exact path='/Components/GuestPage' element={<GuestPage/>}/>
-          <Route exact path='/Components/Login' element={<Login/>}/>
-          <Route exact path='/Components/SellerDashboard' element={<SellerDashboard/>}/>
-          <Route exact path='/Components/Register' element={<Register/>}/>
+          <Route exact path='/AdminDashboard' element={<AdminDashboard/>}/>
+          <Route exact path='/BuyerDashboard' element={<BuyerDashboard/>}/>
+          <Route exact path='/ContactUsPage' element={<ContactUsPage/>}/>
+          <Route exact path='/ForgotPassword' element={<ForgotPassword/>}/>
+          <Route exact path='/GuestPage' element={<GuestPage/>}/>
+          <Route exact path='/Login' element={<Login/>}/>
+          <Route exact path='/SellerDashboard' element={<SellerDashboard/>}/>
+          <Route exact path='/Register' element={<Register/>}/>
+          <Route exact path='/UserProfilePage' element={<UserProfilePage/>}/>
         </Routes>
       </BrowserRouter>
 
