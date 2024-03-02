@@ -1,10 +1,10 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row, Col } from 'react-bootstrap';
 import { Link} from 'react-router-dom';
-import Background from "../Background/Background";
-import Logo from "../Logo/Logo";
+import Background from "./Background";
+import Logo from "./Logo";
 //styling
-import "./Homepage.css"
+import "../Styling/Homepage.css"
 
 function Homepage() {
     return(
