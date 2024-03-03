@@ -31,7 +31,6 @@ function App() {
           <Route exact path='/UserProfilePage' element={<UserProfilePage/>}/>
         </Routes>
       </BrowserRouter>
-
     </div>
   );
 }
