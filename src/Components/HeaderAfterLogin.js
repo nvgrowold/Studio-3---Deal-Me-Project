@@ -12,7 +12,7 @@ export default function HeaderAfterLogin() {
             <div>
                 <ul className='flex space-x-10 cursor-pointer max-mt-3 text-base font-semibold mr-5'>
                     <l><Link to='/' className='no-underline  text-sky-800 hover:text-yellow-900 transition duration-150 ease-in-out'>Home</Link></l>
-                    <li><Link to='/UserProfile' className='no-underline  text-sky-800  hover:text-yellow-900 transition duration-150 ease-in-out'>User Profile</Link></li>
+                    <li><Link to='/UserProfilePage' className='no-underline  text-sky-800  hover:text-yellow-900 transition duration-150 ease-in-out'>User Profile</Link></li>
                     <li><Link to='/Login' className='no-underline  text-sky-800  hover:text-yellow-900 transition duration-150 ease-in-out'>Login/Register</Link></li>
                     <li><Link to='/ContactUsPage' className='no-underline  text-sky-800  hover:text-yellow-900 transition duration-150 ease-in-out'>Contact Us</Link></li>
                 </ul>
