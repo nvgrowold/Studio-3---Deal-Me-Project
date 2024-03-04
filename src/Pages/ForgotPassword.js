@@ -1,17 +1,36 @@
 import { useState } from "react";
-import { Link} from 'react-router-dom';
+import { Link, useNavigate} from 'react-router-dom';
 import Header from "../Components/Header";
 import GoogleSignIn from "../Components/GoogleSignIn";
-
+import { getAuth, sendPasswordResetEmail } from "firebase/auth";
+import {toast} from "react-toastify";
 
 
 function ForgotPassword(){
     //Hook state for user input data object
     const [email, setEmail] = useState("");
 
+    //create the navigate by using the useNavigate hook of react
+    const navigate = useNavigate();
+
     //function to handle onChange of input
     function handleChange(e){
         setEmail(e.target.value);
+    }
+
+    //handle onSubmit event
+    async function onSubmit(e){
+        e.preventDefault()
+        try{
+            const auth = getAuth();
+            const userCredential = await sendPasswordResetEmail(auth, email);
+            if(userCredential.user){
+                toast.success("Email was sent");
+                navigate("/Login");
+            }            
+        } catch (error) {
+            toast.error("Not a registered email address")
+        }
     }
     
     return(
@@ -23,7 +42,8 @@ function ForgotPassword(){
                 className="w-full h-400 rounded-2xl"/>
             </div>
             <div className="w-full md:w-[60%] lg:w-[45%] lg:ml-20">
-                <form>                  
+                {/* this is calling onSubmit function */}
+                <form onSubmit={onSubmit}>                  
                     <input type="email" id="email" value={email}
                     onChange={handleChange} placeholder="Email Address"
                     className="mb-6 w-full px-4 py-2 text-base text-gray-700 bg-white border-gray-300 rounded transition ease-in-out" />

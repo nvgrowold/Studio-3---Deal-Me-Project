@@ -16,6 +16,7 @@ import SellerDashboard from "./Pages/SellerDashboard";
 import Register from "./Pages/Register";
 import ContactUsPage from "./Pages/ContactUsPage";
 import UserProfilePage from "./Pages/UserProfilePage";
+import ListProductPage from "./Pages/ListProductPage";
 
 
 function App() {
@@ -29,9 +30,10 @@ function App() {
           <Route exact path='/ContactUsPage' element={<ContactUsPage/>}/>
           <Route exact path='/ForgotPassword' element={<ForgotPassword/>}/>
           <Route exact path='/GuestPage' element={<GuestPage/>}/>
+          <Route exact path='/ListProductPage' element={<ListProductPage/>}/>
           <Route exact path='/Login' element={<Login/>}/>
-          <Route exact path='/SellerDashboard' element={<SellerDashboard/>}/>
           <Route exact path='/Register' element={<Register/>}/>
+          <Route exact path='/SellerDashboard' element={<SellerDashboard/>}/>          
           <Route exact path='/UserProfilePage' element={<UserProfilePage/>}/>
         </Routes>
       </BrowserRouter>

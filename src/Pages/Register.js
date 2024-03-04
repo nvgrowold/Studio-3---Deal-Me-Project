@@ -69,9 +69,9 @@ function Register(){
             //after adding the new user to the database, navigate them to another page
             navigate("/UserProfilePage");
         } catch (error) {
-          // put errors here  
-          //console.log(error);
-          toast.error("Something went wrong with the registration");
+            // put errors here  
+            //console.log(error);
+            toast.error("Something went wrong with the registration");
         }
     }
     

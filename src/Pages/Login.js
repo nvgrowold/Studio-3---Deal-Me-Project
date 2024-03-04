@@ -1,10 +1,13 @@
 import { useState } from "react";
-import { Link} from 'react-router-dom';
+import { Link, useNavigate} from 'react-router-dom';
 import Header from "../Components/Header";
 
 //import eye icons
 import { AiFillEye , AiFillEyeInvisible } from "react-icons/ai";
 import GoogleSignIn from "../Components/GoogleSignIn";
+
+import { signInWithEmailAndPassword, getAuth } from "firebase/auth";
+import {toast} from "react-toastify";
 
 
 
@@ -20,12 +23,38 @@ function Login(){
     //destructure the email and password from the form
     const {email, password} = formData;
 
+    //create the navigate by using the useNavigate hook of react
+    const navigate = useNavigate();
+
     //function to handle onChange of input
     function handleChange(e){
         setFormData((prevState) => ({
         ...prevState,
         [e.target.id]:e.target.value,
         }))
+    }
+
+    //function handle onSubmit event
+    async function onSubmit(e){
+        // prevent refresh the page
+        e.preventDefault()
+        
+        // using try - catch to sign in the user and catch the error
+        try{
+            //1. get authentication
+            const auth = getAuth()
+            //2. get the user credentials
+            const userCredential = await signInWithEmailAndPassword(auth, email, password)
+            //3. if 2 is successful, it will return the credential
+            // if userCredential is true, then, navigate to another page
+            if(userCredential.user){
+                navigate("/UserProfilePage")
+            }
+        } catch (error){
+          toast.error("Bad user credentials")  
+        }
+
+
     }
     
     return(
@@ -37,7 +66,7 @@ function Login(){
                 className="w-full rounded-2xl"/>
             </div>
             <div className="w-full md:w-[60%] lg:w-[45%] lg:ml-20">
-                <form>                  
+                <form onSubmit={onSubmit}>                  
                     <input type="email" id="email" value={email}
                     onChange={handleChange} placeholder="Email Address"
                     className="mb-6 w-full px-4 py-2 text-base text-gray-700 bg-white border-gray-300 rounded transition ease-in-out" />
