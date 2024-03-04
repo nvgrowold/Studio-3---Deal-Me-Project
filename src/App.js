@@ -1,5 +1,9 @@
 import { BrowserRouter,Routes,Route } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
+//import toastify for error notifications
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+
 
 //import all pages
 import AdminDashboard from "./Pages/AdminDashboard";
@@ -31,6 +35,19 @@ function App() {
           <Route exact path='/UserProfilePage' element={<UserProfilePage/>}/>
         </Routes>
       </BrowserRouter>
+      {/* React-toastify for every pages, also need to import the toastify css file as well  */}
+      <ToastContainer
+          position="bottom-center"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="dark"
+          />
     </div>
   );
 }

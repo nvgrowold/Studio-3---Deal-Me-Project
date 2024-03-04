@@ -4,7 +4,6 @@ import Container from 'react-bootstrap/Container';
 
 import emailjs from '@emailjs/browser';
 import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Modal from 'react-bootstrap/Modal';
@@ -42,7 +41,7 @@ export default function ContactUsPage() {
     <div>
       <Header/>
       {/* Contact form setup */}
-      <Container style={{ marginTop: '200px', maxWidth: '600px' }}>
+      <Container style={{ marginTop: '100px', maxWidth: '600px' }}>
           <Form ref={form} onSubmit={sendEmail}>
               <h4 className="text-center mb-4">Contact Us</h4>
               {/* Form fields for name, email, and message */}
@@ -64,7 +63,8 @@ export default function ContactUsPage() {
                       <Form.Control as="textarea" name="message" />
                   </Col>
               </Row>
-              <Button type="submit" variant="primary">Send</Button>
+              <button className='w-full bg-sky-700 text-white px-7 py-2 mb-6 text-sm font-medium uppercase rounded shadow-lg hover:bg-sky-800 transition duration-150 ease-in-out hover:shadow-xl active:bg-blue-900'
+               type="submit">Send</button>
           </Form>
       </Container>
             
@@ -75,7 +75,8 @@ export default function ContactUsPage() {
           </Modal.Header>
           <Modal.Body>Your message has been sent. We will get in touch with you shortly.</Modal.Body>
           <Modal.Footer>
-              <Button variant="primary" onClick={handleClose}>Close</Button>
+              <button className='w-full bg-sky-700 text-white px-7 py-2 mb-6 text-sm font-medium uppercase rounded shadow-lg hover:bg-sky-800 transition duration-150 ease-in-out hover:shadow-xl active:bg-blue-900'
+               onClick={handleClose}>Close</button>
           </Modal.Footer>
       </Modal>      
     </div>

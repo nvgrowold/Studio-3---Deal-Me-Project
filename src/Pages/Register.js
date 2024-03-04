@@ -1,10 +1,19 @@
 import { useState } from "react";
 import { Link} from 'react-router-dom';
 import Header from "../Components/Header";
+import GoogleSignIn from "../Components/GoogleSignIn";
 
 //import eye icons
 import { AiFillEye , AiFillEyeInvisible } from "react-icons/ai";
-import GoogleSignIn from "../Components/GoogleSignIn";
+//import getAuth method for user authentication
+import {getAuth, createUserWithEmailAndPassword, updateProfile} from "firebase/auth";
+import {db} from "../firebase";
+import { doc, serverTimestamp, setDoc } from "firebase/firestore";
+//navigate user to another page after successful register
+import { useNavigate } from "react-router-dom";
+//import toastify error notifications from react-toastify
+import {toast} from "react-toastify";
+
 
 
 
@@ -21,6 +30,9 @@ function Register(){
     //destructure the email and password from the form
     const {name, email, password} = formData;
 
+    //initialize the imported userNavigate
+    const navigate  = useNavigate();
+
     //function to handle onChange of input
     function handleChange(e){
         setFormData((prevState) => ({
@@ -28,17 +40,52 @@ function Register(){
         [e.target.id]:e.target.value,
         }))
     }
+
+    //function to handle onSubmit event
+   async function onSubmit(e){
+        // use this method to prevent refresh the page while clicking Register button with empty input
+        e.preventDefault()
+        // then go to Firebase Authentication web to import {getAuth, createUserWithEmailAndPassword} from "firebase/auth"
+        try {
+            // put method here
+            const auth = getAuth();
+            const userCredential = await createUserWithEmailAndPassword(auth,email,password);
+            updateProfile(auth.currentUser,{
+                displayName:name,
+            });
+
+            const user = userCredential.user;
+            //console.log(user);
+            const formDataCopy = {...formData};
+            //for security issue to prevent hacking, delete the password
+            delete formDataCopy.password;
+            //adding the time that user registered
+            formDataCopy.timestamp = serverTimestamp();
+            
+            //save data to firebase
+            await setDoc(doc(db, "users", user.uid), formDataCopy);
+            toast.success("Sign up was successful");
+
+            //after adding the new user to the database, navigate them to another page
+            navigate("/UserProfilePage");
+        } catch (error) {
+          // put errors here  
+          //console.log(error);
+          toast.error("Something went wrong with the registration");
+        }
+    }
     
     return(
     <div>
         <Header/>
-        <div className="flex justify-center flex-wrap-reverse items-center px-6 py-12 max-w-6xl mx-auto mt-16">
+        <div className="flex justify-center flex-wrap items-center px-6 py-12 max-w-6xl mx-auto mt-16">
             <div className="md:w-[60%] lg:w-[45%] mb-12 md:mb-6">
                 <img src="https://plus.unsplash.com/premium_photo-1681488350342-19084ba8e224?q=80&w=2888&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="/" 
                 className="w-full rounded-2xl"/>
             </div>
             <div className="w-full md:w-[60%] lg:w-[45%] lg:ml-20">
-                <form> 
+                {/* click Register button to submit register information, need a function to handle this event */}
+                <form onSubmit={onSubmit}> 
                     <input type="text" id="name" value={name}
                     onChange={handleChange} placeholder="Full Name"
                     className="mb-6 w-full px-4 py-2 text-base text-gray-700 bg-white border-gray-300 rounded transition ease-in-out" />  
