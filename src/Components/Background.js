@@ -1,7 +1,7 @@
 //get background image
 import imagePurple from "../assets/imagePurple.jpg"
 //styling
-import "./Background.css"
+import "../Styling/Background.css"
 
 function Background(){
   
