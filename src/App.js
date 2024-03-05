@@ -18,6 +18,18 @@ import ContactUsPage from "./Pages/ContactUsPage";
 import UserProfilePage from "./Pages/UserProfilePage";
 import ListProductPage from "./Pages/ListProductPage";
 
+//import AdminDashboard stuff
+//import RouterAllAdminPages from "./Components/RouterAllAdminPages";
+import AdminDashboardLayout from "./Pages/AdminNavPages/AdminDashboardLayout";
+import Dashboard from "./Pages/AdminNavPages/Dashboard";
+import Sales from "./Pages/AdminNavPages/Sales";
+import Messages from "./Pages/AdminNavPages/Messages";
+import Products from "./Pages/AdminNavPages/Products";
+import Users from "./Pages/AdminNavPages/Users";
+import Deliveries from "./Pages/AdminNavPages/Deliveries";
+import Settings from "./Pages/AdminNavPages/Settings";
+import SingleProduct from "./Pages/AdminNavPages/SingleProduct";
+
 
 function App() {
   return (
@@ -35,8 +47,22 @@ function App() {
           <Route exact path='/Register' element={<Register/>}/>
           <Route exact path='/SellerDashboard' element={<SellerDashboard/>}/>          
           <Route exact path='/UserProfilePage' element={<UserProfilePage/>}/>
+          {/* Admin Pages below */}
+          <Route exact path='/AdminDashboardLayout' element={<AdminDashboardLayout/>}/>
+          <Route exact path='/Dashboard' element={<Dashboard/>}/>
+          <Route exact path='/Sales' element={<Sales/>}/>
+          <Route exact path='/Messages' element={<Messages/>}/>
+          <Route exact path='/Sales' element={<Sales/>}/>
+          <Route exact path='/Products' element={<Products/>}/>
+          <Route exact path='/Users' element={<Users/>}/>
+          <Route exact path='/Deliveries' element={<Deliveries/>}/>
+          <Route exact path='/Settings' element={<Settings/>}/>
+          <Route exact path='/SingleProduct' element={<SingleProduct/>}/>   
         </Routes>
+              {/* Render AdminDashboard Router */}
+              {/* <RouterAllAdminPages/> */}
       </BrowserRouter>
+
       {/* React-toastify for every pages, also need to import the toastify css file as well  */}
       <ToastContainer
           position="bottom-center"
