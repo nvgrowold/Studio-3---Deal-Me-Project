@@ -1,4 +1,6 @@
 import React from 'react';
+//import HeaderAfterLogin from '../../Components/HeaderAfterLogin';
+import SideNav from '../SideNav';
 //import './User.css';
 
 const Users = () => {
@@ -17,7 +19,10 @@ const Users = () => {
   ];
 
   return (
-    <div className='page__main'>
+    <>
+    
+    <SideNav/>
+    <div className='pageTitle'>
       <h1>Users</h1>
       <table className="users-table">
         <thead>
@@ -40,6 +45,7 @@ const Users = () => {
         </tbody>
       </table>
     </div>
+    </>
   );
 };
 

@@ -2,7 +2,7 @@ import React from 'react'
 
 const Sales = () => {
   return (
-    <div className="page__main">
+    <div className="pageTitle">
         <h1>Sales</h1>
     </div>
   )

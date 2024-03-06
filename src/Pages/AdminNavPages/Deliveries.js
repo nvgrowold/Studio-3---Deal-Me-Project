@@ -1,13 +1,18 @@
 import React from 'react'
+//import HeaderAfterLogin from '../Components/HeaderAfterLogin'
+import SideNav from '../SideNav'
 
 const Deliveries = () => {
   return (
     <>
-    <div className='page__main'>
-        <h1> Deliveries</h1>
+    
+    <SideNav/>
+    <div className='pageTitle'>
+        <h1> Reports</h1>
+        
     </div>
     </>
   )
 }
 
-export default Deliveries
+export default Deliveries;

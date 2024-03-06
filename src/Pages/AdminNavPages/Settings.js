@@ -1,9 +1,15 @@
 import React from 'react';
+//import HeaderAfterLogin from '../../Components/HeaderAfterLogin'
+import SideNav from '../SideNav'
+
 //import './Settings.css';
 
 const Settings = () => {
   return (
-    <div className='page__main'>
+    <>
+    <SideNav/>
+    
+    <div className='pageTitle'>
       <h1>Settings</h1>
       <div className="settings-form">
         <div className="setting-group">
@@ -29,6 +35,7 @@ const Settings = () => {
         {/* Add more setting groups for security, notifications, theme, etc. */}
       </div>
     </div>
+    </>
   );
 };
 

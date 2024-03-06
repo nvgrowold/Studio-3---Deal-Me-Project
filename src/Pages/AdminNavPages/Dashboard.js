@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import './Dashboard.css';
 
+import SideNav from '../SideNav';
+
+
 const Dashboard = () => {
   const [statistics, setStatistics] = useState(null);
 
@@ -31,6 +34,9 @@ const Dashboard = () => {
   };
 
   return (
+    <>
+    
+    <SideNav/>
     <div className='page__main'>
       <h3 className="pageTitle">Dashboard</h3>
       {statistics ? (
@@ -72,6 +78,7 @@ const Dashboard = () => {
         <p>Loading statistics...</p>
       )}
     </div>
+    </>
   );
 };
 
