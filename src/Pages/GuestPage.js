@@ -1,7 +1,7 @@
 
 import Header from '../Components/Header'
 import React, { useState } from 'react';
-import './CSS/Style.css';
+import '../Styling/StyleGuestPage.css';
 
 const products = [
   // src/data/products.js

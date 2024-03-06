@@ -19,7 +19,6 @@ import UserProfilePage from "./Pages/UserProfilePage";
 import ListProductPage from "./Pages/ListProductPage";
 
 //import AdminDashboard stuff
-//import RouterAllAdminPages from "./Components/RouterAllAdminPages";
 import AdminDashboardLayout from "./Pages/AdminNavPages/AdminDashboardLayout";
 import Dashboard from "./Pages/AdminNavPages/Dashboard";
 import Sales from "./Pages/AdminNavPages/Sales";
