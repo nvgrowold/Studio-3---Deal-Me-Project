@@ -21,13 +21,9 @@ import ListProductPage from "./Pages/ListProductPage";
 //import AdminDashboard stuff
 import AdminDashboardLayout from "./Pages/AdminNavPages/AdminDashboardLayout";
 import Dashboard from "./Pages/AdminNavPages/Dashboard";
-import Sales from "./Pages/AdminNavPages/Sales";
 import Messages from "./Pages/AdminNavPages/Messages";
-import Products from "./Pages/AdminNavPages/Products";
-import Users from "./Pages/AdminNavPages/Users";
-import Deliveries from "./Pages/AdminNavPages/Deliveries";
+import Reports from "./Pages/AdminNavPages/Reports";
 import Settings from "./Pages/AdminNavPages/Settings";
-import SingleProduct from "./Pages/AdminNavPages/SingleProduct";
 
 
 function App() {
@@ -49,17 +45,10 @@ function App() {
           {/* Admin Pages below */}
           <Route exact path='/AdminDashboardLayout' element={<AdminDashboardLayout/>}/>
           <Route exact path='/Dashboard' element={<Dashboard/>}/>
-          <Route exact path='/Sales' element={<Sales/>}/>
           <Route exact path='/Messages' element={<Messages/>}/>
-          <Route exact path='/Sales' element={<Sales/>}/>
-          <Route exact path='/Products' element={<Products/>}/>
-          <Route exact path='/Users' element={<Users/>}/>
-          <Route exact path='/Deliveries' element={<Deliveries/>}/>
+          <Route exact path='/Reports' element={<Reports/>}/>
           <Route exact path='/Settings' element={<Settings/>}/>
-          <Route exact path='/SingleProduct' element={<SingleProduct/>}/>   
         </Routes>
-              {/* Render AdminDashboard Router */}
-              {/* <RouterAllAdminPages/> */}
       </BrowserRouter>
 
       {/* React-toastify for every pages, also need to import the toastify css file as well  */}

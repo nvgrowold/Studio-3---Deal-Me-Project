@@ -1,11 +1,11 @@
 import React from 'react'
-//import HeaderAfterLogin from '../Components/HeaderAfterLogin'
+import HeaderAfterLogin from '../../Components/HeaderAfterLogin'
 import SideNav from '../SideNav'
 
-const Deliveries = () => {
+const Reports = () => {
   return (
     <>
-    
+    <HeaderAfterLogin/>
     <SideNav/>
     <div className='pageTitle'>
         <h1> Reports</h1>
@@ -15,4 +15,4 @@ const Deliveries = () => {
   )
 }
 
-export default Deliveries;
+export default Reports;
