@@ -1,7 +1,7 @@
 //get background image
 import logoPink from "../assets/logosWhite.png";
 //styling
-import "./Logo.css";
+import "../Styling/Logo.css";
 
 function Logo(){
   
