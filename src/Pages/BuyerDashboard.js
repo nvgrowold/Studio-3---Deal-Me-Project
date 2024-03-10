@@ -4,7 +4,7 @@ import Header from '../Components/Header';
 function BuyerDashboard() {
   return (
     <div>
-      <HeaderAfterLogin/>
+      <Header/>
       <h3>Buyer Managing Orders</h3>
     </div>
   )

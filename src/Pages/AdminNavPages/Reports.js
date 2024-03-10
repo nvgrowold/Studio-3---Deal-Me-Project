@@ -1,7 +1,6 @@
 import React from 'react'
 import Header from '../../Components/Header'
 import SideNav from '../SideNav'
-import Header from '../../Components/Header'
 
 const Reports = () => {
   return (
