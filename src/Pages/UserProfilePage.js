@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Link, useNavigate} from 'react-router-dom';
-import HeaderAfterLogin from '../Components/HeaderAfterLogin'; 
+import Header from '../Components/Header'; 
 //import { FieldValue } from 'firebase/firestore';
+
+import { FaCircleUser } from "react-icons/fa6";
 
 // ####################################
 import { getAuth, updateProfile } from 'firebase/auth';
@@ -76,7 +78,7 @@ export default function UserProfilePage() {
 
   return (
     <div>
-      <HeaderAfterLogin/>
+      <Header/>
 
       {/* ################################################################## */}
 
@@ -151,7 +153,7 @@ export default function UserProfilePage() {
         {/* Table of account details */}
         <div className='flex-auto max-w-lg shadow-md rounded p-6 px-10'>
           <div className='text-lg font-semibold  text-sky-800 text-center mb-8'>
-            <h3>user icon</h3>
+            <div className='flex justify-center text-4xl'><FaCircleUser /></div>
             <h3>user name</h3>
           </div>
 

@@ -1,10 +1,10 @@
 import React from 'react';
-import HeaderAfterLogin from '../Components/HeaderAfterLogin'; 
+import Header from '../Components/Header'; 
 
 export default function SellerDashboard() {
   return (
     <div>
-      <HeaderAfterLogin/>
+      <Header/>
       <h3>Listing products</h3>
 
     </div>

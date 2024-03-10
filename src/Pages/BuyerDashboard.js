@@ -1,5 +1,5 @@
 import React from 'react'
-import HeaderAfterLogin from '../Components/HeaderAfterLogin';
+import Header from '../Components/Header';
 
 function BuyerDashboard() {
   return (
