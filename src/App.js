@@ -25,6 +25,11 @@ import Messages from "./Pages/AdminNavPages/Messages";
 import Reports from "./Pages/AdminNavPages/Reports";
 import Settings from "./Pages/AdminNavPages/Settings";
 
+//private route for user UserProfilePage protection
+import PrivateRoute from "./Components/PrivateRoute";
+
+
+
 
 function App() {
   return (
@@ -40,8 +45,10 @@ function App() {
           <Route exact path='/ListProductPage' element={<ListProductPage/>}/>
           <Route exact path='/Login' element={<Login/>}/>
           <Route exact path='/Register' element={<Register/>}/>
-          <Route exact path='/SellerDashboard' element={<SellerDashboard/>}/>          
-          <Route exact path='/UserProfilePage' element={<UserProfilePage/>}/>
+          <Route exact path='/SellerDashboard' element={<SellerDashboard/>}/>
+          <Route path="/UserProfilePage" element={<PrivateRoute />}>
+            <Route path="/UserProfilePage" element={<UserProfilePage />} />
+          </Route>
           {/* Admin Pages below */}
           <Route exact path='/AdminDashboardLayout' element={<AdminDashboardLayout/>}/>
           <Route exact path='/Dashboard' element={<Dashboard/>}/>
