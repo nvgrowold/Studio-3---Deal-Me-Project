@@ -46,6 +46,7 @@ function App() {
           <Route exact path='/Login' element={<Login/>}/>
           <Route exact path='/Register' element={<Register/>}/>
           <Route exact path='/SellerDashboard' element={<SellerDashboard/>}/>
+          {/* user profile protection route */}
           <Route path="/UserProfilePage" element={<PrivateRoute />}>
             <Route path="/UserProfilePage" element={<UserProfilePage />} />
           </Route>

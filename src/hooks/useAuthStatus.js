@@ -1,5 +1,5 @@
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 //need to delete "default" as want to return two information, because if use default can't return 2 things
 export function useAuthStatus() {
