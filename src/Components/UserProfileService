@@ -1,0 +1,42 @@
+// import db object for configuration and initialization of the database
+// db object used to interact with Firestore database
+import { db } from "../fb-config";
+
+//import Firestore Methods for CRUD
+import {
+  collection,//referencing a collection
+  getDocs,//retrieving all documents from a collection
+  getDoc, //retrieving a single document from a collection, identified by 'id'
+  addDoc,//adding a new document to a collection
+  updateDoc,//updates an existing document identified by 'id'
+  deleteDoc,//deletes an existing document identified by 'id'
+  doc,
+} from "firebase/firestore";
+
+//initialize the collectionName with todos
+const collectionName = "users";
+const usersCollectionRef = collection(db, collectionName);
+class UserProfileService {
+  addUser = (newUser) => {
+    return addDoc(usersCollectionRef, newUser);
+  };
+
+  updateUser = (id, updateUser) => {
+    const userDoc = doc(db, collectionName, id);
+    return updateDoc(userDoc, updateUser);
+  };
+
+  deleteUser= (id) => {
+    const userDoc = doc(db, collectionName, id);
+    return deleteDoc(userDoc);
+  };
+
+  getAllUsers = () => {
+    return getDocs(usersCollectionRef);
+  };
+
+  getUser = (id) => {
+    const userDoc = doc(db, collectionName, id);
+    return getDoc(userDoc);
+  };
+}

@@ -1,26 +1,50 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate} from 'react-router-dom';
 import Header from '../Components/Header'; 
-//import { FieldValue } from 'firebase/firestore';
-
 import { FaCircleUser } from "react-icons/fa6";
 
 // ####################################
 import { getAuth, updateProfile } from 'firebase/auth';
-import { doc, updateDoc } from "firebase/firestore";
+import { doc, updateDoc, getDoc} from "firebase/firestore";
 import { toast } from "react-toastify";
-import { db } from "../firebase";
+// db object used to interact with Firestore database
+import { db } from "../firebase";     // import db object for configuration and initialization of the database
 //#############################
 
 import profileSideImage from "../assets/profileSideImage.jpg"
 
 
 
+
+
 export default function UserProfilePage() {
-  
+  const auth = getAuth();
+
+  //fetch data for users collection
+  //from Nikita
+    const [userInfo, setUserInfo] = useState({});
+    const user = auth.currentUser;
+   
+    useEffect(() => {
+      const fetchUserData = async () => {
+        if (user) {
+          const userDocRef = doc(db, 'users', user.uid);
+          const userDoc = await getDoc(userDocRef);
+   
+          if (userDoc.exists()) {
+            setUserInfo(userDoc.data());
+          }
+        }
+      };
+   
+      fetchUserData();
+    }, [user]);
+    //from Nikita
+
+
+
   //######################################
   //get auth from firebase for user name and email
-  const auth = getAuth();
   
   // create navigate by using the useNavigate hook of react-router-dom
   const navigate = useNavigate();
@@ -79,7 +103,7 @@ export default function UserProfilePage() {
     <div>
       <Header/>
       <div className='grid gap-8 md:w-auto justify-center mt-10 lg:grid-cols-3 lg:justify-start'>
-        <section className='md:ml-20 md:mt-14 md:max-w-60'>
+        <section className='lg:ml-40 lg:mt-16 lg:max-w-40'>
               {/* //User Account Page */}
             <div> 
               <p className='text-2xl font-semibold  text-sky-800'>Account Detail</p>
@@ -122,14 +146,15 @@ export default function UserProfilePage() {
               <form className='border-transparent'>
                 <div className='flex-auto max-w-lg shadow-md rounded p-6 px-10'>
                   <div className='text-lg font-semibold  text-sky-800 text-center mb-8'>
-                    <div className='flex justify-center text-4xl'><FaCircleUser /></div>
-                    <h3>user name</h3>
+                    <div className='flex justify-center text-4xl border-none'><FaCircleUser /></div>
+                    {/* <input type="text" id='username' value={username} placeholder='user name'/> */}
+                    <h3>Hello {userInfo.username}</h3>
                   </div>
 
                   <div>
                     <div className='flex justify-between whitespace-nowrap text-xs sm:text-base'>
                       <p className='text-base font-semibold  text-sky-800'>Member number</p>
-                      <p className='text-base  text-gray-400'>number</p>
+                      <p className='text-base  text-gray-400'>{user?.uid}</p>
                     </div>
 
                     {/*add a line  */}
@@ -161,7 +186,7 @@ export default function UserProfilePage() {
 
                     <div className='flex justify-between whitespace-nowrap text-xs sm:text-base'>
                       <p className='text-base font-semibold  text-sky-800'>Member since</p>
-                      <p className='text-base text-gray-400'>sign up date</p>
+                      <p className='text-base text-gray-400'>{user?.metadata.creationTime}</p>
                     </div>
 
                     {/*add a line  */}
@@ -193,7 +218,7 @@ export default function UserProfilePage() {
         </section> 
 
         <section>           
-          <div className="w-96 md:w-80 md:mt-20 justify-center md:items-center">
+          <div className="w-96 md:w-96 lg:mr-40 lg:mt-16 justify-center md:items-center lg:pl-10">
                 <img src={profileSideImage} alt=""/>
           </div>            
 
@@ -205,4 +230,4 @@ export default function UserProfilePage() {
 
         
   )
-}
+  }

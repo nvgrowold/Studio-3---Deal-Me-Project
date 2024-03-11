@@ -27,7 +27,7 @@ export default function Header() {
   }, [auth])//each time this auth change, check auth for the dependencies
   
   return (
-    <div className='h-[16] bg-white border-b-2 shadow-sm sticky top-0 z-50 py-2'>
+    <div className='h-[16] bg-white border-b-2 shadow-sm sticky top-0 z-50 py-2 px-3'>
       <header className='flex justify-between items-center
        max-w-7xl mx-auto'>
         <div className='h-5 cursor-pointer pb-10'
