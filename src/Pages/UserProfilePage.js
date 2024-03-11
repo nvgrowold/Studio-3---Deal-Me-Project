@@ -10,12 +10,11 @@ import { getAuth, updateProfile } from 'firebase/auth';
 import { doc, updateDoc } from "firebase/firestore";
 import { toast } from "react-toastify";
 import { db } from "../firebase";
-
-
-
-
-
 //#############################
+
+import profileSideImage from "../assets/profileSideImage.jpg"
+
+
 
 export default function UserProfilePage() {
   
@@ -79,137 +78,131 @@ export default function UserProfilePage() {
   return (
     <div>
       <Header/>
-
-      {/* ################################################################## */}
-
-      <section className='max-w-6xl mx-auto flex justify-center items-center flex-col'>
-        <h1 className='text-3xl text-center mt-6 font-bold'>My Profile</h1>
-        <div className='w-full md:w-[50%] mt-6 px-3 '>
-          <form>
-            {/* Name Input */}
-            {/* using "disabled" to stop from editing the value */}
-            {/* when changeDetail is false, it's disabled. when changeDetail is true, disable is enabled */}
-            {/* onChange to change the input */}
-            <input type='text' id='name' value={name} disabled={!changeDetail} onChange={handleOnChange} className={`w-full px-4 py-2 text-xl
-             text-gray-700 bg-white border border-gray-300 rounded transition ease-in-out mb-6 ${changeDetail && "bg-red-200 focus:bg-red-200"}`}/>
-
-            {/* Name Input */}
-            {/* using "disabled" to stop from editing the value */}
-            <input type='email' id='email' value={email} disabled className='w-full px-4 py-2 text-xl
-             text-gray-700 bg-white border border-gray-300 rounded transition ease-in-out mb-6'/>
-
-             {/* edit profile */}
-             <div className='flex justify-between whitespace-nowrap text-sm sm:text-lg mb-6'>
-              <p className='flex items-center'>Do you want to change your name?
-              {/* onClick: first return if changeDetail is true and call onSubmit(), and then change the detail */}
-              <span onClick={()=> {changeDetail && onSubmit(); setChangeDetail((prevState)=>!prevState);}} className='text-red-600 hover:text-red-700 transition ease-in-out duration-200ml-1 cursor-pointer'>
-                {changeDetail ? "Apply changes" : "Edit"}
-                </span>
+      <div className='grid gap-8 md:w-auto justify-center mt-10 lg:grid-cols-3 lg:justify-start'>
+        <section className='md:ml-20 md:mt-14 md:max-w-60'>
+              {/* //User Account Page */}
+            <div> 
+              <p className='text-2xl font-semibold  text-sky-800'>Account Detail</p>
+              <p>
+                <Link to='/GuestPage'className="mr-6 cursor-pointer  hover:text-sky-950 hover:font-semibold transition duration-150 ease-in-out" style={{ textDecoration: 'none', color:'#64007D' }}>
+                  Save for later
+                </Link>
               </p>
-              <p onClick={handleLogout} className='text-blue-600 hover:text-blue-800 transition ease-in-out duration-200 cursor-pointer'>Sign out</p>             
-             </div>
 
+              <div className='mt-5'>
+                <p className='text-lg font-semibold text-sky-800'>Buying</p>
+                <p>
+                  <Link to='/GuestPage'className="mr-6 cursor-pointer  hover:text-sky-950 hover:font-semibold transition duration-150 ease-in-out" style={{ textDecoration: 'none', color:'#64007D' }}>
+                    Items I purchased
+                  </Link>
+                </p>
+                <Link to='/GuestPage'className="mr-6 cursor-pointer  hover:text-sky-950 hover:font-semibold transition duration-150 ease-in-out" style={{ textDecoration: 'none', color:'#64007D' }}>
+                  Searching an items
+                </Link> 
+              </div>
 
-          </form>
-        </div>
-      </section>
-      {/* ################################################################################# */}
+              <div className='mt-5'>
+                <p className='text-lg font-semibold text-sky-800'>Selling</p>
+                <p>
+                  <Link to='/ListProductPage' className="mr-6 cursor-pointer  hover:text-sky-950 hover:font-semibold transition duration-150 ease-in-out" style={{ textDecoration: 'none', color:'#64007D' }}>
+                    Listing an item
+                  </Link>
+                </p>
+                <Link to='/ListProductPage ' className="mr-6 cursor-pointer  hover:text-sky-950 hover:font-semibold transition duration-150 ease-in-out" style={{ textDecoration: 'none', color:'#64007D' }}>
+                    Items I'm selling
+                </Link>
+              </div>
+            </div>
+        </section>
 
-      <div className='flex space-x-4 mt-20 gap-32'>
-          {/* //User Account Page */}
-        <div className='shrink w-64 flex-col ml-20 rounded p-3'> 
-          <p className='text-2xl font-semibold  text-sky-800'>Account Detail</p>
-          <p>
-            <Link to='/GuestPage'className="mr-6 cursor-pointer  hover:text-sky-950 hover:font-semibold transition duration-150 ease-in-out" style={{ textDecoration: 'none', color:'#64007D' }}>
-              Save for later
-            </Link>
-          </p>
+        <section>
+            {/* <div className='flex justify-center flex-wrap items-center px-6 py-12 max-w-full mx-auto mt-16 max-mt-20'>         */}
+            <div className='lg:mt-10 md:min-w-96'>  
+              {/* Table of account details */}
+              <form className='border-transparent'>
+                <div className='flex-auto max-w-lg shadow-md rounded p-6 px-10'>
+                  <div className='text-lg font-semibold  text-sky-800 text-center mb-8'>
+                    <div className='flex justify-center text-4xl'><FaCircleUser /></div>
+                    <h3>user name</h3>
+                  </div>
 
-          <div className='mt-5'>
-            <p className='text-lg font-semibold text-sky-800'>Buying</p>
-            <p>
-              <Link to='/GuestPage'className="mr-6 cursor-pointer  hover:text-sky-950 hover:font-semibold transition duration-150 ease-in-out" style={{ textDecoration: 'none', color:'#64007D' }}>
-                Items I purchased
-              </Link>
-            </p>
-            <Link to='/GuestPage'className="mr-6 cursor-pointer  hover:text-sky-950 hover:font-semibold transition duration-150 ease-in-out" style={{ textDecoration: 'none', color:'#64007D' }}>
-              Searching an items
-            </Link> 
-          </div>
+                  <div>
+                    <div className='flex justify-between whitespace-nowrap text-xs sm:text-base'>
+                      <p className='text-base font-semibold  text-sky-800'>Member number</p>
+                      <p className='text-base  text-gray-400'>number</p>
+                    </div>
 
-          <div className='mt-5'>
-            <p className='text-lg font-semibold text-sky-800'>Selling</p>
-            <p>
-              <Link to='/ListProductPage' className="mr-6 cursor-pointer  hover:text-sky-950 hover:font-semibold transition duration-150 ease-in-out" style={{ textDecoration: 'none', color:'#64007D' }}>
-                Listing an item
-              </Link>
-            </p>
-            <Link to='/ListProductPage ' className="mr-6 cursor-pointer  hover:text-sky-950 hover:font-semibold transition duration-150 ease-in-out" style={{ textDecoration: 'none', color:'#64007D' }}>
-                Items I'm selling
-            </Link>
-          </div>
-        </div>
-        
-        {/* Table of account details */}
-        <div className='flex-auto max-w-lg shadow-md rounded p-6 px-10'>
-          <div className='text-lg font-semibold  text-sky-800 text-center mb-8'>
-            <div className='flex justify-center text-4xl'><FaCircleUser /></div>
-            <h3>user name</h3>
-          </div>
+                    {/*add a line  */}
+                    <div className=" flex item-center mb-3 before:border-t before:flex-1  before:border-gray-300 after:border-t after:flex-1 after:border-gray-300"></div>
 
-          <div>
-            <div className='flex justify-between whitespace-nowrap text-xs sm:text-base'>
-              <p className='text-base font-semibold  text-sky-800'>Member number</p>
-              <p className='text-base  text-gray-400'>number</p>
-            </div> 
-             {/*add a line  */}
-            <div className=" flex item-center mb-3 before:border-t before:flex-1  before:border-gray-300 after:border-t after:flex-1 after:border-gray-300">
+                    <div className='flex justify-between whitespace-nowrap text-xs sm:text-base'>
+                      <p className='text-base font-semibold  text-sky-800'>Name</p>
+                                  {/* Name Input */}
+                                  {/* using "disabled" to stop from editing the value */}
+                                  {/* when changeDetail is false, it's disabled. when changeDetail is true, disable is enabled */}
+                                  {/* onChange to change the input */}
+                      <input type='text' id='name' value={name} disabled={!changeDetail} onChange={handleOnChange} className={`text-right text-base text-gray-400
+                        bg-white border-transparent rounded transition ease-in-out mr-0 p-0 ${changeDetail && "bg-red-200 focus:bg-red-200"}`}/>
+                    </div>
+
+                    {/*add a line  */}
+                    <div className=" flex item-center mb-3 before:border-t before:flex-1  before:border-gray-300 after:border-t after:flex-1 after:border-gray-300"></div>
+
+                    <div className='flex justify-between whitespace-nowrap text-xs sm:text-base'>
+                      <p className='text-base font-semibold  text-sky-800'>Email</p>
+                                  {/* Email Input */}
+                                  {/* using "disabled" to stop from editing the value */}
+                      <input type='email' id='email' value={email} disabled className='text-right text-base text-gray-400
+                        bg-white border-transparent rounded transition ease-in-out mr-0 p-0'/>
+                    </div>
+
+                    {/*add a line  */}
+                    <div className=" flex item-center mb-3 before:border-t before:flex-1  before:border-gray-300 after:border-t after:flex-1 after:border-gray-300"></div>          
+
+                    <div className='flex justify-between whitespace-nowrap text-xs sm:text-base'>
+                      <p className='text-base font-semibold  text-sky-800'>Member since</p>
+                      <p className='text-base text-gray-400'>sign up date</p>
+                    </div>
+
+                    {/*add a line  */}
+                    <div className=" flex item-center mb-3 before:border-t before:flex-1  before:border-gray-300 after:border-t after:flex-1 after:border-gray-300"></div>
+
+                    <div className='flex justify-between whitespace-nowrap text-xs sm:text-base'>
+                      <p className='text-base font-semibold  text-sky-800'>Verified User</p>
+                      <p className='text-base text-gray-400'>yes/no</p>
+                    </div>
+
+                    {/*add a line  */}
+                    <div className=" flex item-center mb-3 before:border-t before:flex-1  before:border-gray-300 after:border-t after:flex-1 after:border-gray-300"></div>
+
+                    {/* edit profile */}
+                  <div className='flex justify-between whitespace-nowrap text-sm sm:text-base mb-6'>
+                    <p className='flex items-center text-sky-800'>Update User Information?
+                    {/* onClick: first return if changeDetail is true and call onSubmit(), and then change the detail */}
+                    <span onClick={()=> {changeDetail && onSubmit(); setChangeDetail((prevState)=>!prevState);}} className='pl-1 text-yellow-600 hover:text-yellow-900 transition duration-200 ease-in-out lg:ml-1 cursor-pointer'>
+                      {changeDetail ? "Apply changes" : "Edit"}
+                    </span>
+                    </p>
+                    <p onClick={handleLogout} className='text-sky-700  hover:text-red-900 transition duration-200 ease-in-out cursor-pointer'>Sign out</p>             
+                  </div>
+                  </div>
+                </div>
+              </form>        
             </div>
 
-            <div className='flex justify-between whitespace-nowrap text-xs sm:text-base'>
-              <p className='text-base font-semibold  text-sky-800'>Name</p>
-              <p className='text-base text-gray-400'>name</p>
-            </div>
-            {/*add a line  */}
-            <div className=" flex item-center mb-3 before:border-t before:flex-1  before:border-gray-300 after:border-t after:flex-1 after:border-gray-300">
-            </div>
+        </section> 
 
-            <div className='flex justify-between whitespace-nowrap text-xs sm:text-base'>
-              <p className='text-base font-semibold  text-sky-800'>Email</p>
-              <p className='text-base text-gray-400'>email</p>
-            </div>
-            {/*add a line  */}
-            <div className=" flex item-center mb-3 before:border-t before:flex-1  before:border-gray-300 after:border-t after:flex-1 after:border-gray-300">
-            </div>          
+        <section>           
+          <div className="w-96 md:w-80 md:mt-20 justify-center md:items-center">
+                <img src={profileSideImage} alt=""/>
+          </div>            
 
-            <div className='flex justify-between whitespace-nowrap text-xs sm:text-base'>
-              <p className='text-base font-semibold  text-sky-800'>Member since</p>
-              <p className='text-base text-gray-400'>sign up date</p>
-            </div> 
-            {/*add a line  */}
-            <div className=" flex item-center mb-3 before:border-t before:flex-1  before:border-gray-300 after:border-t after:flex-1 after:border-gray-300">
-            </div>
+        </section>
+      </div>
+       
 
-            <div className='flex justify-between whitespace-nowrap text-xs sm:text-base'>
-              <p className='text-base font-semibold  text-sky-800'>Verified User</p>
-              <p className='text-base text-gray-400'>yes/no</p>
-            </div> 
-            {/*add a line  */}
-            <div className=" flex item-center mb-3 before:border-t before:flex-1  before:border-gray-300 after:border-t after:flex-1 after:border-gray-300">
-            </div>
-
-          </div>
-
-          
-        </div>
-
-        {/* Empty */}
-        <div className='flex-none'> */
-          3
-        </div>
-
-      </div>   
-      
     </div>
+
+        
   )
 }
