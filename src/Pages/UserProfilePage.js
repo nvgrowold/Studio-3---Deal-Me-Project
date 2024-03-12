@@ -21,7 +21,6 @@ export default function UserProfilePage() {
   const auth = getAuth();
 
   //fetch data for users collection
-  //from Nikita
     const [userInfo, setUserInfo] = useState({});
     const user = auth.currentUser;
    
@@ -39,9 +38,6 @@ export default function UserProfilePage() {
    
       fetchUserData();
     }, [user]);
-    //from Nikita
-
-
 
   //######################################
   //get auth from firebase for user name and email
@@ -108,7 +104,7 @@ export default function UserProfilePage() {
             <div> 
               <p className='text-2xl font-semibold  text-sky-800'>Account Detail</p>
               <p>
-                <Link to='/GuestPage'className="mr-6 cursor-pointer  hover:text-sky-950 hover:font-semibold transition duration-150 ease-in-out" style={{ textDecoration: 'none', color:'#64007D' }}>
+                <Link to=''className="mr-6 cursor-pointer  hover:text-sky-950 hover:font-semibold transition duration-150 ease-in-out" style={{ textDecoration: 'none', color:'#64007D' }}>
                   Save for later
                 </Link>
               </p>
@@ -116,7 +112,7 @@ export default function UserProfilePage() {
               <div className='mt-5'>
                 <p className='text-lg font-semibold text-sky-800'>Buying</p>
                 <p>
-                  <Link to='/GuestPage'className="mr-6 cursor-pointer  hover:text-sky-950 hover:font-semibold transition duration-150 ease-in-out" style={{ textDecoration: 'none', color:'#64007D' }}>
+                  <Link to=''className="mr-6 cursor-pointer  hover:text-sky-950 hover:font-semibold transition duration-150 ease-in-out" style={{ textDecoration: 'none', color:'#64007D' }}>
                     Items I purchased
                   </Link>
                 </p>
@@ -132,7 +128,7 @@ export default function UserProfilePage() {
                     Listing an item
                   </Link>
                 </p>
-                <Link to='/ListProductPage ' className="mr-6 cursor-pointer  hover:text-sky-950 hover:font-semibold transition duration-150 ease-in-out" style={{ textDecoration: 'none', color:'#64007D' }}>
+                <Link to='/MyListingsPage ' className="mr-6 cursor-pointer  hover:text-sky-950 hover:font-semibold transition duration-150 ease-in-out" style={{ textDecoration: 'none', color:'#64007D' }}>
                     Items I'm selling
                 </Link>
               </div>
@@ -146,15 +142,15 @@ export default function UserProfilePage() {
               <form className='border-transparent'>
                 <div className='flex-auto max-w-lg shadow-md rounded p-6 px-10'>
                   <div className='text-lg font-semibold  text-sky-800 text-center mb-8'>
-                    <div className='flex justify-center text-4xl border-none'><FaCircleUser /></div>
-                    {/* <input type="text" id='username' value={username} placeholder='user name'/> */}
-                    <h3>Hello {userInfo.username}</h3>
+                    <div className='flex justify-center text-4xl border-none'><FaCircleUser /></div>                  
+                    <input type='text' id='username' value={userInfo.username} placeholder='Set an username' disabled={!changeDetail} onChange={handleOnChange} className={`text-center text-lg font-semibold  text-sky-800 
+                        bg-white border-transparent rounded transition ease-in-out mr-0 p-0 ${changeDetail && "bg-red-400 focus:bg-red-400"}`}/>
                   </div>
 
                   <div>
                     <div className='flex justify-between whitespace-nowrap text-xs sm:text-base'>
                       <p className='text-base font-semibold  text-sky-800'>Member number</p>
-                      <p className='text-base  text-gray-400'>{user?.uid}</p>
+                      <p className='text-sm  text-gray-400'>{user?.uid}</p>
                     </div>
 
                     {/*add a line  */}

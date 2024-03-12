@@ -12,11 +12,11 @@ import Login from "./Pages/Login";
 import BuyerDashboard from "./Pages/BuyerDashboard";
 import ForgotPassword from "./Pages/ForgotPassword";
 import GuestPage from "./Pages/GuestPage";
-import SellerDashboard from "./Pages/SellerDashboard";
 import Register from "./Pages/Register";
 import ContactUsPage from "./Pages/ContactUsPage";
 import UserProfilePage from "./Pages/UserProfilePage";
 import ListProductPage from "./Pages/ListProductPage";
+import MyListingsPage from "./Pages/MyListingsPage";
 
 //import AdminDashboard stuff
 import AdminDashboardLayout from "./Pages/AdminNavPages/AdminDashboardLayout";
@@ -45,7 +45,7 @@ function App() {
           <Route exact path='/ListProductPage' element={<ListProductPage/>}/>
           <Route exact path='/Login' element={<Login/>}/>
           <Route exact path='/Register' element={<Register/>}/>
-          <Route exact path='/SellerDashboard' element={<SellerDashboard/>}/>
+          <Route exact path='/MyListingsPage' element={<MyListingsPage/>}/>
           {/* user profile protection route */}
           <Route path="/UserProfilePage" element={<PrivateRoute />}>
             <Route path="/UserProfilePage" element={<UserProfilePage />} />

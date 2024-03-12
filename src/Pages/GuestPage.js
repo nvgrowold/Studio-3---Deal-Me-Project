@@ -2,17 +2,8 @@
 import Header from '../Components/Header'
 import React, { useState, useEffect } from 'react';
 import '../Styling/StyleGuestPage.css';
-import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, getDocs, addDoc } from 'firebase/firestore';
+import {collection, getDocs } from 'firebase/firestore';
 import { db } from '../firebase';
-
-const productsData = [
-    
-  
-];
-
-
-
 
 const ProductList = ({ addToCart }) => {
 const [selectedCategory, setSelectedCategory] = useState('');
