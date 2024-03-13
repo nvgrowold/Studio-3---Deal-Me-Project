@@ -4,6 +4,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
+// //product listing imports
+// import { useState } from "react";
+// import { Container, Navbar, Row, Col } from "react-bootstrap";
+// // import AddTodo from "./Components/AddTodo";
+// // import TodoList from "./Components/TodoList";
+// import 'bootstrap/dist/css/bootstrap.min.css';
+// // import "./App.css";
+
 
 //import all pages
 import AdminDashboard from "./Pages/AdminDashboard";
@@ -27,6 +35,7 @@ import Settings from "./Pages/AdminNavPages/Settings";
 
 
 function App() {
+  
   return (
     <div className="App">
       <BrowserRouter>
@@ -50,6 +59,7 @@ function App() {
           <Route exact path='/Settings' element={<Settings/>}/>
         </Routes>
       </BrowserRouter>
+              
 
       {/* React-toastify for every pages, also need to import the toastify css file as well  */}
       <ToastContainer
