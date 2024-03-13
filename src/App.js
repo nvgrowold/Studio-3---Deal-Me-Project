@@ -30,8 +30,6 @@ import Settings from "./Pages/AdminNavPages/Settings";
 import PrivateRoute from "./Components/PrivateRoute";
 
 
-
-
 function App() {
   return (
     <div className="App">
