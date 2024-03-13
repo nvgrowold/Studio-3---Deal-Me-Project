@@ -17,6 +17,7 @@ import ContactUsPage from "./Pages/ContactUsPage";
 import UserProfilePage from "./Pages/UserProfilePage";
 import ListProductPage from "./Pages/ListProductPage";
 import MyListingsPage from "./Pages/MyListingsPage";
+import CreateListing from "./Pages/CreateListing";
 
 //import AdminDashboard stuff
 import AdminDashboardLayout from "./Pages/AdminNavPages/AdminDashboardLayout";
@@ -49,6 +50,10 @@ function App() {
           {/* user profile protection route */}
           <Route path="/UserProfilePage" element={<PrivateRoute />}>
             <Route path="/UserProfilePage" element={<UserProfilePage />} />
+          </Route>
+          {/* private route for CreateListing, only after login could create listing*/}
+          <Route path="/CreateListing" element={<PrivateRoute />}>
+            <Route path="/CreateListing" element={<CreateListing />} />
           </Route>
           {/* Admin Pages below */}
           <Route exact path='/AdminDashboardLayout' element={<AdminDashboardLayout/>}/>

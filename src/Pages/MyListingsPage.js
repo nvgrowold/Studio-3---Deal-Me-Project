@@ -3,6 +3,7 @@ import Header from '../Components/Header';
 import { collection, query, orderBy, where, getDocs } from 'firebase/firestore';
 import { db } from '../firebase';
 import { getAuth } from 'firebase/auth';
+import ListingItem from '../Components/ListingItem';
 
 export default function MyListingsPage() {
     const [listings, setListings] = useState([]); // State to store the listings
@@ -31,17 +32,27 @@ export default function MyListingsPage() {
     return (
         <div>
             <Header />
-            <p className='text-2xl text-center font-semibold text-sky-800'>My Listings</p>
-            {loading ? (
-                <div>Loading...</div>
-            ) : (
-                listings.map(listing => (
-                    <div key={listing.id}>
-                        {/* Render your listing details here */}
-                        <p>{listing.title} - {listing.description}</p>
-                    </div>
-                ))
-            )}
+            <div className="max-w-6xl px-3 mt-6 mx-auto">
+                {!loading && listings.length > 0 && (
+                <>
+                    <h2 className="text-2xl text-center font-semibold mb-6">
+                    My Listings
+                    </h2>
+                    <ul className="sm:grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+                    {listings.map((listing) => (
+                        //create a component for ListingItem
+                        <ListingItem
+                        key={listing.id}
+                        id={listing.id}
+                        listing={listing.data}
+                        // onDelete={() => onDelete(listing.id)}
+                        // onEdit={() => onEdit(listing.id)}
+                        />
+                    ))}
+                    </ul>
+                </>
+                )}
+            </div>            
         </div>
     );
 }
