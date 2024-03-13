@@ -12,11 +12,12 @@ import Login from "./Pages/Login";
 import BuyerDashboard from "./Pages/BuyerDashboard";
 import ForgotPassword from "./Pages/ForgotPassword";
 import GuestPage from "./Pages/GuestPage";
-import SellerDashboard from "./Pages/SellerDashboard";
 import Register from "./Pages/Register";
 import ContactUsPage from "./Pages/ContactUsPage";
 import UserProfilePage from "./Pages/UserProfilePage";
 import ListProductPage from "./Pages/ListProductPage";
+import MyListingsPage from "./Pages/MyListingsPage";
+import CreateListing from "./Pages/CreateListing";
 
 //import AdminDashboard stuff
 import AdminDashboardLayout from "./Pages/AdminNavPages/AdminDashboardLayout";
@@ -24,6 +25,9 @@ import Dashboard from "./Pages/AdminNavPages/Dashboard";
 import Messages from "./Pages/AdminNavPages/Messages";
 import Reports from "./Pages/AdminNavPages/Reports";
 import Settings from "./Pages/AdminNavPages/Settings";
+
+//private route for user UserProfilePage protection
+import PrivateRoute from "./Components/PrivateRoute";
 
 
 function App() {
@@ -40,8 +44,15 @@ function App() {
           <Route exact path='/ListProductPage' element={<ListProductPage/>}/>
           <Route exact path='/Login' element={<Login/>}/>
           <Route exact path='/Register' element={<Register/>}/>
-          <Route exact path='/SellerDashboard' element={<SellerDashboard/>}/>          
-          <Route exact path='/UserProfilePage' element={<UserProfilePage/>}/>
+          <Route exact path='/MyListingsPage' element={<MyListingsPage/>}/>
+          {/* user profile protection route */}
+          <Route path="/UserProfilePage" element={<PrivateRoute />}>
+            <Route path="/UserProfilePage" element={<UserProfilePage />} />
+          </Route>
+          {/* private route for CreateListing, only after login could create listing*/}
+          <Route path="/CreateListing" element={<PrivateRoute />}>
+            <Route path="/CreateListing" element={<CreateListing />} />
+          </Route>
           {/* Admin Pages below */}
           <Route exact path='/AdminDashboardLayout' element={<AdminDashboardLayout/>}/>
           <Route exact path='/Dashboard' element={<Dashboard/>}/>

@@ -45,6 +45,7 @@ function Login(){
             const auth = getAuth()
             //2. get the user credentials
             const userCredential = await signInWithEmailAndPassword(auth, email, password)
+            console.log(auth, email, password)
             //3. if 2 is successful, it will return the credential
             // if userCredential is true, then, navigate to another page
             if(userCredential.user){
@@ -53,8 +54,6 @@ function Login(){
         } catch (error){
           toast.error("Bad user credentials")  
         }
-
-
     }
     
     return(

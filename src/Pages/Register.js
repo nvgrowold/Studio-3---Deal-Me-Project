@@ -21,6 +21,7 @@ function Register(){
     //Hook state for user input data object
     const [formData, setFormData] = useState({
         name:"",
+        username:"",
         email: "",
         password:"",
     });
@@ -28,7 +29,7 @@ function Register(){
     const[showPassword, setShowPassword] = useState(false);
     
     //destructure the email and password from the form
-    const {name, email, password} = formData;
+    const {name, username, email, password} = formData;
 
     //initialize the imported userNavigate
     const navigate  = useNavigate();
@@ -89,6 +90,10 @@ function Register(){
                     <input type="text" id="name" value={name}
                     onChange={handleChange} placeholder="Full Name"
                     className="mb-6 w-full px-4 py-2 text-base text-gray-700 bg-white border-gray-300 rounded transition ease-in-out" />  
+
+                    <input type="text" id="username" value={username}
+                                        onChange={handleChange} placeholder="Username"
+                                        className="mb-6 w-full px-4 py-2 text-base text-gray-700 bg-white border-gray-300 rounded transition ease-in-out" />  
 
                     <input type="email" id="email" value={email}
                     onChange={handleChange} placeholder="Email Address"

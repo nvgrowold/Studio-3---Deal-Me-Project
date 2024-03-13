@@ -1,10 +1,10 @@
 import React from 'react'
-import HeaderAfterLogin from '../Components/HeaderAfterLogin'; 
+import Header from '../Components/Header'; 
 
 function ListProductPage(){
     return(
         <div>
-            <HeaderAfterLogin/>
+            <Header/>
             <h1>List a product</h1>
         </div>
 

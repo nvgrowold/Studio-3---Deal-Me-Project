@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './Dashboard.css';
-import HeaderAfterLogin from '../../Components/HeaderAfterLogin';
+import Header from '../../Components/Header';
 import SideNav from '../SideNav';
 
 
@@ -35,7 +35,7 @@ const Dashboard = () => {
 
   return (
     <>
-    <HeaderAfterLogin/>
+    <Header/>
     <SideNav/>
     <div className='page__main'>
       <h3 className="pageTitle">Dashboard</h3>

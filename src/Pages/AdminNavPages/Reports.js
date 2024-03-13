@@ -1,11 +1,11 @@
 import React from 'react'
-import HeaderAfterLogin from '../../Components/HeaderAfterLogin'
+import Header from '../../Components/Header'
 import SideNav from '../SideNav'
 
 const Reports = () => {
   return (
     <>
-    <HeaderAfterLogin/>
+    <Header/>
     <SideNav/>
     <div className='pageTitle'>
         <h1> Reports</h1>

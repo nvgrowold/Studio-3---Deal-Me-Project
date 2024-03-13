@@ -1,10 +1,10 @@
 import React from 'react'
-import HeaderAfterLogin from '../Components/HeaderAfterLogin';
+import Header from '../Components/Header';
 
 function BuyerDashboard() {
   return (
     <div>
-      <HeaderAfterLogin/>
+      <Header/>
       <h3>Buyer Managing Orders</h3>
     </div>
   )

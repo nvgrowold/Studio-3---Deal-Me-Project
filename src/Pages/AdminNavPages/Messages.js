@@ -1,16 +1,16 @@
 import React from 'react'
-import HeaderAfterLogin from '../../Components/HeaderAfterLogin'
+import Header from '../../Components/Header'
 import SideNav from '../SideNav'
 
 
 const Messages = () => {
   return (
     <>
-     <HeaderAfterLogin/>
-    <SideNav/>
-    <div className="pageTitle">
-        <h1>Messages</h1>
-    </div>
+     <Header/>
+      <SideNav/>
+      <div className="pageTitle">
+          <h1>Messages</h1>
+      </div>
 </>
     
   )
