@@ -10,6 +10,7 @@ import { db } from '../firebase';
 import { useNavigate } from "react-router-dom";
 
 export default function CreateListing() {
+    //const [selectedCategory, setSelectedCategory] = useState('');
     const navigate = useNavigate();
     const auth = getAuth();
     //hook state for loading spinner, after click submit, state will change to true
@@ -18,8 +19,9 @@ export default function CreateListing() {
     //hook state for sell or rent button + destructure it
     //hook state to hold name/bedrooms/baths value + destructure it
     const[formData, setFormData] = useState({
-        type: "rent",
-        name: "",
+        // type: "rent",
+        productName: "",
+        category: "",
         bedrooms: 1,
         bathrooms: 1,
         parking: false,
@@ -32,9 +34,9 @@ export default function CreateListing() {
         images: {},
     })
     //destructuring, all these values come from formData
-    const {type,name, bedrooms, bathrooms, parking, furnished, address, description, offer, regularPrice,discountedPrice, images} = formData;
+    const {type,productName,category, bedrooms, bathrooms, parking, furnished, address, description, offer, regularPrice,discountedPrice, images} = formData;
 
-    //handle change between sell and rent button
+    //handle all changes in the form all-in-one here
     function onChange(e){ //e: is the event, the input
       let boolean = null; //for input with text,number, files together, need to create a boolean to handle if save the data 
       if(e.target.value === "true"){ //this is for parking field, have the value true or false
@@ -58,6 +60,7 @@ export default function CreateListing() {
         }))                                         // using "??": if boolean is not null, consider first option(e.target.id), else if is null, consider the second option(e.target.value)
       }
     }
+
 
 
     //handle form submit
@@ -135,12 +138,9 @@ export default function CreateListing() {
       const docRef = await addDoc(collection(db, "listings"), formDataCopy);
       setLoading(false);
       toast.success("Listing created");
-      navigate(`/category/${formDataCopy.type}/${docRef.id}`);
+      navigate("/UserProfilePage");
+      // navigate(`/category/${formDataCopy.type}/${docRef.id}`);
     }
-
-
-
-
 
     if(loading){ //if loading is true, render the Spinner.js component
       return <Spinner/>;
@@ -155,7 +155,7 @@ export default function CreateListing() {
         <h1 className='text-3xl text-center mt-6 font-bold'>CreateListing</h1>
         <form onSubmit={onSubmit}>
           {/*dynamic sell or rent button */}
-          <p className="text-lg mt-6 font-semibold">Sell / Rent</p>
+          {/* <p className="text-lg mt-6 font-semibold">Sell / Rent</p>
           <div className="flex">
             <button
               type="button"
@@ -183,21 +183,38 @@ export default function CreateListing() {
             >
               rent
             </button>
-          </div>
+          </div> */}
 
           {/* Name input area */}
-          <p className="text-lg mt-6 font-semibold">Name</p>
+          <p className="text-lg mt-6 font-semibold">Product Name</p>
           <input
             type="text"
-            id="name"
-            value={name}
+            id="productName"
+            value={productName}
             onChange={onChange} //handle the input from user
-            placeholder="Name"
+            placeholder="Product Name"
             maxLength="32" //max length of the name character no more than 32, this is a built in validation function of HTML
-            minLength="10" //min length of the name character no less than 10
+            minLength="3" //min length of the name character no less than 10
             required //this field is required, no form submission without this field filled
-            className="w-full px-4 py-2 text-xl text-gray-700 bg-white border border-gray-300 rounded transition duration-150 ease-in-out focus:text-gray-700 focus:bg-white focus:border-slate-600 mb-6"
+            className="w-full px-4 py-2 text-lg text-gray-700 bg-white border border-gray-300 rounded transition duration-150 ease-in-out focus:text-gray-700 focus:bg-white focus:border-slate-600 mb-6"
           />
+
+          {/* Dropdown for product category */}
+          <select id="category" value={category} onChange={onChange}>
+              {/* Options here */}
+              <option value="">All Categories</option>
+              <option value="Computers">Computers</option>
+              <option value="Electronics & photography">Electronics & Photography</option>
+              <option value="Gaming">Gaming</option>
+              <option value="Health & beauty">Health & Beauty</option>
+              <option value="Home & living">Home & Living</option>
+              <option value="Jewellery & watches">Jewellery & Watches</option>
+              <option value="Mobile phones">Mobile Phones</option>
+              <option value="Music & instruments">Music & Instruments</option>
+              <option value="Pets & animals">Pets & Animals</option>
+              <option value="Sports">Sports</option>
+              <option value="Toys & models">Toys & Models</option>
+            </select>
 
           {/* beds and baths section */}
           <div className="flex space-x-6 mb-6">
