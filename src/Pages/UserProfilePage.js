@@ -11,7 +11,7 @@ import { toast } from "react-toastify";
 import { db } from "../firebase";     // import db object for configuration and initialization of the database
 //#############################
 
-import profileSideImage from "../assets/profileSideImage.jpg"
+import profileSideImage from "../assets/profileSideImage.jpg";
 
 
 
@@ -124,7 +124,7 @@ export default function UserProfilePage() {
               <div className='mt-5'>
                 <p className='text-lg font-semibold text-sky-800'>Selling</p>
                 <p>
-                  <Link to='/ListProductPage' className="mr-6 cursor-pointer  hover:text-sky-950 hover:font-semibold transition duration-150 ease-in-out" style={{ textDecoration: 'none', color:'#64007D' }}>
+                  <Link to='/CreateListing' className="mr-6 cursor-pointer  hover:text-sky-950 hover:font-semibold transition duration-150 ease-in-out" style={{ textDecoration: 'none', color:'#64007D' }}>
                     Listing an item
                   </Link>
                 </p>
