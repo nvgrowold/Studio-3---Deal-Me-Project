@@ -12,6 +12,9 @@ import { Link } from 'react-router-dom';
 import profileSideImage from "../assets/profileSideImage.jpg";
 
 export default function CreateListing() {
+    //a hook to track image uploading progress
+    const [uploadProgress, setUploadProgress] = useState([]);
+
     //const [selectedCategory, setSelectedCategory] = useState('');
     const navigate = useNavigate();
     const auth = getAuth();
@@ -71,11 +74,13 @@ export default function CreateListing() {
         toast.error("Maximum 6 images are allowed");
         return;
       }
+      // Initialize the uploadProgress state with zeroes for each image
+      setUploadProgress(new Array(images.length).fill(0));      
 
       //upload image one by one to storage
       //https://firebase.google.com/docs/storage/web/upload-files
       //refer to full example there
-      async function storeImage(image) {
+      async function storeImage(image, index) {
         return new Promise((resolve, reject) => {
           const storage = getStorage();
           const filename = `${auth.currentUser.uid}-${image.name}-${uuidv4()}`; //npm install uuid
@@ -89,6 +94,12 @@ export default function CreateListing() {
               const progress =
                 (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
               console.log("Upload is " + progress + "% done");
+              //update loading progress
+              setUploadProgress((oldProgress) => {      //This is an arrow function that takes the current state of uploadProgress as its parameter
+                const newProgress = [...oldProgress];   //creates a copy of oldProgress using the spread operator (...)
+                newProgress[index] = progress;         //The function then updates the element at the specified index in the newProgress array with the new progress value (progress). This index corresponds to the specific image whose upload progress is being updated. progress is a number representing the percentage of the upload that has been completed for that image.
+                 return newProgress;                   //This array now represents the updated state
+              })
               switch (snapshot.state) {
                 case "paused":
                   console.log("Upload is paused");
@@ -106,7 +117,7 @@ export default function CreateListing() {
             () => {
               // Handle successful uploads on complete
               // For instance, get the download URL: https://firebasestorage.googleapis.com/...
-              getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+              getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => { //The uploadTask.snapshot.ref is a reference to the file that has just been uploaded. getDownloadURL is a method provided by Firebase that, when given a reference to a file stored in Firebase Storage, returns a promise that resolves with the file's URL.
                 resolve(downloadURL);
               });
             }
@@ -114,7 +125,11 @@ export default function CreateListing() {
         });
       }
 
-      //add image to database
+      
+      // Initialize the uploadProgress state with zeroes for each image
+      setUploadProgress(new Array(images.length).fill(0));
+
+      //uploading image to database
       const imgUrls = await Promise.all(
         [...images].map((image) => storeImage(image))
       ).catch((error) => {
@@ -341,6 +356,19 @@ export default function CreateListing() {
               required
               className="w-full px-3 py-1 text-gray-700 bg-white border border-gray-300 rounded transition duration-150 ease-in-out focus:bg-white focus:border-slate-600"
             />
+            {/* Display upload progress here */}
+            {/* ###################### not working well################## */}
+            <div className="mt-4">
+                {uploadProgress.map((progress, index) => (
+                    <div key={index}>
+                        <p>Uploading image {index + 1}: {progress.toFixed(2)}%</p>
+                        {/* add a progress bar */}
+                        <div className="bg-red-200 rounded h-2">
+                            <div className="bg-sky-600 h-2 rounded" style={{width: `${progress}%`}}></div>
+                        </div>
+                    </div>
+                ))}
+            </div>
           </div>
           <button
             type="submit"
