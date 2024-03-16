@@ -164,15 +164,10 @@ export default function CreateListing() {
     <>
       <Header/>
       <div className='grid gap-8 md:w-auto justify-center mt-10 lg:w-full lg:grid-cols-3 lg:justify-start'>
-        <section className='lg:ml-40 lg:mt-16 lg:max-w-40'>
+        <section className='ml-6 lg:ml-40 lg:mt-16 lg:max-w-40'>
               {/* //User Account Page */}
             <div> 
               <p className='text-2xl font-semibold  text-sky-800'>Account Detail</p>
-              <p>
-                <Link to=''className="mr-6 cursor-pointer  hover:text-sky-950 hover:font-semibold transition duration-150 ease-in-out" style={{ textDecoration: 'none', color:'#64007D' }}>
-                  Save for later
-                </Link>
-              </p>
 
               <div className='mt-5'>
                 <p className='text-lg font-semibold text-sky-800'>Buying</p>

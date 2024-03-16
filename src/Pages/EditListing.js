@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from '../Components/Header';
 import Spinner from '../Components/Spinner';
 import { toast } from 'react-toastify';
 import {getStorage, ref, uploadBytesResumable, getDownloadURL} from "firebase/storage";
 import { getAuth } from 'firebase/auth';
 import {v4 as uuidv4} from "uuid";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { addDoc, collection, serverTimestamp, doc, getDoc,  updateDoc } from "firebase/firestore";
 import { db } from '../firebase';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Link } from 'react-router-dom';
 import profileSideImage from "../assets/profileSideImage.jpg";
 
@@ -20,6 +20,8 @@ export default function CreateListing() {
     const auth = getAuth();
     //hook state for loading spinner, after click submit, state will change to true
     const [loading, setLoading] =useState(false);
+    //hook state for listing
+    const [listing, setListing] =useState(null);
 
     //hook state for sell or rent button + destructure it
     //hook state to hold name/bedrooms/baths value + destructure it
@@ -35,7 +37,37 @@ export default function CreateListing() {
         images: {},
     })
     //destructuring, all these values come from formData
-    const {productName,category, region, shipping, deliveryFee, description, regularPrice, images} = formData;
+    const {productName,category, region, shipping, deliveryFee, description, regularPrice, images}
+    = formData;
+
+    //only authorized and the owner of the listing could edit the listing
+    useEffect(() => {
+      if (listing && listing.userRef !== auth.currentUser.uid) {
+        toast.error("You can't edit this listing");
+        navigate("/");
+      }
+    }, [auth.currentUser.uid, listing, navigate]);
+
+    //use userParams hook from react-router-dom to get the listing id from the url
+    const params = useParams();
+    //fetch data for editing based on the listingID
+    useEffect(()=>{
+      setLoading(true); //until the data fetching finish, the spinner will show on the screen
+      async function fetchListing(){
+        const docRef = doc(db, "listings", params.listingID) //get the reference for the editing item
+        const docSnap = await getDoc(docRef);
+        if(docSnap.exists()){          //if the snapshot exists, then set the listing to be the snapshot
+          setListing(docSnap.data())  //need a listing hook at the top
+          setFormData({...docSnap.data()});     //then, update the formdata of the listing
+          setLoading(false)
+        }else{ //if docSnap not exists
+          navigate("/");
+          toast.error("Listing does not exist");
+        }
+
+      }
+      fetchListing();
+    }, [navigate, params.listingID]);
 
     //handle all changes in the form all-in-one here
     function onChange(e){ //e: is the event, the input
@@ -66,7 +98,6 @@ export default function CreateListing() {
 
     //handle form submit
     async function onSubmit(e){
-
       e.preventDefault(); //no refreshing if click submit button with some field of empty input
       setLoading(true); //after clicking submit, setLoading to true, run the spinner. After storing to the firebase, set the loading back to false
       if(images.length > 6) { //add some conditions, if not meet the condition, stop loading
@@ -148,11 +179,12 @@ export default function CreateListing() {
       //delete image
       delete formDataCopy.images;
       !formDataCopy.offer && delete formDataCopy.discountedPrice;
-      const docRef = await addDoc(collection(db, "listings"), formDataCopy);
+      const docRef = doc(db, "listings", params.listingID);
+      await updateDoc(docRef, formDataCopy);
       setLoading(false);
-      toast.success("Listing created");
-      navigate("/UserProfilePage");
-      // navigate(`/category/${formDataCopy.type}/${docRef.id}`);
+      toast.success("Listing Edited");
+      //navigate(`/category/${docRef.id}`);
+      navigate("/MyListingsPage");
     }
 
     if(loading){ //if loading is true, render the Spinner.js component
@@ -164,15 +196,10 @@ export default function CreateListing() {
     <>
       <Header/>
       <div className='grid gap-8 md:w-auto justify-center mt-10 lg:w-full lg:grid-cols-3 lg:justify-start'>
-        <section className='lg:ml-40 lg:mt-16 lg:max-w-40'>
+        <section className='ml-6 lg:ml-40 lg:mt-16 lg:max-w-40'>
               {/* //User Account Page */}
             <div> 
               <p className='text-2xl font-semibold  text-sky-800'>Account Detail</p>
-              <p>
-                <Link to=''className="mr-6 cursor-pointer  hover:text-sky-950 hover:font-semibold transition duration-150 ease-in-out" style={{ textDecoration: 'none', color:'#64007D' }}>
-                  Save for later
-                </Link>
-              </p>
 
               <div className='mt-5'>
                 <p className='text-lg font-semibold text-sky-800'>Buying</p>
@@ -374,7 +401,7 @@ export default function CreateListing() {
             type="submit"
             className="mt-8 w-full px-7 py-2 bg-sky-700 text-white font-medium text-sm uppercase rounded shadow-md hover:bg-sky-900 hover:shadow-lg focus:bg-sky-700 focus:shadow-lg active:bg-sky-800 active:shadow-lg transition duration-150 ease-in-out"
           >
-            Create Listing
+            Edit Listing
           </button>
         </form>
       </div>

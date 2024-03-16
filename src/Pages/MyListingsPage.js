@@ -60,28 +60,34 @@ export default function MyListingsPage() {
             <Header />
 
             {/* ##################################################### */}
-            <div>
-                <div className="max-w-6xl px-3 mt-10 mx-auto">
-                    {!loading && listings.length > 0 && (
-                    <>
-                        <h2 className="text-center font-semibold mb-10 text-2xl text-sky-800">
-                        My Listings
-                        </h2>
-                        <ul className="sm:grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
-                        {listings.map((listing) => (
-                            //create a component for ListingItem
-                            <ListingItem
-                            key={listing.id}
-                            id={listing.id}
-                            listing={listing.data}
-                            onDelete={() => onDelete(listing.id)}
-                            onEdit={() => onEdit(listing.id)}
-                            />
-                        ))}
-                        </ul>
-                    </>
-                    )}
-                </div>            
+            <div className="max-w-6xl px-3 mt-10 mx-auto">
+                <h2 className="text-center font-semibold mb-10 text-2xl text-sky-800">
+                    My Listings
+                </h2>
+                {!loading && listings.length > 0 && (
+                <>
+                   
+                    <ul className="sm:grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+                    {listings.map((listing) => (
+                        //create a component for ListingItem
+                        <ListingItem
+                        key={listing.id}
+                        id={listing.id}
+                        listing={listing.data}
+                        onDelete={() => onDelete(listing.id)}
+                        onEdit={() => onEdit(listing.id)}
+                        />
+                    ))}
+                    </ul>
+                </>
+                )}
+
+                {!loading && listings.length === 0 && (
+                    <div className="text-center mt-10  text-sky-800">
+                    <p>Oops! Your listing folder is empty...</p>
+                    </div>
+                )}
+
             </div>           
         </div>
     );
