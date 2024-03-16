@@ -1,15 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../Components/Header';
-import { collection, query, orderBy, where, getDocs } from 'firebase/firestore';
+import { collection, query, orderBy, where, getDocs, deleteDoc, doc,  } from 'firebase/firestore';
 import { db } from '../firebase';
 import { getAuth } from 'firebase/auth';
 import ListingItem from '../Components/ListingItem';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 export default function MyListingsPage() {
 
     const [listings, setListings] = useState([]); // State to store the listings
     const [loading, setLoading] = useState(true); // State to track loading status
     const auth = getAuth();
+    //create the navigate by using the useNavigate hook of react
+    const navigate = useNavigate();
 
     //########################################
 
@@ -32,7 +36,24 @@ export default function MyListingsPage() {
         fetchUserListings();
     }, [auth.currentUser.uid]); // Dependency array includes auth.currentUser.uid to refetch when it changes
 
+    //handle onDelete event of the listed item
+    async function onDelete(listingID){
+        if(window.confirm("Are you sure you want to delete this item?")){
+            //if user clicked ok, then will action the delete, otherwise won't trigger the following steps
+            await deleteDoc(doc(db, "listings", listingID))//use deleteDoc() from the firestore to delete
+            const updatedListings = listings.filter( // after deleting, need to update the array "let listings = [];"" and removed from firebase database as well
+                (listing)=> listing.id !== listingID
+            );
+            setListings(updatedListings)
+            toast.success("Successfully deleted the listing")
+        }
+    }
+    
+    //handle onEdit event of the listed item
+    function onEdit(listingID){
+        navigate(`/edit-listing/${listingID}`);
 
+    }
 
     return (
         <div>
@@ -53,8 +74,8 @@ export default function MyListingsPage() {
                             key={listing.id}
                             id={listing.id}
                             listing={listing.data}
-                            // onDelete={() => onDelete(listing.id)}
-                            // onEdit={() => onEdit(listing.id)}
+                            onDelete={() => onDelete(listing.id)}
+                            onEdit={() => onEdit(listing.id)}
                             />
                         ))}
                         </ul>

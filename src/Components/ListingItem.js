@@ -5,7 +5,7 @@ import { MdEdit } from "react-icons/md";
 
 export default function ListingItem({listing, id, onEdit, onDelete}) { //access object properties by destructure
   return (
-      <li className="relative bg-sky-50 flex flex-col justify-between items-center shadow-md hover:shadow-xl rounded-md overflow-hidden transition-shadow duration-150 m-[10px]">
+      <li className="relative bg-sky-50 flex flex-col justify-between shadow-md hover:shadow-xl rounded-md overflow-hidden transition-shadow duration-150 m-[10px]">
         <Link className="contents" to={`/category/${listing}/${id}`}>
           <img className="h-[170px] w-full object-cover hover:scale-105 transition-scale duration-200 ease-in"
           loading="lazy" src={listing.imgUrls[0]} alt=""/>
@@ -13,21 +13,23 @@ export default function ListingItem({listing, id, onEdit, onDelete}) { //access 
         {/* use react moment package to display how long the listing had been created */}
         {/* npm install react-moment */}
         <Moment className="absolute top-2 left-2 bg-[#3377cc] text-white uppercase text-xs font-semibold rounded-md px-2 py-1 shadow-lg" fromNow>{listing.timestamp?.toDate()}</Moment>
-        <p className="font-semibold m-0 text-xl truncate">{listing.productName}</p>
-        <p className="text-[#457b9d] mt-2 font-semibold">
+        <p className="font-semibold text-sky-800 m-0 pl-2 text-xl truncate">{listing.productName}</p>
+        <p className="text-[#457b9d] mt-2 pl-2 font-semibold">
             Price: NZ${listing.regularPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}      
         </p>
 
+        {/* if onDelete exists, will have the FaTrash icon displayed, because on the logged in the user could edit or delete the item they listed */}
         {onDelete && (
           <FaTrash
             className="absolute bottom-2 right-2 h-[14px] cursor-pointer text-red-500"
-            onClick={() => onDelete(listing.id)}
+            onClick={() => onDelete(listing.id)} //when click, will call the onDelete function
           />
         )}
+         {/* if onEdit exists, will have the FaTrash icon displayed, because on the logged in the user could edit or delete the item they listed */}
         {onEdit && (
           <MdEdit
             className="absolute bottom-2 right-7 h-4 cursor-pointer "
-            onClick={() => onEdit(listing.id)}
+            onClick={() => onEdit(listing.id)} //when click, will call the onEdit function
           />
         )}
 
