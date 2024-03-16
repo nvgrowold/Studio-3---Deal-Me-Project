@@ -17,6 +17,7 @@ import ContactUsPage from "./Pages/ContactUsPage";
 import UserProfilePage from "./Pages/UserProfilePage";
 import MyListingsPage from "./Pages/MyListingsPage";
 import CreateListing from "./Pages/CreateListing";
+import EditListing from "./Pages/EditListing";
 
 //import AdminDashboard stuff
 import AdminDashboardLayout from "./Pages/AdminNavPages/AdminDashboardLayout";
@@ -52,7 +53,11 @@ function App() {
           <Route path="/CreateListing" element={<PrivateRoute />}>
             <Route path="/CreateListing" element={<CreateListing />} />
           </Route>
-          {/* private route for MyListingsPage, only after login could create listing*/}
+            {/* private route for EditListing, according to listingID to target the right listing. Only after login could edit listing*/}
+            <Route path="/edit-listing" element={<PrivateRoute />}>
+            <Route path="/edit-listing/:listingID" element={<EditListing />} />
+          </Route>
+          {/* private route for MyListingsPage, only after login could view my listing*/}
           <Route path="/MyListingsPage" element={<PrivateRoute />}>
             <Route path="/MyListingsPage" element={<MyListingsPage />} />
           </Route>
