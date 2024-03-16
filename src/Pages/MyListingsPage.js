@@ -6,9 +6,10 @@ import { getAuth } from 'firebase/auth';
 import ListingItem from '../Components/ListingItem';
 
 export default function MyListingsPage() {
+
     const [listings, setListings] = useState([]); // State to store the listings
     const [loading, setLoading] = useState(true); // State to track loading status
-    const auth = getAuth
+    const auth = getAuth();
 
     useEffect(() => {
         async function fetchUserListings() {

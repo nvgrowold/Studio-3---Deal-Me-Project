@@ -44,7 +44,6 @@ function App() {
           <Route exact path='/GuestPage' element={<GuestPage/>}/>
           <Route exact path='/Login' element={<Login/>}/>
           <Route exact path='/Register' element={<Register/>}/>
-          <Route exact path='/MyListingsPage' element={<MyListingsPage/>}/>
           {/* user profile protection route */}
           <Route path="/UserProfilePage" element={<PrivateRoute />}>
             <Route path="/UserProfilePage" element={<UserProfilePage />} />
@@ -52,6 +51,10 @@ function App() {
           {/* private route for CreateListing, only after login could create listing*/}
           <Route path="/CreateListing" element={<PrivateRoute />}>
             <Route path="/CreateListing" element={<CreateListing />} />
+          </Route>
+          {/* private route for MyListingsPage, only after login could create listing*/}
+          <Route path="/MyListingsPage" element={<PrivateRoute />}>
+            <Route path="/MyListingsPage" element={<MyListingsPage />} />
           </Route>
           {/* Admin Pages below */}
           <Route exact path='/AdminDashboardLayout' element={<AdminDashboardLayout/>}/>

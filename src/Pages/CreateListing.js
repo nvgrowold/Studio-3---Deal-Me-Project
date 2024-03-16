@@ -163,7 +163,7 @@ export default function CreateListing() {
   return (
     <>
       <Header/>
-      <div className='grid gap-8 md:w-auto justify-center mt-10 lg:grid-cols-3 lg:justify-start'>
+      <div className='grid gap-8 md:w-auto justify-center mt-10 lg:w-full lg:grid-cols-3 lg:justify-start'>
         <section className='lg:ml-40 lg:mt-16 lg:max-w-40'>
               {/* //User Account Page */}
             <div> 
