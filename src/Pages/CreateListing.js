@@ -63,7 +63,6 @@ export default function CreateListing() {
     }
 
 
-
     //handle form submit
     async function onSubmit(e){
 
@@ -74,6 +73,7 @@ export default function CreateListing() {
         toast.error("Maximum 6 images are allowed");
         return;
       }
+      
       // Initialize the uploadProgress state with zeroes for each image
       setUploadProgress(new Array(images.length).fill(0));      
 
@@ -94,6 +94,7 @@ export default function CreateListing() {
               const progress =
                 (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
               console.log("Upload is " + progress + "% done");
+
               //update loading progress
               setUploadProgress((oldProgress) => {      //This is an arrow function that takes the current state of uploadProgress as its parameter
                 const newProgress = [...oldProgress];   //creates a copy of oldProgress using the spread operator (...)
@@ -117,7 +118,9 @@ export default function CreateListing() {
             () => {
               // Handle successful uploads on complete
               // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+
               getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => { //The uploadTask.snapshot.ref is a reference to the file that has just been uploaded. getDownloadURL is a method provided by Firebase that, when given a reference to a file stored in Firebase Storage, returns a promise that resolves with the file's URL.
+
                 resolve(downloadURL);
               });
             }
@@ -125,11 +128,13 @@ export default function CreateListing() {
         });
       }
 
+
       
       // Initialize the uploadProgress state with zeroes for each image
       setUploadProgress(new Array(images.length).fill(0));
 
       //uploading image to database
+
       const imgUrls = await Promise.all(
         [...images].map((image) => storeImage(image))
       ).catch((error) => {
@@ -383,6 +388,7 @@ export default function CreateListing() {
 
         </section>
       </div>
+
     </>
     
   )

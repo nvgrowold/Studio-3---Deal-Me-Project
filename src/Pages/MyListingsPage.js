@@ -58,7 +58,6 @@ export default function MyListingsPage() {
     return (
         <div>
             <Header />
-
             {/* ##################################################### */}
             <div className="max-w-6xl px-3 mt-10 mx-auto">
                 <h2 className="text-center font-semibold mb-10 text-2xl text-sky-800">
