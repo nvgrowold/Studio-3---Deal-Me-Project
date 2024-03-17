@@ -32,6 +32,7 @@ import Deal from "./Pages/Deal";
 
 
 
+
 function App() {
   return (
     <div className="App">
@@ -54,6 +55,7 @@ function App() {
           <Route path="/CreateListing" element={<PrivateRoute />}>
             <Route path="/CreateListing" element={<CreateListing />} />
           </Route>
+
             {/* private route for EditListing, according to listingID to target the right listing. Only after login could edit listing*/}
             <Route path="/edit-listing" element={<PrivateRoute />}>
             <Route path="/edit-listing/:listingID" element={<EditListing />} />
@@ -62,6 +64,7 @@ function App() {
           <Route path="/MyListingsPage" element={<PrivateRoute />}>
             <Route path="/MyListingsPage" element={<MyListingsPage />} />
           </Route>
+
           {/* Admin Pages below */}
           <Route exact path='/AdminDashboardLayout' element={<AdminDashboardLayout/>}/>
           <Route exact path='/Dashboard' element={<Dashboard/>}/>

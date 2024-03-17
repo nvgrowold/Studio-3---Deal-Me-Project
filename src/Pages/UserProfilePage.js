@@ -17,6 +17,7 @@ import profileSideImage from "../assets/profileSideImage.jpg";
 //import ListingItem from '../Components/ListingItem';
 
 
+
 export default function UserProfilePage() {
   const auth = getAuth();
   //const [listings, setListings] = useState([]); // State to store the listings
@@ -95,6 +96,7 @@ export default function UserProfilePage() {
   }
 
   
+
   return (
     <div>
       <Header/>
@@ -220,3 +222,4 @@ export default function UserProfilePage() {
         
   )
 }
+
