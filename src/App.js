@@ -28,7 +28,7 @@ import Settings from "./Pages/AdminNavPages/Settings";
 
 //private route for user UserProfilePage protection
 import PrivateRoute from "./Components/PrivateRoute";
-
+import Deal from "./Pages/Deal";
 
 
 
@@ -45,6 +45,7 @@ function App() {
           <Route exact path='/GuestPage' element={<GuestPage/>}/>
           <Route exact path='/Login' element={<Login/>}/>
           <Route exact path='/Register' element={<Register/>}/>
+          <Route exact path='/category/:categoryName/:listingID' element={<Deal/>}/>
           {/* user profile protection route */}
           <Route path="/UserProfilePage" element={<PrivateRoute />}>
             <Route path="/UserProfilePage" element={<UserProfilePage />} />
