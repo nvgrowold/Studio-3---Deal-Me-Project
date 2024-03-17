@@ -161,13 +161,16 @@ export default function CreateListing() {
       setUploadProgress(new Array(images.length).fill(0));
 
       //uploading image to database
-      const imgUrls = await Promise.all(
-        [...images].map((image) => storeImage(image))
-      ).catch((error) => {
+      // Attempt to upload images and get URLs
+      let imgUrls;
+      try{
+        imgUrls = await Promise.all(
+        [...images].map(storeImage))
+        } catch(error) {
         setLoading(false);
-        toast.error("Images not uploaded");
+        toast.error("Images not uploaded" + error.message);
         return;
-      });
+      };
   
       const formDataCopy = {
         ...formData,
