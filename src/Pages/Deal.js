@@ -54,7 +54,7 @@ export default function Deal() {
         {/* npm install react-slideshow-image */}
         <div className='slide-container mt-6 mb-3'>
           {deal && deal.imgUrls && (
-            <Fade duration={5000} // Each slide will stay for 5 seconds
+            <Fade duration={3000} // Each slide will stay for 5 seconds
             transitionDuration={1000} // Transition animation will last 1 second
             >
               {deal.imgUrls.map((image,index) => (
