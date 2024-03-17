@@ -5,11 +5,24 @@ import {getDoc, doc,  } from 'firebase/firestore';
 import Spinner from '../Components/Spinner';
 import Header from '../Components/Header';
 
+//import react-slideshow-image
+import 'react-slideshow-image/dist/styles.css';
+import {Fade} from 'react-slideshow-image';
+
+
+//react-slideshow-image styling the image
+const divStyle = {
+  display:'flex',
+  alignItems: "center",
+  justifyContent:"center",
+  height:"400px",
+  backgroundSize:'cover'
+}
 
 export default function Deal() {
     const params =useParams();
     const [deal, setDeal] = useState(null);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     useEffect(()=>{
         //using an async function to fetch the data
@@ -29,10 +42,24 @@ export default function Deal() {
         return <Spinner/>;
     }
 
+
   return (
     <div>
         <Header/>
-        {deal? deal.productName :"Loading"}
+        {deal? deal.productName :"Loading..."}
+        {/* npm install react-slideshow-image */}
+        <div className='slide-container'>
+          {deal && deal.imgUrls && (
+            <Fade>
+              {deal.imgUrls.map((image,index) => (
+                <div key={index}>
+                  <div style={{...divStyle, backgroundImage:`url(${deal.imgUrls[index]})`}}></div>
+                </div>
+              ))}
+            </Fade>
+          )}
+ 
+        </div>
     </div>
   )
 }
