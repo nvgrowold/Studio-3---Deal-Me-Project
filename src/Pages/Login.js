@@ -17,6 +17,7 @@ function Login(){
         email: "",
         password:"",
     });
+    
     //Hook for show password, the initial state is false not showing
     const[showPassword, setShowPassword] = useState(false);
     
@@ -45,14 +46,16 @@ function Login(){
             const auth = getAuth()
             //2. get the user credentials
             const userCredential = await signInWithEmailAndPassword(auth, email, password)
-            console.log(auth, email, password)
-            //3. if 2 is successful, it will return the credential
-            // if userCredential is true, then, navigate to another page
-            if(userCredential.user){
-                navigate("/UserProfilePage")
+            if (email === 'DealMeAdmin@gmail.com')
+             {
+                // If it's the admin email, navigate to the dashboard
+                navigate("/AdminDashboard");
+            } else {
+                // Otherwise, navigate to the user profile page
+                navigate("/UserProfilePage");
             }
         } catch (error){
-          toast.error("Bad user credentials")  
+          toast.error("Bad user credential")  
         }
     }
     

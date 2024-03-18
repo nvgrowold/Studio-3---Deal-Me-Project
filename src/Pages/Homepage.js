@@ -10,7 +10,7 @@ function Homepage() {
     return (
         <>
             <div className='absolute right-6 pt-4 transition-shadow duration-150 ease-in-out hover:shadow-md' title='Admin Login'>
-                <Link to='/AdminDashboard'>
+                <Link to='/Login'>
                     <MdOutlineAdminPanelSettings className='text-4xl'/>
                 </Link>
             </div>
