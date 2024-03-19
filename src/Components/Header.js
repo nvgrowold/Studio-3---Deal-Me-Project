@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
 
+
 export default function Header() {
   //onClick to navigate to other pages by using the useNavigate() of react-router-dom
   const navigate = useNavigate();
@@ -45,6 +46,7 @@ export default function Header() {
 
                 <li className='no-underline  text-sky-800  hover:text-yellow-900 transition duration-150 ease-in-out'
                   onClick={() => navigate("/ContactUsPage")}>Contact Us</li>
+
             </ul>
         </div>
       </header>
