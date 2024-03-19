@@ -1,10 +1,10 @@
 // Import React Router
 import { Link } from 'react-router-dom';
-// Import your components
-import Background from "../Components/Background";
 import Logo from "../Components/Logo";
 // Import icons
 import { MdOutlineAdminPanelSettings } from "react-icons/md";
+
+import pinkBox from '../assets/shopingCart.webm';
 
 function Homepage() {
     return (
@@ -38,10 +38,22 @@ function Homepage() {
                         </h3>
                     </div>
                 </div>
-            </div>
-            <Background />
-            <Logo />
-        </>
+
+                {/* Slogan */}
+                <div className='flex lg:flex-col'>
+                    <div className="ml-40 w-full lg:mt-6 lg:ml-20 text-wrap lg:w-1/3 ">
+                        <p className="text-white text-xl md:text-2xl font-medium">
+                            Find Deals, Unlock Possibilities. '<span className='text-pink-400'>Deal Me</span>' connects savvy buyers with sellers in a marketplace where every deal is an opportunity. Simple, effective, and for everyone.
+                        </p>
+                    </div> 
+                </div>
+              
+                <Logo />
+            </section>
+
+            {/*<Background /> */}
+            
+        </div>
     );
 }
 

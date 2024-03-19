@@ -4,7 +4,9 @@ import Spinner from '../Components/Spinner';
 import { toast } from 'react-toastify';
 import {getStorage, ref, uploadBytesResumable, getDownloadURL} from "firebase/storage";
 import { getAuth } from 'firebase/auth';
-import {v4 as uuidv4} from "uuid";
+
+//A UUID – that's short for Universally Unique IDentifier, by the way – is a 36-character alphanumeric string that can be used to identify information. They are often used, for example, to identify rows of data within a database table, with each row assigned a specific UUID.
+import {v4 as uuidv4} from "uuid"; //https://www.npmjs.com/package/uuid
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { db } from '../firebase';
 import { useNavigate } from "react-router-dom";
