@@ -3,11 +3,12 @@
     height: 20%;
     width: 30%;
     float: left;
-    top:500px;
+    top:550px;
     left: 0;
     right:0;
     bottom: 0;
     padding: 10;
+    margin-left: 5%;
     position: fixed;
     object-fit: cover;
 

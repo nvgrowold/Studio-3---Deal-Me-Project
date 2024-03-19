@@ -1,62 +1,59 @@
-import React, { useState } from 'react'; // Import useState
-import { Link } from 'react-router-dom'; 
-import { MdOutlineAdminPanelSettings } from "react-icons/md";
-import { Container, Row, Col } from 'react-bootstrap';
-import Background from "../Components/Background";
+// Import React Router
+import { Link } from 'react-router-dom';
 import Logo from "../Components/Logo";
-import "../Styling/Homepage.css";
+// Import icons
+import { MdOutlineAdminPanelSettings } from "react-icons/md";
+
+import pinkBox from '../assets/shopingCart.webm';
 
 function Homepage() {
-    const [cartItems, setCartItems] = useState([]);
-
-    const addToCart = (item) => {
-        const updatedCart = [...cartItems, item];
-        setCartItems(updatedCart);
-        sessionStorage.setItem('cart', JSON.stringify(updatedCart));
-    };
-
-    return(
+    return (
         <>
-            <div className='absolute right-6 mr-6 pt-4 transition-shadow duration-150 ease-in-out' title='Admin Login'>
-                <Link to='/AdminDashboard'>
+            <div className='absolute right-6 pt-4 transition-shadow duration-150 ease-in-out hover:shadow-md' title='Admin Login'>
+                <Link to='/Login'>
                     <MdOutlineAdminPanelSettings className='text-4xl'/>
                 </Link>
             </div>
-            <Container className="d-flex h-100">
-                <Row className="align-self-center w-200 rounded-lg">
-                    <Col xs={12} md={4} className="d-flex justify-content-center">
-                        <h3 className="homepageCard shadow">
-                            <Link to='/Login' style={{ textDecoration: 'none', color:'#64007D' }}>
+            <div className="flex items-center justify-center min-h-screen">
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-4 place-items-center w-full max-w-4xl p-4 rounded-lg md:ml-[-24rem]">
+                    <div className="flex justify-center">
+                        <h3 className="p-10 text-center text-white cursor-pointer bg-transparent shadow-lg hover:bg-gray-200 hover:scale-105 hover:text-purple-300 transition transform duration-200 ease-in-out rounded-md w-44 h-30">
+                            <Link to='/Login' className="no-underline text-purple-700">
                                 I'm Selling..
                             </Link>
                         </h3>
-                    </Col>
-                    <Col xs={12} md={4} className="d-flex justify-content-center">
-                        <h3 className="homepageCard shadow">
-                            <Link to='/Login' style={{ textDecoration: 'none', color:'#64007D' }}>
+                    </div>
+                    <div className="flex justify-center">
+                        <h3 className="p-10 text-center text-white cursor-pointer bg-transparent shadow-lg hover:bg-gray-200 hover:scale-105 hover:text-purple-300 transition transform duration-200 ease-in-out rounded-md w-44 h-30">
+                            <Link to='/Login' className="no-underline text-purple-700">
                                 I'm Buying..
                             </Link>
                         </h3>
-                    </Col>
-                    <Col xs={12} md={4} className="d-flex justify-content-center">
-                        <h3 className="homepageCard shadow">
-                            <Link to='/GuestPage' style={{ textDecoration: 'none' , color:'#64007D'}}>
+                    </div>
+                    <div className="flex justify-center">
+                        <h3 className="p-10 text-center text-white cursor-pointer bg-transparent shadow-lg hover:bg-gray-200 hover:scale-105 hover:text-purple-300 transition transform duration-200 ease-in-out rounded-md w-44 h-30">
+                            <Link to='/GuestPage' className="no-underline text-purple-700">
                                 Have a peek..
                             </Link>
                         </h3>
-                    </Col>
-                    {/* <Col xs={12} md={4} className="d-flex justify-content-center">
-                        <h3 className="homepageCard shadow">
-                            <Link to='/Cart' style={{ textDecoration: 'none' , color:'#64007D'}} onClick={() => addToCart({ name: 'Product', category: 'Category', region: 'Region', price: 10, description: 'Description' })}>
-                                View Cart
-                            </Link>
-                        </h3>
-                    </Col> */}
-                </Row>
-            </Container>
-            <Background/>
-            <Logo/>
-        </>
+                    </div>
+                </div>
+
+                {/* Slogan */}
+                <div className='flex lg:flex-col'>
+                    <div className="ml-40 w-full lg:mt-6 lg:ml-20 text-wrap lg:w-1/3 ">
+                        <p className="text-white text-xl md:text-2xl font-medium">
+                            Find Deals, Unlock Possibilities. '<span className='text-pink-400'>Deal Me</span>' connects savvy buyers with sellers in a marketplace where every deal is an opportunity. Simple, effective, and for everyone.
+                        </p>
+                    </div> 
+                </div>
+              
+                <Logo />
+            </section>
+
+            {/*<Background /> */}
+            
+        </div>
     );
 }
 

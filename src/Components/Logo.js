@@ -5,7 +5,7 @@ import "../Styling/Logo.css";
 
 function Logo(){
   
-    return <img className="logo" src={logoPink} alt=""/>
+    return <img className="logo sm:mt-6" src={logoPink} alt=""/>
 }
 
 export default Logo;

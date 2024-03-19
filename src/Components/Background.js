@@ -5,7 +5,7 @@ import "../Styling/Background.css"
 
 function Background(){
   
-    return <img className="background" src={imagePurple} alt=""/>
+    return <img className="background min-h-screen bg-cover bg-center bg-no-repeat" src={imagePurple} alt=""/>
 }
 
 export default Background;
