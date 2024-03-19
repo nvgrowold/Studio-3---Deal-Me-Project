@@ -15,7 +15,7 @@ function ListProductPage(){
   };
     return(
         
-        <div>
+        <div className="min-h-screen bg-gradient-to-r from-purple-100 to-teal-100">
             <Header/> 
             <h1>List a product</h1>
             

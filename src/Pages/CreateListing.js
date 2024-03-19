@@ -168,7 +168,7 @@ export default function CreateListing() {
 
 
   return (
-    <>
+    <div className="min-h-screen bg-gradient-to-r from-purple-100 to-teal-100">
       <Header/>
       <div className='grid gap-8 md:w-auto justify-center mt-10 lg:w-full lg:grid-cols-3 lg:justify-start'>
         <section className='ml-6 lg:ml-40 lg:mt-16 lg:max-w-40'>
@@ -391,7 +391,7 @@ export default function CreateListing() {
         </section>
       </div>
 
-    </>
+    </div>
     
   )
 }

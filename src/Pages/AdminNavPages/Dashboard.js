@@ -35,7 +35,7 @@ const Dashboard = () => {
   };
 
   return (
-    <>
+    <div className="min-h-screen bg-gradient-to-r from-purple-100 to-teal-100">
     
     <Header/>
     <SideNav/>
@@ -80,7 +80,7 @@ const Dashboard = () => {
         <p>Loading statistics...</p>
       )}
     </div>
-    </>
+    </div>
   );
 };
 

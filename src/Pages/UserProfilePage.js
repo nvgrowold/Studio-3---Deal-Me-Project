@@ -98,7 +98,7 @@ export default function UserProfilePage() {
   
 
   return (
-    <div>
+    <div className="min-h-screen bg-gradient-to-r from-purple-100 to-teal-100">
       <Header/>
       <div className='grid gap-8 md:w-auto justify-center mt-10 lg:grid-cols-3 lg:justify-start'>
         <section className='lg:ml-40 lg:mt-16 lg:max-w-40'>
@@ -136,18 +136,19 @@ export default function UserProfilePage() {
             {/* <div className='flex justify-center flex-wrap items-center px-6 py-12 max-w-full mx-auto mt-16 max-mt-20'>         */}
             <div className='lg:mt-10 md:min-w-96'>  
               {/* Table of account details */}
-              <form className='border-transparent'>
-                <div className='flex-auto max-w-lg shadow-md rounded p-6 px-10'>
+              <form className='border-transparent rounded-lg'>
+                <div className='flex-auto max-w-lg shadow-xl rounded p-6 px-10'>
                   <div className='text-lg font-semibold  text-sky-800 text-center mb-8'>
                     <div className='flex justify-center text-4xl border-none'><FaCircleUser /></div>                  
-                    <input type='text' id='username' value={userInfo.username} placeholder='username' disabled={!changeDetail} onChange={handleOnChange} className={`text-center text-lg font-semibold  text-sky-800 
-                        bg-white border-transparent rounded transition ease-in-out mr-0 p-0 ${changeDetail && "bg-red-400 focus:bg-red-400"}`}/>
+                    <input type='text' id='username' value={userInfo.username} placeholder='username' disabled={!changeDetail} onChange={handleOnChange} 
+                    className={`text-center text-base text-gray-500
+                    bg-transparent border-transparent rounded transition ease-in-out mr-0 p-0 ${changeDetail && "bg-red-200 focus:bg-red-200"}`}/>
                   </div>
 
                   <div>
                     <div className='flex justify-between whitespace-nowrap text-xs sm:text-base'>
                       <p className='text-base font-semibold  text-sky-800'>Member number</p>
-                      <p className='text-sm  text-gray-400'>{user?.uid}</p>
+                      <p className='text-sm text-gray-500'>{user?.uid}</p>
                     </div>
 
                     {/*add a line  */}
@@ -159,8 +160,8 @@ export default function UserProfilePage() {
                                   {/* using "disabled" to stop from editing the value */}
                                   {/* when changeDetail is false, it's disabled. when changeDetail is true, disable is enabled */}
                                   {/* onChange to change the input */}
-                      <input type='text' id='name' value={name} disabled={!changeDetail} onChange={handleOnChange} className={`text-right text-base text-gray-400
-                        bg-white border-transparent rounded transition ease-in-out mr-0 p-0 ${changeDetail && "bg-red-200 focus:bg-red-200"}`}/>
+                      <input type='text' id='name' value={name} disabled={!changeDetail} onChange={handleOnChange} className={`text-right text-base text-gray-500
+                        bg-transparent border-transparent rounded transition ease-in-out mr-0 p-0 ${changeDetail && "bg-red-200 focus:bg-red-200"}`}/>
                     </div>
 
                     {/*add a line  */}
@@ -170,8 +171,8 @@ export default function UserProfilePage() {
                       <p className='text-base font-semibold  text-sky-800'>Email</p>
                                   {/* Email Input */}
                                   {/* using "disabled" to stop from editing the value */}
-                      <input type='email' id='email' value={email} disabled className='text-right text-base text-gray-400
-                        bg-white border-transparent rounded transition ease-in-out mr-0 p-0'/>
+                      <input type='email' id='email' value={email} disabled className='text-right text-base text-gray-500
+                        bg-transparent border-transparent rounded transition ease-in-out mr-0 p-0'/>
                     </div>
 
                     {/*add a line  */}
@@ -179,7 +180,7 @@ export default function UserProfilePage() {
 
                     <div className='flex justify-between whitespace-nowrap text-xs sm:text-base'>
                       <p className='text-base font-semibold  text-sky-800'>Member since</p>
-                      <p className='text-base text-gray-400'>{user?.metadata.creationTime}</p>
+                      <p className='text-base text-gray-500'>{user?.metadata.creationTime}</p>
                     </div>
 
                     {/*add a line  */}
@@ -187,7 +188,7 @@ export default function UserProfilePage() {
 
                     <div className='flex justify-between whitespace-nowrap text-xs sm:text-base'>
                       <p className='text-base font-semibold  text-sky-800'>Verified User</p>
-                      <p className='text-base text-gray-400'>yes/no</p>
+                      <p className='text-base text-gray-500'>yes/no</p>
                     </div>
 
                     {/*add a line  */}
@@ -197,11 +198,11 @@ export default function UserProfilePage() {
                   <div className='flex justify-between whitespace-nowrap text-sm sm:text-base mb-6'>
                     <p className='flex items-center text-sky-800'>Update User Information?
                     {/* onClick: first return if changeDetail is true and call onSubmit(), and then change the detail */}
-                    <span onClick={()=> {changeDetail && onSubmit(); setChangeDetail((prevState)=>!prevState);}} className='pl-1 text-yellow-600 hover:text-yellow-900 transition duration-200 ease-in-out lg:ml-1 cursor-pointer'>
+                    <span onClick={()=> {changeDetail && onSubmit(); setChangeDetail((prevState)=>!prevState);}} className='pl-1 text-yellow-600 hover:text-yellow-900 hover:font-semibold transition duration-200 ease-in-out lg:ml-1 cursor-pointer'>
                       {changeDetail ? "Apply changes" : "Edit"}
                     </span>
                     </p>
-                    <p onClick={handleLogout} className='text-sky-700  hover:text-red-900 transition duration-200 ease-in-out cursor-pointer'>Sign out</p>             
+                    <p onClick={handleLogout} className='text-sky-700  hover:text-red-900 hover:font-semibold transition duration-200 ease-in-out cursor-pointer'>Sign out</p>             
                   </div>
                   </div>
                 </div>
@@ -212,7 +213,7 @@ export default function UserProfilePage() {
 
         <section>           
           <div className="w-96 md:w-96 lg:mr-40 lg:mt-16 justify-center md:items-center lg:pl-10">
-                <img src={profileSideImage} alt=""/>
+                <img className="rounded-lg" src={profileSideImage} alt=""/>
           </div>            
 
         </section>

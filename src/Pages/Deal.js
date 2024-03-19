@@ -49,7 +49,7 @@ export default function Deal() {
 
 
   return (
-    <>
+    <div className="min-h-screen bg-gradient-to-r from-purple-100 to-teal-100">
         <Header/>
         {/* npm install react-slideshow-image */}
         <div className='slide-container mt-6 mb-3'>
@@ -85,6 +85,6 @@ export default function Deal() {
             {deal.shipping ? `Delivery Fee - $${deal.deliveryFee}` : "Pickup only"}
           </p>
         </div>
-    </>
+    </div>
   )
 }

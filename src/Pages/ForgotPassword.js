@@ -34,7 +34,7 @@ function ForgotPassword(){
     }
     
     return(
-    <div>
+    <div className="min-h-screen bg-gradient-to-r from-purple-100 to-teal-100">
         <Header/>
         <div className="flex justify-center flex-wrap items-center px-6 py-12 max-w-6xl mx-auto mt-16 max-mt-20">
             <div className="md:w-[60%] lg:w-[45%] mb-12 md:mb-6">
@@ -60,7 +60,7 @@ function ForgotPassword(){
                             <Link to="/Login" className="no-underline cursor-pointer text-sky-700  hover:text-red-900 transition duration-200 ease-in-out">Login instead?</Link>
                         </p>
                     </div>
-                    <button className="w-full bg-sky-700 text-white px-7 py-2 mb-6 text-sm font-medium uppercase rounded shadow-lg hover:bg-sky-800 transition duration-150 ease-in-out hover:shadow-xl active:bg-blue-900"
+                    <button className="w-full bg-gradient-to-r from-purple-300 to-teal-300 text-white px-7 py-2 mb-6 text-sm font-medium uppercase rounded shadow-lg hover:bg-sky-800 transition duration-150 ease-in-out hover:shadow-xl active:bg-blue-900"
                         type="submit">Send reset password
                     </button>
                     <div className=" flex item-center my-0 before:border-t before:flex-1  before:border-gray-300 after:border-t after:flex-1 after:border-gray-300">
