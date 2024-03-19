@@ -11,14 +11,17 @@ import { toast } from "react-toastify";
 import { db } from "../firebase";     // import db object for configuration and initialization of the database
 //#############################
 
-import profileSideImage from "../assets/profileSideImage.jpg"
+import profileSideImage from "../assets/profileSideImage.jpg";
 
-
+//import { collection, query, orderBy, where, getDocs } from 'firebase/firestore';
+//import ListingItem from '../Components/ListingItem';
 
 
 
 export default function UserProfilePage() {
   const auth = getAuth();
+  //const [listings, setListings] = useState([]); // State to store the listings
+  //const [loading, setLoading] = useState(true); // State to track loading status
 
   //fetch data for users collection
     const [userInfo, setUserInfo] = useState({});
@@ -63,7 +66,7 @@ export default function UserProfilePage() {
   }
 
   //handle change the input content
-  function handleOnChange(e){
+  async function handleOnChange(e){
     // get previous state, then keep the previous state, and change the target id's value
     // here the target id are name, email,...
     setFormData((prevState)=> ({
@@ -92,8 +95,7 @@ export default function UserProfilePage() {
     }
   }
 
-  //########################################
-
+  
 
   return (
     <div>
@@ -103,11 +105,6 @@ export default function UserProfilePage() {
               {/* //User Account Page */}
             <div> 
               <p className='text-2xl font-semibold  text-sky-800'>Account Detail</p>
-              <p>
-                <Link to=''className="mr-6 cursor-pointer  hover:text-sky-950 hover:font-semibold transition duration-150 ease-in-out" style={{ textDecoration: 'none', color:'#64007D' }}>
-                  Save for later
-                </Link>
-              </p>
 
               <div className='mt-5'>
                 <p className='text-lg font-semibold text-sky-800'>Buying</p>
@@ -124,7 +121,7 @@ export default function UserProfilePage() {
               <div className='mt-5'>
                 <p className='text-lg font-semibold text-sky-800'>Selling</p>
                 <p>
-                  <Link to='/ListProductPage' className="mr-6 cursor-pointer  hover:text-sky-950 hover:font-semibold transition duration-150 ease-in-out" style={{ textDecoration: 'none', color:'#64007D' }}>
+                  <Link to='/CreateListing' className="mr-6 cursor-pointer  hover:text-sky-950 hover:font-semibold transition duration-150 ease-in-out" style={{ textDecoration: 'none', color:'#64007D' }}>
                     Listing an item
                   </Link>
                 </p>
@@ -143,7 +140,7 @@ export default function UserProfilePage() {
                 <div className='flex-auto max-w-lg shadow-md rounded p-6 px-10'>
                   <div className='text-lg font-semibold  text-sky-800 text-center mb-8'>
                     <div className='flex justify-center text-4xl border-none'><FaCircleUser /></div>                  
-                    <input type='text' id='username' value={userInfo.username} placeholder='Set an username' disabled={!changeDetail} onChange={handleOnChange} className={`text-center text-lg font-semibold  text-sky-800 
+                    <input type='text' id='username' value={userInfo.username} placeholder='username' disabled={!changeDetail} onChange={handleOnChange} className={`text-center text-lg font-semibold  text-sky-800 
                         bg-white border-transparent rounded transition ease-in-out mr-0 p-0 ${changeDetail && "bg-red-400 focus:bg-red-400"}`}/>
                   </div>
 
@@ -220,10 +217,9 @@ export default function UserProfilePage() {
 
         </section>
       </div>
-       
-
     </div>
 
         
   )
-  }
+}
+

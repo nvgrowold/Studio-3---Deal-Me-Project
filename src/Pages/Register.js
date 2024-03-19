@@ -68,7 +68,7 @@ function Register(){
             toast.success("Sign up was successful");
 
             //after adding the new user to the database, navigate them to another page
-            navigate("/UserProfilePage");
+            navigate("/Login");
         } catch (error) {
             // put errors here  
             //console.log(error);

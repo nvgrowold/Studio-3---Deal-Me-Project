@@ -15,9 +15,9 @@ import GuestPage from "./Pages/GuestPage";
 import Register from "./Pages/Register";
 import ContactUsPage from "./Pages/ContactUsPage";
 import UserProfilePage from "./Pages/UserProfilePage";
-import ListProductPage from "./Pages/ListProductPage";
 import MyListingsPage from "./Pages/MyListingsPage";
 import CreateListing from "./Pages/CreateListing";
+import EditListing from "./Pages/EditListing";
 
 //import AdminDashboard stuff
 import AdminDashboardLayout from "./Pages/AdminNavPages/AdminDashboardLayout";
@@ -28,6 +28,9 @@ import Settings from "./Pages/AdminNavPages/Settings";
 
 //private route for user UserProfilePage protection
 import PrivateRoute from "./Components/PrivateRoute";
+import Deal from "./Pages/Deal";
+
+
 
 
 function App() {
@@ -41,10 +44,9 @@ function App() {
           <Route exact path='/ContactUsPage' element={<ContactUsPage/>}/>
           <Route exact path='/ForgotPassword' element={<ForgotPassword/>}/>
           <Route exact path='/GuestPage' element={<GuestPage/>}/>
-          <Route exact path='/ListProductPage' element={<ListProductPage/>}/>
           <Route exact path='/Login' element={<Login/>}/>
           <Route exact path='/Register' element={<Register/>}/>
-          <Route exact path='/MyListingsPage' element={<MyListingsPage/>}/>
+          <Route exact path='/category/:categoryName/:listingID' element={<Deal/>}/>
           {/* user profile protection route */}
           <Route path="/UserProfilePage" element={<PrivateRoute />}>
             <Route path="/UserProfilePage" element={<UserProfilePage />} />
@@ -53,6 +55,16 @@ function App() {
           <Route path="/CreateListing" element={<PrivateRoute />}>
             <Route path="/CreateListing" element={<CreateListing />} />
           </Route>
+
+            {/* private route for EditListing, according to listingID to target the right listing. Only after login could edit listing*/}
+            <Route path="/edit-listing" element={<PrivateRoute />}>
+            <Route path="/edit-listing/:listingID" element={<EditListing />} />
+          </Route>
+          {/* private route for MyListingsPage, only after login could view my listing*/}
+          <Route path="/MyListingsPage" element={<PrivateRoute />}>
+            <Route path="/MyListingsPage" element={<MyListingsPage />} />
+          </Route>
+
           {/* Admin Pages below */}
           <Route exact path='/AdminDashboardLayout' element={<AdminDashboardLayout/>}/>
           <Route exact path='/Dashboard' element={<Dashboard/>}/>
