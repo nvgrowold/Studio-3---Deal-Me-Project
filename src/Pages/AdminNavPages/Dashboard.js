@@ -4,6 +4,7 @@ import Header from '../../Components/Header';
 import SideNav from '../SideNav';
 
 
+
 const Dashboard = () => {
   const [statistics, setStatistics] = useState(null);
 
@@ -34,7 +35,8 @@ const Dashboard = () => {
   };
 
   return (
-    <>
+    <div className="min-h-screen bg-gradient-to-r from-purple-100 to-teal-100">
+    
     <Header/>
     <SideNav/>
     <div className='page__main'>
@@ -78,7 +80,7 @@ const Dashboard = () => {
         <p>Loading statistics...</p>
       )}
     </div>
-    </>
+    </div>
   );
 };
 

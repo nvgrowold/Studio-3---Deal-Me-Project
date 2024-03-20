@@ -10,7 +10,7 @@ function Homepage() {
     return (
         <div className="relative w-full h-screen"> {/* Container with relative positioning */}
             {/* make the very very light black cover above the video to make video a bit darker for better showing the text content*/}
-            <div className="overlay absolute top-0 left-0 w-full h-full" style={{ backgroundColor: 'rgba(0,0,0,.4)' }}></div>
+            <div className="overlay absolute top-0 left-0 w-full h-full" style={{ backgroundColor: 'rgba(0,0,0,.3)' }}></div>
             <video src={pinkBox} autoPlay loop muted className='w-full h-full object-cover'/>
             <section className="absolute top-0 left-0 w-full h-full flex items-center justify-center"> {/*make this section sit on top of the video */}
                 <div className='absolute right-6 top-6 pt-4 transition-shadow duration-150 ease-in-out hover:shadow-lg' title='Admin Login'>
@@ -48,7 +48,7 @@ function Homepage() {
                 <div className='flex lg:flex-col'>
                     <div className="ml-40 w-full lg:mt-6 lg:ml-20 text-wrap lg:w-1/3 ">
                         <p className="text-white text-xl md:text-2xl font-medium">
-                            Find Deals, Unlock Possibilities. '<span className='text-pink-400'>Deal Me</span>' connects savvy buyers with sellers in a marketplace where every deal is an opportunity. Simple, effective, and for everyone.
+                            Find Deals, Unlock Possibilities. '<span className='text-teal-500'>Deal Me</span>' connects savvy buyers with sellers in a marketplace where every deal is an opportunity. Simple, effective, and for everyone.
                         </p>
                     </div> 
                 </div>

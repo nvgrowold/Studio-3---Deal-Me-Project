@@ -17,6 +17,8 @@ import ContactUsPage from "./Pages/ContactUsPage";
 import UserProfilePage from "./Pages/UserProfilePage";
 import MyListingsPage from "./Pages/MyListingsPage";
 import CreateListing from "./Pages/CreateListing";
+import CartPage from "./Pages/CartPage";
+
 import EditListing from "./Pages/EditListing";
 
 //import AdminDashboard stuff
@@ -29,9 +31,6 @@ import Settings from "./Pages/AdminNavPages/Settings";
 //private route for user UserProfilePage protection
 import PrivateRoute from "./Components/PrivateRoute";
 import Deal from "./Pages/Deal";
-
-
-
 
 function App() {
   return (
@@ -46,6 +45,9 @@ function App() {
           <Route exact path='/GuestPage' element={<GuestPage/>}/>
           <Route exact path='/Login' element={<Login/>}/>
           <Route exact path='/Register' element={<Register/>}/>
+          <Route exact path='/MyListingsPage' element={<MyListingsPage/>}/>
+       
+          <Route exact path='/Cart' element={<CartPage />} />
           <Route exact path='/category/:categoryName/:listingID' element={<Deal/>}/>
           {/* user profile protection route */}
           <Route path="/UserProfilePage" element={<PrivateRoute />}>

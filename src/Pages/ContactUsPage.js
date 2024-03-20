@@ -38,44 +38,48 @@ export default function ContactUsPage() {
   const handleClose = () => setShowModal(false);
 
   return (
-    <div>
+    <div className="min-h-screen bg-gradient-to-r from-purple-100 to-teal-100">
       <Header/>
       {/* Contact form setup */}
       <Container style={{ marginTop: '100px', maxWidth: '600px' }}>
-          <Form ref={form} onSubmit={sendEmail}>
-              <h4 className="text-center mb-4">Contact Us</h4>
+        <h4 className="text-center mb-4">Contact Us</h4>
+          <Form ref={form} onSubmit={sendEmail} className='md:ml-16'>
               {/* Form fields for name, email, and message */}
               <Row className="mb-3">
                   <Form.Label column sm={2}>Name</Form.Label>
                   <Col sm={10}>
-                      <Form.Control type="text" name="user_name" />
+                      <Form.Control type="text" name="user_name" className="w-full"/>
                   </Col>
               </Row>
               <Row className="mb-3">
                   <Form.Label column sm={2}>Email</Form.Label>
                   <Col sm={10}>
-                      <Form.Control type="email" name="user_email" />
+                      <Form.Control type="email" name="user_email" className="w-full" />
                   </Col>
               </Row>
               <Row className="mb-3">
                   <Form.Label column sm={2}>Message</Form.Label>
                   <Col sm={10}>
-                      <Form.Control as="textarea" name="message" />
+                      <Form.Control as="textarea" name="message" className="w-full" />
                   </Col>
               </Row>
-              <button className='w-full bg-sky-700 text-white px-7 py-2 mb-6 text-sm font-medium uppercase rounded shadow-lg hover:bg-sky-800 transition duration-150 ease-in-out hover:shadow-xl active:bg-blue-900'
-               type="submit">Send</button>
+              <Row className="mb-3">
+                <Col sm={10}>
+                    <button className='w-full bg-gradient-to-r from-purple-300 to-teal-300 text-slate-800 px-7 py-2 mb-6 text-sm font-medium uppercase rounded shadow-lg hover:bg-sky-800 transition duration-150 ease-in-out hover:shadow-xl active:bg-blue-900'
+                    type="submit">Send</button>
+                </Col>                
+              </Row>
           </Form>
       </Container>
             
       {/* Modal for displaying success message upon form submission */}
       <Modal show={showModal} onHide={handleClose} className="custom-modal" dialogClassName="custom-modal-dialog">
-          <Modal.Header closeButton>
+          <Modal.Header closeButton className='bg-gradient-to-r from-purple-50 to-teal-50'>
               <Modal.Title>Message Sent</Modal.Title>
           </Modal.Header>
-          <Modal.Body>Your message has been sent. We will get in touch with you shortly.</Modal.Body>
-          <Modal.Footer>
-              <button className='w-full bg-sky-700 text-white px-7 py-2 mb-6 text-sm font-medium uppercase rounded shadow-lg hover:bg-sky-800 transition duration-150 ease-in-out hover:shadow-xl active:bg-blue-900'
+          <Modal.Body className='bg-gradient-to-r from-purple-50 to-teal-50'>Your message has been sent. We will get in touch with you shortly.</Modal.Body>
+          <Modal.Footer className='bg-gradient-to-r from-purple-50 to-teal-50'>
+              <button className='w-full bg-gradient-to-r from-purple-300 to-teal-300 text-slate-800 px-7 py-2 mb-6 text-sm font-medium uppercase rounded shadow-lg hover:bg-sky-800 transition duration-150 ease-in-out hover:shadow-xl active:bg-blue-900'
                onClick={handleClose}>Close</button>
           </Modal.Footer>
       </Modal>      
