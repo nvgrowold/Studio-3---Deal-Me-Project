@@ -23,10 +23,8 @@ export default function CreateListing() {
     //hook state for loading spinner, after click submit, state will change to true
     const [loading, setLoading] =useState(false);
 
-    //hook state for sell or rent button + destructure it
-    //hook state to hold name/bedrooms/baths value + destructure it
+    //hook state for delivery or pickup only button + destructure it
     const[formData, setFormData] = useState({
-        // type: "rent",
         productName: "",
         category: "",
         region: "",
