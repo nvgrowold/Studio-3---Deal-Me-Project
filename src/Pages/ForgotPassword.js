@@ -4,6 +4,7 @@ import Header from "../Components/Header";
 import GoogleSignIn from "../Components/GoogleSignIn";
 import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 import {toast} from "react-toastify";
+import pinkBox from '../assets/PinkBox.mp4';
 
 
 function ForgotPassword(){
@@ -36,10 +37,11 @@ function ForgotPassword(){
     return(
     <div className="min-h-screen bg-gradient-to-r from-purple-100 to-teal-100">
         <Header/>
-        <div className="flex justify-center flex-wrap items-center px-6 py-12 max-w-6xl mx-auto mt-16 max-mt-20">
+        <div className="flex justify-center flex-wrap items-center px-6 py-12 max-w-6xl mx-auto mt-20 max-mt-20">
             <div className="md:w-[60%] lg:w-[45%] mb-12 md:mb-6">
-                <img src="https://plus.unsplash.com/premium_photo-1681488350342-19084ba8e224?q=80&w=2888&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="/" 
-                className="w-full h-400 rounded-2xl"/>
+                <video src={pinkBox} autoPlay loop muted className='w-full h-full object-cover rounded-2xl'/>   
+                {/* <img src="https://plus.unsplash.com/premium_photo-1681488350342-19084ba8e224?q=80&w=2888&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="/"  */}
+                {/* className="w-full h-400 rounded-2xl"/> */}
             </div>
             <div className="w-full md:w-[60%] lg:w-[45%] lg:ml-20">
                 {/* this is calling onSubmit function */}
