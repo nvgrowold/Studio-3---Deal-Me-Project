@@ -46,7 +46,6 @@ export default function Header() {
 
                 <li className='no-underline  text-white hover:text-sky-500 hover:font-extrabold transition duration-150 ease-in-out'
                   onClick={() => navigate("/ContactUsPage")}>Contact Us</li>
-
             </ul>
         </div>
       </header>

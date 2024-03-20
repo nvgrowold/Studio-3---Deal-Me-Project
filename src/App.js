@@ -18,6 +18,7 @@ import UserProfilePage from "./Pages/UserProfilePage";
 import MyListingsPage from "./Pages/MyListingsPage";
 import CreateListing from "./Pages/CreateListing";
 import CartPage from "./Pages/CartPage";
+
 import EditListing from "./Pages/EditListing";
 
 //import AdminDashboard stuff
@@ -29,6 +30,9 @@ import Settings from "./Pages/AdminNavPages/Settings";
 
 //private route for user UserProfilePage protection
 import PrivateRoute from "./Components/PrivateRoute";
+import Deal from "./Pages/Deal";
+
+
 
 import Deal from "./Pages/Deal";
 

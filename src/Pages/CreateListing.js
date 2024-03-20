@@ -388,7 +388,6 @@ export default function CreateListing() {
 
         </section>
       </div>
-
     </div>
     
   )
