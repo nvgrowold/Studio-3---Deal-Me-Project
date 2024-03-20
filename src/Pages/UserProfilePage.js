@@ -52,11 +52,12 @@ export default function UserProfilePage() {
   const [changeDetail, setChangeDetail] = useState(false);
 
   const [formData, setFormData] = useState({
+    username: auth.currentUser.username,
     name: auth.currentUser.displayName,
     email:auth.currentUser.email,
   });
   //destructure the name and email, otherwise will get error
-  const {name, email} =formData;
+  const {username,name, email} =formData;
 
   function handleLogout(){
     //first to deal with sign out by using the auth
@@ -88,6 +89,17 @@ export default function UserProfilePage() {
         await updateDoc(docRef, {
           name: name,
         })
+      } else if(auth.currentUser.username !== username){
+        //update displayname in firebase auth
+        await updateProfile(auth.currentUser, {
+          username: username,
+        });
+        //update the name in the firestore
+        const docRef = doc(db, 'users', auth.currentUser.uid)
+        await updateDoc(docRef, {
+          username: username,
+        })
+
       }
       toast.success("Profile updated successfully")
     } catch (error){
