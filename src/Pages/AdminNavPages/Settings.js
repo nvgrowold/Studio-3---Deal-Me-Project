@@ -7,7 +7,7 @@ import SideNav from '../SideNav'
 
 const Settings = () => {
   return (
-    <>
+    <div className="min-h-screen bg-gradient-to-r from-purple-100 to-teal-100">
     <Header/>
     <SideNav/>
     
@@ -37,7 +37,7 @@ const Settings = () => {
         {/* Add more setting groups for security, notifications, theme, etc. */}
       </div>
     </div>
-    </>
+    </div>
   );
 };
 

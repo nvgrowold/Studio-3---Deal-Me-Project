@@ -67,7 +67,7 @@ function CartPage() {
     };
 
     return (
-        <div>
+        <div className="min-h-screen bg-gradient-to-r from-purple-100 to-teal-100">
             <Header/>
             <div className="containercart">
                 <h2>Cart</h2>
@@ -140,7 +140,6 @@ function CartPage() {
                 </div>
                 {/* <Link to="/GuestPage">Back to Product page</Link> */}
                 <Link to="/GuestPage" className="w-full bg-sky-700 text-white px-7 py-2 mb-6 text-sm font-medium uppercase rounded shadow-lg hover:bg-sky-800 transition duration-150 ease-in-out hover:shadow-xl active:bg-blue-900 inline-block text-center">Back to Product page</Link>
-
 
             </div>
         </div>

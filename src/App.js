@@ -17,6 +17,8 @@ import ContactUsPage from "./Pages/ContactUsPage";
 import UserProfilePage from "./Pages/UserProfilePage";
 import MyListingsPage from "./Pages/MyListingsPage";
 import CreateListing from "./Pages/CreateListing";
+import CartPage from "./Pages/CartPage";
+
 import EditListing from "./Pages/EditListing";
 import CartPage from "./Pages/CartPage";
 import CheckoutPage from "./Pages/CheckoutPage";
@@ -31,9 +33,6 @@ import Settings from "./Pages/AdminNavPages/Settings";
 import PrivateRoute from "./Components/PrivateRoute";
 import Deal from "./Pages/Deal";
 
-
-
-
 function App() {
   return (
     <div className="App">
@@ -47,6 +46,9 @@ function App() {
           <Route exact path='/GuestPage' element={<GuestPage/>}/>
           <Route exact path='/Login' element={<Login/>}/>
           <Route exact path='/Register' element={<Register/>}/>
+          <Route exact path='/MyListingsPage' element={<MyListingsPage/>}/>
+       
+          <Route exact path='/Cart' element={<CartPage />} />
           <Route exact path='/category/:categoryName/:listingID' element={<Deal/>}/>
           <Route exact path='/Cart' element={<CartPage />} />
           <Route exact path='/CheckoutPage' element={<CheckoutPage/>}/>
