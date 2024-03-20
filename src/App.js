@@ -20,7 +20,6 @@ import CreateListing from "./Pages/CreateListing";
 import CartPage from "./Pages/CartPage";
 
 import EditListing from "./Pages/EditListing";
-import CartPage from "./Pages/CartPage";
 import CheckoutPage from "./Pages/CheckoutPage";
 //import AdminDashboard stuff
 import AdminDashboardLayout from "./Pages/AdminNavPages/AdminDashboardLayout";
