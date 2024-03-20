@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { collection, addDoc } from 'firebase/firestore';
 import { db } from '../firebase'; 
+import "../Styling/CartPage.css"; // Import CSS file for styling
 import Header from '../Components/Header';
-import "../Styling/CartPage.css";
 
 function CartPage() {
     const [cartItems, setCartItems] = useState([]);
@@ -23,6 +23,11 @@ function CartPage() {
             const itemsArray = Object.keys(parsedItems).map(key => parsedItems[key]);
             setCartItems(itemsArray);
         }
+
+
+    useEffect(() => {
+        const storedCartItems = JSON.parse(sessionStorage.getItem('cart')) || [];
+        setCartItems(storedCartItems);
     }, []);
 
     useEffect(() => {
@@ -33,6 +38,7 @@ function CartPage() {
         if (!Array.isArray(items)) {
             items = [];
         }
+
         const total = items.reduce((acc, curr) => {
             const price = parseFloat(curr.price) || 0;
             const quantity = parseInt(curr.quantity) || 0;
@@ -40,6 +46,7 @@ function CartPage() {
         }, 0);
         setTotalPrice(total);
     };
+
 
 
     const validateEmail = (email) => /\S+@\S+\.\S+/.test(email);
@@ -63,6 +70,22 @@ function CartPage() {
             window.location.href = '/CheckoutPage';
         } catch (error) {
             console.error("Error saving user information: ", error);
+
+    const removeFromCart = (index) => {
+        const updatedCartItems = [...cartItems];
+        updatedCartItems.splice(index, 1);
+        setCartItems(updatedCartItems);
+        sessionStorage.setItem('cart', JSON.stringify(updatedCartItems));
+    };
+
+    const handleQuantityChange = (index, quantity) => {
+        const updatedCartItems = [...cartItems];
+        if (quantity <= 0) {
+            removeFromCart(index);
+        } else {
+            updatedCartItems[index].quantity = quantity;
+            setCartItems(updatedCartItems);
+            sessionStorage.setItem('cart', JSON.stringify(updatedCartItems));
         }
     };
 
