@@ -32,13 +32,6 @@ import Settings from "./Pages/AdminNavPages/Settings";
 import PrivateRoute from "./Components/PrivateRoute";
 import Deal from "./Pages/Deal";
 
-
-
-import Deal from "./Pages/Deal";
-
-
-
-
 function App() {
   return (
     <div className="App">
