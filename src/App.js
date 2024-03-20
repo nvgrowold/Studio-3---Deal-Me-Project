@@ -18,7 +18,8 @@ import UserProfilePage from "./Pages/UserProfilePage";
 import MyListingsPage from "./Pages/MyListingsPage";
 import CreateListing from "./Pages/CreateListing";
 import EditListing from "./Pages/EditListing";
-
+import CartPage from "./Pages/CartPage";
+import CheckoutPage from "./Pages/CheckoutPage";
 //import AdminDashboard stuff
 import AdminDashboardLayout from "./Pages/AdminNavPages/AdminDashboardLayout";
 import Dashboard from "./Pages/AdminNavPages/Dashboard";
@@ -47,6 +48,8 @@ function App() {
           <Route exact path='/Login' element={<Login/>}/>
           <Route exact path='/Register' element={<Register/>}/>
           <Route exact path='/category/:categoryName/:listingID' element={<Deal/>}/>
+          <Route exact path='/Cart' element={<CartPage />} />
+          <Route exact path='/CheckoutPage' element={<CheckoutPage/>}/>
           {/* user profile protection route */}
           <Route path="/UserProfilePage" element={<PrivateRoute />}>
             <Route path="/UserProfilePage" element={<UserProfilePage />} />

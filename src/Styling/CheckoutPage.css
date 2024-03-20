@@ -1,0 +1,78 @@
+/* Checkout Page Container */
+.checkout-container {
+    background-color: #f0f8ff; /* Alice blue background */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    max-width: 600px; /* Limit width for better readability */
+    margin: 0 auto; /* Center align */
+    transition: transform 0.3s ease-in-out; /* Add transition effect */
+  }
+  
+  .checkout-container:hover {
+    transform: translateY(-5px); /* Move up on hover */
+  }
+  
+  /* Heading */
+  .checkout-heading {
+    color: #4682b4; /* Steel blue */
+    text-align: center;
+    font-size: 28px;
+    margin-bottom: 20px;
+  }
+  
+  /* User Information Section */
+  .user-info-section {
+    border-bottom: 2px solid #2e8b57; /* Sea green border */
+    margin-bottom: 20px; /* Add some space */
+    padding-bottom: 20px; /* Add some space */
+  }
+  
+  .user-info-section h3 {
+    color: #228b22; /* Forest green */
+    font-size: 24px;
+    margin-bottom: 15px;
+  }
+  
+  .user-info p {
+    color: #228b22; /* Forest green */
+    margin: 5px 0; /* Adjust spacing */
+  }
+  
+  /* Purchased Items Section */
+  .purchased-items-section h3 {
+    color: #228b22; /* Forest green */
+    font-size: 24px;
+    margin-bottom: 15px;
+  }
+  
+  .purchased-item {
+    background-color: #e0ffff; /* Light cyan */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle box shadow */
+    padding: 15px;
+    margin-bottom: 15px; /* Add some space between items */
+    transition: transform 0.3s ease-in-out; /* Add transition effect */
+  }
+  
+  .purchased-item:hover {
+    transform: translateY(-5px); /* Move up on hover */
+  }
+  
+  .product-name {
+    color: #3cb371; /* Medium sea green */
+    font-weight: bold;
+  }
+  
+  .product-price {
+    color: #4169e1; /* Royal blue */
+  }
+  
+  .product-quantity {
+    color: #6495ed; /* Cornflower blue */
+  }
+  
+  .divider {
+    border-top: 1px solid #2e8b57; /* Sea green divider */
+    margin-top: 15px; /* Add space above divider */
+  }
+  

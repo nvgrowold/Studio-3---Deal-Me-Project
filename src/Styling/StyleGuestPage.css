@@ -25,9 +25,11 @@
     flex-wrap: wrap;
     gap: 10px;
     margin-bottom: 20px;
+    margin-top: 20px;
   }
   
   label {
+    margin-top: 10px;
     font-weight: bold;
     margin-right: 5px;
     color: #555;
@@ -72,4 +74,21 @@
   }
   
   /* Add more styles as needed */
+  .link-back {
+    display: inline-block;
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-top: 20px;
+    cursor: pointer;
+  }
+  
+  .link-back:hover {
+    background-color: #45a049; /* Darker green */
+  }
   
