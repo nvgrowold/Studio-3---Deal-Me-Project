@@ -177,7 +177,7 @@ export default function CreateListing() {
               <div className='mt-5'>
                 <p className='text-lg font-semibold text-sky-800'>Buying</p>
                 <p>
-                  <Link to='/ItemsPurchased'className="mr-6 cursor-pointer  hover:text-sky-950 hover:font-semibold transition duration-150 ease-in-out" style={{ textDecoration: 'none', color:'#64007D' }}>
+                  <Link to='/MyPurchasedItemsPage'className="mr-6 cursor-pointer  hover:text-sky-950 hover:font-semibold transition duration-150 ease-in-out" style={{ textDecoration: 'none', color:'#64007D' }}>
                     Items I purchased
                   </Link>
                 </p>
