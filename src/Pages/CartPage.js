@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { collection, addDoc } from 'firebase/firestore';
-import { db } from '../firebase'; 
 import "../Styling/CartPage.css"; // Import CSS file for styling
 import Header from '../Components/Header';
 
@@ -23,11 +21,6 @@ function CartPage() {
             const itemsArray = Object.keys(parsedItems).map(key => parsedItems[key]);
             setCartItems(itemsArray);
         }
-
-
-    useEffect(() => {
-        const storedCartItems = JSON.parse(sessionStorage.getItem('cart')) || [];
-        setCartItems(storedCartItems);
     }, []);
 
     useEffect(() => {
@@ -71,22 +64,7 @@ function CartPage() {
         } catch (error) {
             console.error("Error saving user information: ", error);
 
-    const removeFromCart = (index) => {
-        const updatedCartItems = [...cartItems];
-        updatedCartItems.splice(index, 1);
-        setCartItems(updatedCartItems);
-        sessionStorage.setItem('cart', JSON.stringify(updatedCartItems));
-    };
-
-    const handleQuantityChange = (index, quantity) => {
-        const updatedCartItems = [...cartItems];
-        if (quantity <= 0) {
-            removeFromCart(index);
-        } else {
-            updatedCartItems[index].quantity = quantity;
-            setCartItems(updatedCartItems);
-            sessionStorage.setItem('cart', JSON.stringify(updatedCartItems));
-        }
+        };
     };
 
     return (
