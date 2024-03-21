@@ -177,7 +177,7 @@ export default function CreateListing() {
               <div className='mt-5'>
                 <p className='text-lg font-semibold text-sky-800'>Buying</p>
                 <p>
-                  <Link to=''className="mr-6 cursor-pointer  hover:text-sky-950 hover:font-semibold transition duration-150 ease-in-out" style={{ textDecoration: 'none', color:'#64007D' }}>
+                  <Link to='/ItemsPurchased'className="mr-6 cursor-pointer  hover:text-sky-950 hover:font-semibold transition duration-150 ease-in-out" style={{ textDecoration: 'none', color:'#64007D' }}>
                     Items I purchased
                   </Link>
                 </p>
@@ -202,7 +202,7 @@ export default function CreateListing() {
 
         <section>
 
-        <div className="max-w-md px-2 mx-auto">      
+        <div className="max-w-md px-2 mx-auto shadow-lg">      
         <h1 className='text-center mt-6 text-2xl font-semibold  text-sky-800'>Listing An Item</h1>
         <form onSubmit={onSubmit} className='flex-auto max-w-lg shadow-md rounded p-6 px-10'>          
           {/* Name input area */}

@@ -31,6 +31,7 @@ import Settings from "./Pages/AdminNavPages/Settings";
 //private route for user UserProfilePage protection
 import PrivateRoute from "./Components/PrivateRoute";
 import Deal from "./Pages/Deal";
+import MyPurchasedItemsPage from "./Pages/MyPurchasedItemsPage";
 
 function App() {
   return (
@@ -58,13 +59,18 @@ function App() {
             <Route path="/CreateListing" element={<CreateListing />} />
           </Route>
 
-            {/* private route for EditListing, according to listingID to target the right listing. Only after login could edit listing*/}
-            <Route path="/edit-listing" element={<PrivateRoute />}>
-            <Route path="/edit-listing/:listingID" element={<EditListing />} />
+          {/* private route for EditListing, according to listingID to target the right listing. Only after login could edit listing*/}
+          <Route path="/edit-listing" element={<PrivateRoute />}>
+          <Route path="/edit-listing/:listingID" element={<EditListing />} />
           </Route>
           {/* private route for MyListingsPage, only after login could view my listing*/}
           <Route path="/MyListingsPage" element={<PrivateRoute />}>
             <Route path="/MyListingsPage" element={<MyListingsPage />} />
+          </Route>
+
+          {/* private route for ItemsPurchased Page, only after login could view my listing*/}
+          <Route path="/MyPurchasedItemsPage" element={<PrivateRoute />}>
+            <Route path="/MyPurchasedItemsPage" element={<MyPurchasedItemsPage />} />
           </Route>
 
           {/* Admin Pages below */}
