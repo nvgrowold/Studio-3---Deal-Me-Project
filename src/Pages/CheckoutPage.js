@@ -5,6 +5,7 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import "../Styling/CheckoutPage.css";
 import Header from '../Components/Header';
+import { toast } from 'react-toastify';
 
 // Firebase configuration
 const firebaseConfig = {
@@ -46,25 +47,35 @@ const CheckoutPage = () => {
   const handlePayment = async () => {
     try {
       const db = firebase.firestore();
+      const user = firebase.auth().currentUser; // Get the currently signed-in user
+
+      if (!user) {
+        alert('No user signed in.');
+        return;
+      }
+
+      const userId = user.uid; // Get the user's UID
   
       // Combine user information and purchased items into a single object
       const orderData = {
         userInfo: userInfo,
-        purchasedItems: purchasedItems
+        purchasedItems: purchasedItems,
+        userRef: userId, // Add userRef here
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(), // Optional: Add a timestamp
       };
   
       // Store combined data in the 'orderitems' collection
       await db.collection('orderitems').add(orderData);
   
       // Notify user about successful payment
-      alert('Payment successful! Your order has been placed.');
+      toast.success('Payment successful! Your order has been placed.');
   
       // Clear session storage after successful payment
       sessionStorage.removeItem('productList');
       sessionStorage.removeItem('userInfo');
     } catch (error) {
       console.error('Error processing payment:', error);
-      alert('Payment failed. Please try again later.'); // Show user-friendly error message
+      toast.error('Payment failed. Please try again later.'); // Show user-friendly error message
     }
   };
   
