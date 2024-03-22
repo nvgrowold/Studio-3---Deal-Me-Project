@@ -84,7 +84,7 @@ const ProductList = () => {
   };
 
   return (
-    <div>
+    <div className="min-h-screen bg-gradient-to-r from-purple-100 to-teal-100">
       <Header />
       <div className="filter-section">
         <label htmlFor="category">Filter by Category:</label>

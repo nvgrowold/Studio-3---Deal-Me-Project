@@ -2,8 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import "../Styling/CartPage.css"; // Import CSS file for styling
 import Header from '../Components/Header';
-import "../Styling/CartPage.css";
 
 function CartPage() {
     const [cartItems, setCartItems] = useState([]);
@@ -29,6 +29,11 @@ function CartPage() {
             const itemsArray = Object.keys(parsedItems).map(key => parsedItems[key]);
             setCartItems(itemsArray);
         }
+
+
+    useEffect(() => {
+        const storedCartItems = JSON.parse(sessionStorage.getItem('cart')) || [];
+        setCartItems(storedCartItems);
     }, []);
 
     useEffect(() => {
@@ -96,6 +101,22 @@ function CartPage() {
             window.location.href = '/CheckoutPage';
         } catch (error) {
             console.error("Error saving user information: ", error);
+
+    const removeFromCart = (index) => {
+        const updatedCartItems = [...cartItems];
+        updatedCartItems.splice(index, 1);
+        setCartItems(updatedCartItems);
+        sessionStorage.setItem('cart', JSON.stringify(updatedCartItems));
+    };
+
+    const handleQuantityChange = (index, quantity) => {
+        const updatedCartItems = [...cartItems];
+        if (quantity <= 0) {
+            removeFromCart(index);
+        } else {
+            updatedCartItems[index].quantity = quantity;
+            setCartItems(updatedCartItems);
+            sessionStorage.setItem('cart', JSON.stringify(updatedCartItems));
         }
     };
 
@@ -118,8 +139,27 @@ function CartPage() {
         setCartItems(updatedItems);
     };
 
+    const handleIncrement = (index) => {
+        const updatedItems = [...cartItems];
+        updatedItems[index].quantity++;
+        setCartItems(updatedItems);
+    };
+
+    const handleDecrement = (index) => {
+        const updatedItems = [...cartItems];
+        if (updatedItems[index].quantity > 1) {
+            updatedItems[index].quantity--;
+            setCartItems(updatedItems);
+        }
+    };
+
+    const handleRemove = (index) => {
+        const updatedItems = cartItems.filter((_, i) => i !== index);
+        setCartItems(updatedItems);
+    };
+
     return (
-        <div>
+        <div className="min-h-screen bg-gradient-to-r from-purple-100 to-teal-100">
             <Header/>
             <div className="containercart">
                 <h2>Cart</h2>

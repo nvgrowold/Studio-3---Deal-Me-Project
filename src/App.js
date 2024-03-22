@@ -31,9 +31,6 @@ import Settings from "./Pages/AdminNavPages/Settings";
 import PrivateRoute from "./Components/PrivateRoute";
 import Deal from "./Pages/Deal";
 
-
-
-
 function App() {
   return (
     <div className="App">
@@ -47,6 +44,9 @@ function App() {
           <Route exact path='/GuestPage' element={<GuestPage/>}/>
           <Route exact path='/Login' element={<Login/>}/>
           <Route exact path='/Register' element={<Register/>}/>
+          <Route exact path='/MyListingsPage' element={<MyListingsPage/>}/>
+       
+          <Route exact path='/Cart' element={<CartPage />} />
           <Route exact path='/category/:categoryName/:listingID' element={<Deal/>}/>
           <Route exact path='/Cart' element={<CartPage />} />
           <Route exact path='/CheckoutPage' element={<CheckoutPage/>}/>

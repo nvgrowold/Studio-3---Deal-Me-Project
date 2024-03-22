@@ -3,7 +3,7 @@ import Header from '../Components/Header';
 
 function BuyerDashboard() {
   return (
-    <div>
+    <div className="min-h-screen bg-gradient-to-r from-purple-100 to-teal-100">
       <Header/>
       <h3>Buyer Managing Orders</h3>
     </div>

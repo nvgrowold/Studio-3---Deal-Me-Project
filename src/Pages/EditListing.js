@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import Header from '../Components/Header';
 import Spinner from '../Components/Spinner';
 import { toast } from 'react-toastify';
-import {getStorage, ref, uploadBytesResumable, getDownloadURL} from "firebase/storage";
+import { getStorage, ref, uploadBytesResumable, getDownloadURL} from "firebase/storage";
 import { getAuth } from 'firebase/auth';
 import {v4 as uuidv4} from "uuid";
-import { addDoc, collection, serverTimestamp, doc, getDoc,  updateDoc } from "firebase/firestore";
+import { serverTimestamp, doc, getDoc,  updateDoc } from "firebase/firestore";
 import { db } from '../firebase';
 import { useNavigate, useParams } from "react-router-dom";
 import { Link } from 'react-router-dom';
@@ -196,7 +196,7 @@ export default function CreateListing() {
 
 
   return (
-    <>
+    <div className="min-h-screen bg-gradient-to-r from-purple-100 to-teal-100">
       <Header/>
       <div className='grid gap-8 md:w-auto justify-center mt-10 lg:w-full lg:grid-cols-3 lg:justify-start'>
         <section className='ml-6 lg:ml-40 lg:mt-16 lg:max-w-40'>
@@ -232,7 +232,7 @@ export default function CreateListing() {
 
         <section>
 
-        <div className="max-w-md px-2 mx-auto">      
+        <div className="max-w-md px-2 mx-auto shadow-lg rounded-lg">      
         <h1 className='text-center mt-6 text-2xl font-semibold  text-sky-800'>Edit a listing</h1>
         <form onSubmit={onSubmit} className='flex-auto max-w-lg shadow-md rounded p-6 px-10'>          
           {/* Name input area */}
@@ -413,12 +413,11 @@ export default function CreateListing() {
 
         <section>           
           <div className="w-full md:w-96 lg:mr-40 lg:mt-16 justify-center md:items-center lg:pl-10">
-                <img src={profileSideImage} alt=""/>
+                <img className="rounded-lg" src={profileSideImage} alt=""/>
           </div>            
 
         </section>
       </div>
-    </>
-    
+    </div>    
   )
 }
