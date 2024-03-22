@@ -33,14 +33,21 @@ const CheckoutPage = () => {
     const products = Object.values(productList);
     setPurchasedItems(products);
 
-    // Calculate total price
-    const totalPrice = products.reduce((acc, product) => acc + product.price * product.quantity, 0);
-    setTotalPrice(totalPrice);
+    // Calculate total price including delivery fee
+    let totalPrice = 0;
+    products.forEach(product => {
+        totalPrice += (product.price * product.quantity);
+    });
 
     // Retrieve userInfo from session storage
     const storedUserInfo = JSON.parse(sessionStorage.getItem('userInfo')) || {};
+    const deliveryFee = storedUserInfo.deliveryFee || 0;
+    totalPrice += deliveryFee;
+
+    setTotalPrice(totalPrice);
     setUserInfo(storedUserInfo);
-  }, []);
+}, []);
+
 
   // Function to handle payment and data storage
   const handlePayment = async () => {
@@ -95,6 +102,7 @@ const CheckoutPage = () => {
               <p><strong>Product Name:</strong> {product.name}</p>
               <p><strong>Price:</strong> ${product.price}</p>
               <p><strong>Quantity:</strong> {product.quantity}</p>
+             
               <hr className="divider" />
             </li>
           ))}

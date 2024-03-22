@@ -1,5 +1,6 @@
 // ProductList.js
 
+
 import React, { useState, useEffect } from 'react';
 import Header from '../Components/Header';
 import '../Styling/StyleGuestPage.css';
@@ -36,6 +37,7 @@ const ProductList = () => {
         });
       });
       setListings(listings);
+      setFilteredlistings(listings);
       setLoading(false);
     }
     fetchListings();
@@ -156,7 +158,6 @@ const ProductList = () => {
             </ul>
           </>
         )}
-
       </div>
     </div>
   );
