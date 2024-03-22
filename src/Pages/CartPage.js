@@ -28,9 +28,9 @@ function CartPage() {
             const parsedItems = JSON.parse(storedItems);
             const itemsArray = Object.keys(parsedItems).map(key => parsedItems[key]);
             setCartItems(itemsArray);
-        }
-
-
+}},[])
+    
+    
     useEffect(() => {
         const storedCartItems = JSON.parse(sessionStorage.getItem('cart')) || [];
         setCartItems(storedCartItems);
@@ -39,7 +39,7 @@ function CartPage() {
     useEffect(() => {
         calculateTotalPrice(cartItems);
     }, [cartItems]);
-
+    
     const calculateTotalPrice = (items) => {
         if (!Array.isArray(items)) {
             items = [];
@@ -56,7 +56,7 @@ function CartPage() {
         setTotalPrice(total);
         setDeliveryFee(deliveryTotal);
     };
-
+    
     const validateEmail = (email) => /\S+@\S+\.\S+/.test(email);
     const validateMobileNumber = (number) => /^\+64[0-9]{8,9}$/.test(number);
 
@@ -100,8 +100,8 @@ function CartPage() {
             sessionStorage.setItem('userInfo', JSON.stringify(userInfo));
             window.location.href = '/CheckoutPage';
         } catch (error) {
-            console.error("Error saving user information: ", error);
-
+            console.error("Error saving user information: ", error);}
+        }
     const removeFromCart = (index) => {
         const updatedCartItems = [...cartItems];
         updatedCartItems.splice(index, 1);
@@ -119,25 +119,25 @@ function CartPage() {
             sessionStorage.setItem('cart', JSON.stringify(updatedCartItems));
         }
     };
+        
+    // const handleIncrement = (index) => {
+    //     const updatedItems = [...cartItems];
+    //     updatedItems[index].quantity++;
+    //     setCartItems(updatedItems);
+    // };
 
-    const handleIncrement = (index) => {
-        const updatedItems = [...cartItems];
-        updatedItems[index].quantity++;
-        setCartItems(updatedItems);
-    };
+    // const handleDecrement = (index) => {
+    //     const updatedItems = [...cartItems];
+    //     if (updatedItems[index].quantity > 1) {
+    //         updatedItems[index].quantity--;
+    //         setCartItems(updatedItems);
+    //     }
+    // };
 
-    const handleDecrement = (index) => {
-        const updatedItems = [...cartItems];
-        if (updatedItems[index].quantity > 1) {
-            updatedItems[index].quantity--;
-            setCartItems(updatedItems);
-        }
-    };
-
-    const handleRemove = (index) => {
-        const updatedItems = cartItems.filter((_, i) => i !== index);
-        setCartItems(updatedItems);
-    };
+    // const handleRemove = (index) => {
+    //     const updatedItems = cartItems.filter((_, i) => i !== index);
+    //     setCartItems(updatedItems);
+    // };
 
     const handleIncrement = (index) => {
         const updatedItems = [...cartItems];
@@ -294,5 +294,5 @@ function CartPage() {
         </div>
     );
 }
-
+    
 export default CartPage;
