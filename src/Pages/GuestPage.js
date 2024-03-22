@@ -34,6 +34,7 @@ const ProductList = () => {
         });
       });
       setListings(listings);
+      setFilteredlistings(listings);
       setLoading(false);
     }
     fetchListings();

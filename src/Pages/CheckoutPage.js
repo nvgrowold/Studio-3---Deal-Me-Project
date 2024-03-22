@@ -5,7 +5,6 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import "../Styling/CheckoutPage.css";
 import Header from '../Components/Header';
-import { toast } from 'react-toastify';
 
 // Firebase configuration
 const firebaseConfig = {
@@ -34,48 +33,46 @@ const CheckoutPage = () => {
     const products = Object.values(productList);
     setPurchasedItems(products);
 
-    // Calculate total price
-    const totalPrice = products.reduce((acc, product) => acc + product.price * product.quantity, 0);
-    setTotalPrice(totalPrice);
+    // Calculate total price including delivery fee
+    let totalPrice = 0;
+    products.forEach(product => {
+        totalPrice += (product.price * product.quantity);
+    });
 
     // Retrieve userInfo from session storage
     const storedUserInfo = JSON.parse(sessionStorage.getItem('userInfo')) || {};
+    const deliveryFee = storedUserInfo.deliveryFee || 0;
+    totalPrice += deliveryFee;
+
+    setTotalPrice(totalPrice);
     setUserInfo(storedUserInfo);
-  }, []);
+}, []);
+
+
 
   // Function to handle payment and data storage
   const handlePayment = async () => {
     try {
       const db = firebase.firestore();
-      const user = firebase.auth().currentUser; // Get the currently signed-in user
-
-      if (!user) {
-        alert('No user signed in.');
-        return;
-      }
-
-      const userId = user.uid; // Get the user's UID
   
       // Combine user information and purchased items into a single object
       const orderData = {
         userInfo: userInfo,
-        purchasedItems: purchasedItems,
-        userRef: userId, // Add userRef here
-        timestamp: firebase.firestore.FieldValue.serverTimestamp(), // Optional: Add a timestamp
+        purchasedItems: purchasedItems
       };
   
       // Store combined data in the 'orderitems' collection
       await db.collection('orderitems').add(orderData);
   
       // Notify user about successful payment
-      toast.success('Payment successful! Your order has been placed.');
+      alert('Payment successful! Your order has been placed.');
   
       // Clear session storage after successful payment
       sessionStorage.removeItem('productList');
       sessionStorage.removeItem('userInfo');
     } catch (error) {
       console.error('Error processing payment:', error);
-      toast.error('Payment failed. Please try again later.'); // Show user-friendly error message
+      alert('Payment failed. Please try again later.'); // Show user-friendly error message
     }
   };
   
@@ -106,6 +103,7 @@ const CheckoutPage = () => {
               <p><strong>Product Name:</strong> {product.name}</p>
               <p><strong>Price:</strong> ${product.price}</p>
               <p><strong>Quantity:</strong> {product.quantity}</p>
+             
               <hr className="divider" />
             </li>
           ))}
