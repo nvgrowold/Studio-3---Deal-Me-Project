@@ -44,14 +44,14 @@ export default function MyPurchasedItemsPage() {
         <div className="min-h-screen bg-gradient-to-r from-purple-100 to-teal-100">
             <Header />
             {/* ##################################################### */}
-            <div className="max-w-6xl px-3 mt-10 mx-auto">
+            <div className="max-w-6xl px-3 mt-10  mx-auto ">
                 <h2 className="text-center font-semibold mb-10 text-2xl sticky text-sky-800">
                     My Purchase
                 </h2>
                 {!loading && orders.length > 0 && (
                 <>
                    
-                    <ul className="sm:grid xl:grid-cols-2 2xl:grid-cols-5">
+                    <ul className="sm:grid xl:grid-cols-2 2xl:grid-cols-5 bg-transparent">
                     {orders.map((order) => (
                         //create a component for PurchasedItem
                         <OrderHistory
@@ -65,7 +65,7 @@ export default function MyPurchasedItemsPage() {
                 )}
 
                 {!loading && orders.length === 0 && (
-                    <div className="text-center mt-10  text-sky-800">
+                    <div className="text-center mt-10  text-sky-800 bg-transparent">
                     <p>Oops! Your order history is empty...</p>
                     </div>
                 )}
