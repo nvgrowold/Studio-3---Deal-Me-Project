@@ -6,7 +6,6 @@ import { db } from '../firebase';
 import { Link } from 'react-router-dom';
 import cart from "../assets/cart-shopping-solid.svg";
 import ListingItem from '../Components/ListingItem'; 
-import { getAuth } from 'firebase/auth';
 
 const ProductList = () => {
   const [selectedCategory, setSelectedCategory] = useState('');
@@ -18,8 +17,6 @@ const ProductList = () => {
   const [addedToCart, setAddedToCart] = useState(false);
   const [cartLength, setCartLength] = useState(0);
   const [loading, setLoading] = useState(true);
-
-  const auth = getAuth();
 
   useEffect(() => {
     async function fetchListings() {
@@ -41,7 +38,14 @@ const ProductList = () => {
 
   const addToCart = (listing) => {
     let cart = JSON.parse(sessionStorage.getItem('cart')) || [];
-    cart.push(listing);
+      // Include the listing ID along with the data
+    const cartItem = {
+      id: listing.id, // This assumes listing includes the id. If not, adjust accordingly.
+      data: listing,
+     };
+    cart.push(cartItem);
+   // cart.push(listing);
+
     sessionStorage.setItem('cart', JSON.stringify(cart));
     setCartLength(cart.length);
     setAddedToCart(true);
@@ -148,7 +152,7 @@ const ProductList = () => {
                   key={listing.id}
                   id={listing.id}
                   listing={listing.data}
-                  addToCart={() => addToCart(listing.data)}
+                  addToCart={() => addToCart({id: listing.id, data: listing.data})} // Pass the entire listing object
                 />
               ))}
             </ul>
