@@ -1,0 +1,103 @@
+/* Settings.css */
+.dashboard-container {
+    display: center;
+  }
+  
+  .dashboard-content {
+    flex: 5;
+    padding: 150px;
+  }
+  
+  .settings-page {
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .settings-form {
+    margin-top: 30px;
+  }
+  
+  .setting-group {
+    margin-bottom: 20px;
+  }
+  
+  /* Style for SideNav */
+  .sidenav {
+    width: 2px;
+    background-color: #333;
+    color: #fff;
+  }
+  
+  .sidenav ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .sidenav ul li {
+    padding: 10px;
+  }
+  
+  .sidenav ul li.active {
+    background-color: #555;
+  }
+  
+  /* Light Theme */
+  /* You can customize light theme styles as needed */
+  .light-theme {
+    /* Add styles for light theme */
+  }
+  
+  /* Dark Theme */
+  .dark-theme {
+    background-color: #333; /* Dark background color */
+    color: #fff; /* Light text color */
+  }
+  
+  /* Example styles for dark theme */
+  .dark-theme .dashboard-container {
+    background-color: #222;
+  }
+  
+  .dark-theme .settings-page {
+    background-color: #444;
+  }
+  
+  .dark-theme .setting-group {
+    color: #fff; /* Light text color */
+  }
+  /* Settings.css */
+
+/* Styling for Save button */
+.save-button {
+    background-color: darkgray; /* Blue color */
+    color: #fff; /* White text color */
+    padding: 10px 20px; /* Padding */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Cursor on hover */
+    transition: background-color 0.3s ease; /* Smooth transition */
+  }
+  
+  .save-button:hover {
+    background-color:darkblue; /* Darker blue color on hover */
+  }
+  
+  /* Styling for Cancel button */
+  .cancel-button {
+    background-color: #dc3545; /* Red color */
+    color: #fff; /* White text color */
+    padding: 10px 20px; /* Padding */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Cursor on hover */
+    transition: background-color 0.3s ease; /* Smooth transition */
+  }
+  
+  
+  /* You can add more button styles as needed */
+  
+  
+  /* Add more specific styles for dark theme as needed */
+  

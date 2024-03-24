@@ -14,7 +14,7 @@ function Homepage() {
             <video src={pinkBox} autoPlay loop muted className='w-full h-full object-cover'/>
             <section className="absolute top-0 left-0 w-full h-full flex items-center justify-center"> {/*make this section sit on top of the video */}
                 <div className='absolute right-6 top-6 pt-4 transition-shadow duration-150 ease-in-out hover:shadow-lg' title='Admin Login'>
-                    <Link to='/AdminDashboard'>
+                    <Link to='/Login'>
                         <MdOutlineAdminPanelSettings className='text-5xl' color='white'/>
                     </Link>
                 </div>
