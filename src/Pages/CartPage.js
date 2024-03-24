@@ -23,8 +23,7 @@ function CartPage() {
                 data
             }));
             setCartItems(cartItemsArray);
-        }
-        
+        }        
     }, []);
 
     useEffect(() => {
@@ -127,7 +126,7 @@ function CartPage() {
                             </tr>
                         </thead>
                         <tbody>
-                            {cartItems.map((item, index) => (
+                            {Array.isArray(cartItems) && cartItems.map((item, index) => (
                                 <tr key={index}>
                                     <td>{item.data.name}</td>
                                     <td>${parseFloat(item.data.price).toFixed(2)}</td>

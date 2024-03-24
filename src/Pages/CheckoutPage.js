@@ -6,12 +6,10 @@ import { toast } from 'react-toastify';
 import { getFirestore, collection, addDoc, serverTimestamp, doc, updateDoc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 
-
 const CheckoutPage = () => {
   const [purchasedItems, setPurchasedItems] = useState([]);
   const [userInfo, setUserInfo] = useState({});
   const [totalPrice, setTotalPrice] = useState(0); // State to hold total price
-
 
   useEffect(() => {
     // Retrieve cart from session storage
@@ -33,7 +31,6 @@ const CheckoutPage = () => {
     // Retrieve userInfo from session storage
     const storedUserInfo = JSON.parse(sessionStorage.getItem('userInfo')) || {};
     setUserInfo(storedUserInfo);
-
   }, []);
 
   // Function to handle payment and data storage

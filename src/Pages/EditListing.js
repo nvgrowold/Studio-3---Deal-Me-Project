@@ -200,7 +200,6 @@ export default function CreateListing() {
       <Header/>
       <div className='grid gap-8 md:w-auto justify-center mt-10 lg:w-full lg:grid-cols-3 lg:justify-start'>
         <UserProfileMenu/>
-
         <section>
         <div className="max-w-md px-2 mx-auto shadow-lg rounded-lg">      
         <h1 className='text-center mt-6 text-2xl font-semibold  text-sky-800'>Edit a listing</h1>

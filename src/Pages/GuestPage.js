@@ -18,7 +18,6 @@ const ProductList = () => {
   const [cartLength, setCartLength] = useState(0);
   const [loading, setLoading] = useState(true);
 
-
   useEffect(() => {
     async function fetchListings() {
       const listingsRef = collection(db, "listings");
@@ -46,6 +45,7 @@ const ProductList = () => {
      };
     cart.push(cartItem);
    // cart.push(listing);
+
     sessionStorage.setItem('cart', JSON.stringify(cart));
     setCartLength(cart.length);
     setAddedToCart(true);
