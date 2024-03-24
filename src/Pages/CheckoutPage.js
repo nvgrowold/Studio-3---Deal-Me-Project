@@ -1,10 +1,9 @@
-
-
 import React, { useState, useEffect } from 'react';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import "../Styling/CheckoutPage.css";
 import Header from '../Components/Header';
+import {toast} from "react-toastify";
 
 // Firebase configuration
 const firebaseConfig = {
@@ -65,7 +64,7 @@ const CheckoutPage = () => {
       await db.collection('orderitems').add(orderData);
   
       // Notify user about successful payment
-      alert('Payment successful! Your order has been placed.');
+      toast.error('Payment successful! Your order has been placed.');
   
       // Clear session storage after successful payment
       sessionStorage.removeItem('productList');
