@@ -8,7 +8,7 @@ import "../Styling/CheckoutPage.css";
 import Header from '../Components/Header';
 import { toast } from 'react-toastify';
 
-import { getFirestore, collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { getFirestore, collection, addDoc, serverTimestamp, doc, updateDoc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 
 
@@ -72,6 +72,17 @@ const CheckoutPage = () => {
   
       // Notify user about successful payment
       toast.success('Payment successful! Your order has been placed.');
+
+      // After successful payment, update each item's status to 'sold'
+      const db = getFirestore();
+      for (const item of purchasedItems) {
+          const listingDocRef = doc(db, "listings", item.id); // Reference to the document in 'listings' collection
+          await updateDoc(listingDocRef, {
+              status: "sold",
+              // If you also want to update the soldPrice, you can do it here
+              soldPrice: item.data.price, // Example: updating the soldPrice to item's price
+          });
+      }
   
       // Clear session storage after successful payment
       sessionStorage.removeItem('productList');
@@ -79,8 +90,6 @@ const CheckoutPage = () => {
     } catch (error) {
       console.error('Error processing payment:', error);
       toast.error('Payment failed. Please try again later.'); // Show user-friendly error message
-      // console.error('Error processing payment:', error.message);
-      // toast.error(`Payment failed: ${error.message}. Please try again later.`); // Show user-friendly error message with the error detail
     }
   };
   

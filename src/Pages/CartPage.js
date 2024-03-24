@@ -133,7 +133,7 @@ function CartPage() {
                                     <td>${parseFloat(item.data.price).toFixed(2)}</td>
                                     <td>{item.data.quantity}</td>
                                     <td>${parseFloat(item.data.delivery || 0).toFixed(2)}</td>
-                                    <td>${(parseFloat(item.data.price) * parseInt(item.data.quantity)).toFixed(2)}</td>
+                                    <td>${(parseFloat(item.data.price) * parseInt(item.data.quantity) + parseInt(item.data.delivery || 0)).toFixed(2)}</td>
                                 </tr>
                             ))}
                         </tbody>

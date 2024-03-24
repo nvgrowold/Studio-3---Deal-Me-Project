@@ -148,6 +148,7 @@ export default function CreateListing() {
         imgUrls,
         timestamp: serverTimestamp(),
         userRef: auth.currentUser.uid,
+        status: "available", // Add status field to distinguish sold and selling items
       };
 
       //delete image
