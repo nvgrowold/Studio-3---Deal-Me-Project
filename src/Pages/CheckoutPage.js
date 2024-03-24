@@ -21,6 +21,7 @@ const CheckoutPage = () => {
   useEffect(() => {
     // Retrieve cart from session storage
     const storedCart = sessionStorage.getItem('productList');
+    const storedData = sessionStorage.getItem('userInfo');
     if (storedCart) {
       const cartItemsObject = JSON.parse(storedCart);
       // Assuming the structure is { id: { name, price, quantity, ... } }
@@ -29,15 +30,15 @@ const CheckoutPage = () => {
         data
       }));
       setPurchasedItems(cartItemsArray);
-
-      // Calculate total price
-      const totalPrice = cartItemsArray.reduce((acc, item) => acc + item.data.price * item.data.quantity, 0);
-      setTotalPrice(totalPrice);
     }
-
+    if (storedData) {
+      const { cartItems, totalPrice, ...userInfo } = JSON.parse(storedData);
+      setTotalPrice(totalPrice); // Use the totalPrice as is, no need for parseFloat since it's already a number
+    };
     // Retrieve userInfo from session storage
     const storedUserInfo = JSON.parse(sessionStorage.getItem('userInfo')) || {};
     setUserInfo(storedUserInfo);
+
   }, []);
 
   // Function to handle payment and data storage
@@ -110,6 +111,7 @@ const CheckoutPage = () => {
                 <p><strong>Product Name:</strong> {item.data.name}</p>
                 <p><strong>Price:</strong> ${item.data.price}</p>
                 <p><strong>Quantity:</strong> {item.data.quantity}</p>
+                <p><strong>Delivery Fee:</strong> ${item.data.delivery ? parseFloat(item.data.delivery).toFixed(2) : 0 }</p>
                 <hr className="divider" />
               </li> 
             ))}

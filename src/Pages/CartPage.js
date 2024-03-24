@@ -35,7 +35,8 @@ function CartPage() {
         const total = items.reduce((acc, item) => {
             const price = parseFloat(item.data.price) || 0;
             const quantity = parseInt(item.data.quantity) || 0;
-            return acc + (price * quantity);
+            const deliveryFee = parseInt(item.data.delivery) || 0;
+            return acc + (price * quantity) + deliveryFee;
         }, 0);
         setTotalPrice(total);
     };
