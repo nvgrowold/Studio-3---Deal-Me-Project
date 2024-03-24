@@ -15,12 +15,16 @@ function CartPage() {
     const [mobileNumberError, setMobileNumberError] = useState('');
 
     useEffect(() => {
-        const storedItems = sessionStorage.getItem('productList');
-        if (storedItems) {
-            const parsedItems = JSON.parse(storedItems);
-            const itemsArray = Object.keys(parsedItems).map(key => parsedItems[key]);
-            setCartItems(itemsArray);
+        const storedCart = sessionStorage.getItem('productList');
+        if (storedCart) {
+            const cartItemsObject = JSON.parse(storedCart);
+            const cartItemsArray = Object.entries(cartItemsObject).map(([id, data]) => ({
+                id,
+                data
+            }));
+            setCartItems(cartItemsArray);
         }
+        
     }, []);
 
     useEffect(() => {
@@ -28,13 +32,9 @@ function CartPage() {
     }, [cartItems]);
 
     const calculateTotalPrice = (items) => {
-        if (!Array.isArray(items)) {
-            items = [];
-        }
-
-        const total = items.reduce((acc, curr) => {
-            const price = parseFloat(curr.price) || 0;
-            const quantity = parseInt(curr.quantity) || 0;
+        const total = items.reduce((acc, item) => {
+            const price = parseFloat(item.data.price) || 0;
+            const quantity = parseInt(item.data.quantity) || 0;
             return acc + (price * quantity);
         }, 0);
         setTotalPrice(total);
@@ -126,13 +126,13 @@ function CartPage() {
                             </tr>
                         </thead>
                         <tbody>
-                            {Array.isArray(cartItems) && cartItems.map((item, index) => (
+                            {cartItems.map((item, index) => (
                                 <tr key={index}>
-                                    <td>{item.name}</td>
-                                    <td>{parseFloat(item.price) || 0}</td>
-                                    <td>{parseFloat(item.quantity) || 0}</td>
-                                    <td>{item.delivery}</td>
-                                    <td>${((parseFloat(item.price) || 0) * (parseInt(item.quantity) || 0)).toFixed(2)}</td>
+                                    <td>{item.data.name}</td>
+                                    <td>${parseFloat(item.data.price).toFixed(2)}</td>
+                                    <td>{item.data.quantity}</td>
+                                    <td>${parseFloat(item.data.delivery || 0).toFixed(2)}</td>
+                                    <td>${(parseFloat(item.data.price) * parseInt(item.data.quantity)).toFixed(2)}</td>
                                 </tr>
                             ))}
                         </tbody>
