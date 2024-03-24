@@ -1,9 +1,4 @@
-
-
 import React, { useState, useEffect } from 'react';
-//import firebase from 'firebase/compat/app';
-//import 'firebase/compat/firestore';
-//import 'firebase/compat/auth'; // Import the authentication service
 import "../Styling/CheckoutPage.css";
 import Header from '../Components/Header';
 import { toast } from 'react-toastify';
@@ -45,6 +40,7 @@ const CheckoutPage = () => {
   const handlePayment = async () => {
     try {
       const auth = getAuth();
+      const db = getFirestore();
       const user = auth.currentUser; // Get the currently signed-in user
   
       if (!user) {
@@ -68,21 +64,30 @@ const CheckoutPage = () => {
   
       // Store combined data in the 'orderitems' collection
       //await db.collection('orderitems').add(orderData);
-      await addDoc(collection(getFirestore(), 'orderitems'), orderData);
-  
-      // Notify user about successful payment
-      toast.success('Payment successful! Your order has been placed.');
+      await addDoc(collection(db, 'orderitems'), orderData);
+
 
       // After successful payment, update each item's status to 'sold'
-      const db = getFirestore();
       for (const item of purchasedItems) {
           const listingDocRef = doc(db, "listings", item.id); // Reference to the document in 'listings' collection
           await updateDoc(listingDocRef, {
               status: "sold",
               // If you also want to update the soldPrice, you can do it here
               soldPrice: item.data.price, // Example: updating the soldPrice to item's price
-          });
+              soldTime: serverTimestamp(), // Record the current time as sold time
+              buyerInfo: {
+                firstName: userInfo.firstName,
+                lastName: userInfo.lastName,
+                email: userInfo.email,
+                mobileNumber: userInfo.mobileNumber,
+                deliveryAddress: userInfo.deliveryAddress
+              }
+            });
       }
+
+        
+      // Notify user about successful payment
+      toast.success('Payment successful! Your order has been placed.');
   
       // Clear session storage after successful payment
       sessionStorage.removeItem('productList');
