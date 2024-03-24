@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './Dashboard.css';
-import HeaderAfterLogin from '../../Components/HeaderAfterLogin';
+import Header from '../../Components/Header';
 import SideNav from '../SideNav';
+
 
 
 const Dashboard = () => {
@@ -34,8 +35,9 @@ const Dashboard = () => {
   };
 
   return (
-    <>
-    <HeaderAfterLogin/>
+    <div className="min-h-screen bg-gradient-to-r from-purple-100 to-teal-100">
+    
+    <Header/>
     <SideNav/>
     <div className='page__main'>
       <h3 className="pageTitle">Dashboard</h3>
@@ -78,7 +80,7 @@ const Dashboard = () => {
         <p>Loading statistics...</p>
       )}
     </div>
-    </>
+    </div>
   );
 };
 

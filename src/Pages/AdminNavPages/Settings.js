@@ -1,5 +1,5 @@
 import React from 'react';
-import HeaderAfterLogin from '../../Components/HeaderAfterLogin'
+import Header from '../../Components/Header'
 import SideNav from '../SideNav'
 //import HeaderAfterLogin from '../../Components/HeaderAfterLogin';
 
@@ -7,8 +7,8 @@ import SideNav from '../SideNav'
 
 const Settings = () => {
   return (
-    <>
-    <HeaderAfterLogin/>
+    <div className="min-h-screen bg-gradient-to-r from-purple-100 to-teal-100">
+    <Header/>
     <SideNav/>
     
     <div className='pageTitle'>
@@ -37,7 +37,7 @@ const Settings = () => {
         {/* Add more setting groups for security, notifications, theme, etc. */}
       </div>
     </div>
-    </>
+    </div>
   );
 };
 

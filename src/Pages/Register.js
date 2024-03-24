@@ -14,6 +14,8 @@ import { useNavigate } from "react-router-dom";
 //import toastify error notifications from react-toastify
 import {toast} from "react-toastify";
 
+import pinkBox from '../assets/PinkBox.mp4';
+
 
 
 
@@ -21,6 +23,7 @@ function Register(){
     //Hook state for user input data object
     const [formData, setFormData] = useState({
         name:"",
+        username:"",
         email: "",
         password:"",
     });
@@ -28,7 +31,7 @@ function Register(){
     const[showPassword, setShowPassword] = useState(false);
     
     //destructure the email and password from the form
-    const {name, email, password} = formData;
+    const {name, username, email, password} = formData;
 
     //initialize the imported userNavigate
     const navigate  = useNavigate();
@@ -67,7 +70,7 @@ function Register(){
             toast.success("Sign up was successful");
 
             //after adding the new user to the database, navigate them to another page
-            navigate("/UserProfilePage");
+            navigate("/Login");
         } catch (error) {
             // put errors here  
             //console.log(error);
@@ -76,12 +79,13 @@ function Register(){
     }
     
     return(
-    <div>
+    <div className="min-h-screen bg-gradient-to-r from-purple-100 to-teal-100">
         <Header/>
         <div className="flex justify-center flex-wrap items-center px-6 py-12 max-w-6xl mx-auto mt-16">
             <div className="md:w-[60%] lg:w-[45%] mb-12 md:mb-6">
-                <img src="https://plus.unsplash.com/premium_photo-1681488350342-19084ba8e224?q=80&w=2888&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="/" 
-                className="w-full rounded-2xl"/>
+                <video src={pinkBox} autoPlay loop muted className='w-full h-full object-cover rounded-2xl'/>
+                {/* <img src="https://plus.unsplash.com/premium_photo-1681488350342-19084ba8e224?q=80&w=2888&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="/"  */}
+                {/* className="w-full rounded-2xl"/> */}
             </div>
             <div className="w-full md:w-[60%] lg:w-[45%] lg:ml-20">
                 {/* click Register button to submit register information, need a function to handle this event */}
@@ -89,6 +93,10 @@ function Register(){
                     <input type="text" id="name" value={name}
                     onChange={handleChange} placeholder="Full Name"
                     className="mb-6 w-full px-4 py-2 text-base text-gray-700 bg-white border-gray-300 rounded transition ease-in-out" />  
+
+                    <input type="text" id="username" value={username}
+                                        onChange={handleChange} placeholder="Username"
+                                        className="mb-6 w-full px-4 py-2 text-base text-gray-700 bg-white border-gray-300 rounded transition ease-in-out" />  
 
                     <input type="email" id="email" value={email}
                     onChange={handleChange} placeholder="Email Address"
@@ -119,7 +127,7 @@ function Register(){
                             <Link to="/ForgotPassword" className="no-underline cursor-pointer text-sky-700  hover:text-red-900 transition duration-200 ease-in-out">Forgot password?</Link>
                         </p> */}
                     </div>
-                    <button className="w-full bg-sky-700 text-white px-7 py-2 mb-6 text-sm font-medium uppercase rounded shadow-lg hover:bg-sky-800 transition duration-150 ease-in-out hover:shadow-xl active:bg-blue-900"
+                    <button className="w-full bg-gradient-to-r from-purple-300 to-teal-300 text-white px-7 py-2 mb-6 text-sm font-medium uppercase rounded shadow-lg hover:bg-sky-800 transition duration-150 ease-in-out hover:shadow-xl active:bg-blue-900"
                         type="submit">Register
                     </button>
                     <div className=" flex item-center my-0 before:border-t before:flex-1  before:border-gray-300 after:border-t after:flex-1 after:border-gray-300">

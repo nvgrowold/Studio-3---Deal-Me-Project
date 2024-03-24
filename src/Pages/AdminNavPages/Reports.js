@@ -1,17 +1,17 @@
 import React from 'react'
-import HeaderAfterLogin from '../../Components/HeaderAfterLogin'
+import Header from '../../Components/Header'
 import SideNav from '../SideNav'
 
 const Reports = () => {
   return (
-    <>
-    <HeaderAfterLogin/>
+    <div className="min-h-screen bg-gradient-to-r from-purple-100 to-teal-100">
+    <Header/>
     <SideNav/>
     <div className='pageTitle'>
         <h1> Reports</h1>
         
     </div>
-    </>
+    </div>
   )
 }
 

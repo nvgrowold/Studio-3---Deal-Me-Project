@@ -1,208 +1,166 @@
-
-import Header from '../Components/Header'
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import Header from '../Components/Header';
 import '../Styling/StyleGuestPage.css';
+import { collection, query, getDocs, orderBy } from 'firebase/firestore'; 
+import { db } from '../firebase';
+import { Link } from 'react-router-dom';
+import cart from "../assets/cart-shopping-solid.svg";
+import ListingItem from '../Components/ListingItem'; 
 
-const products = [
-  // src/data/products.js
- 
-   {
-     id: 1,
-     name: 'Laptop',
-     category: 'Computers',
-     region: 'Auckland',
-     price: 800,
-     description: 'High-performance laptop for work and gaming. Comes with a powerful processor, ample RAM, and dedicated graphics.',
-   },
-   {
-     id: 2,
-     name: 'Camera',
-     category: 'Electronics & photography',
-     region: 'Wellington',
-     price: 500,
-     description: 'Professional DSLR camera with advanced features. Perfect for capturing high-quality photos and videos.',
-   },
-   {
-     id: 3,
-     name: 'Gaming Console',
-     category: 'Gaming',
-     region: 'Christchurch',
-     price: 25,
-     description: 'Enjoy hours of gaming with this console. Includes popular games and supports multiplayer online gaming.',
-   },
-   {
-     id: 4,
-     name: 'Skincare Set',
-     category: 'Health & beauty',
-     region: 'Hamilton',
-     price: 15,
-     description: 'Complete skincare set for a radiant complexion. Includes cleanser, toner, moisturizer, and more.',
-   },
-   {
-     id: 5,
-     name: 'Sofa',
-     category: 'Home & living',
-     region: 'Dunedin',
-     price: 40,
-     description: 'Comfortable and stylish sofa for your living room. Made with high-quality materials for durability.',
-   },
-   {
-     id: 6,
-     name: 'Wristwatch',
-     category: 'Jewellery & watches',
-     region: 'Tauranga',
-     price: 35,
-     description: 'Elegant wristwatch with a classic design. Perfect for both casual and formal occasions.',
-   },
-   {
-     id: 7,
-     name: 'Smartphone',
-     category: 'Mobile phones',
-     region: 'Palmerston North',
-     price: 50,
-     description: 'Latest smartphone with advanced features. Capture stunning photos, enjoy fast performance, and more.',
-   },
-   {
-     id: 8,
-     name: 'Musical Instrument Set',
-     category: 'Music & instruments',
-     region: 'Napier-Hastings',
-     price: 45,
-     description: 'Complete set of musical instruments for aspiring musicians. Includes guitar, keyboard, and more.',
-   },
-   {
-     id: 9,
-     name: 'Pet Care Kit',
-     category: 'Pets & animals',
-     region: 'Hamilton',
-     price: 25,
-     description: 'Essential kit for pet care. Includes grooming tools, toys, and treats for your furry friend.',
-   },
-   {
-     id: 10,
-     name: 'Sports Equipment Bundle',
-     category: 'Sports',
-     region: 'Auckland',
-     price: 60,
-     description: 'Stay active with this sports equipment bundle. Includes items for various sports and activities.',
-   },
-   {
-     id: 11,
-     name: 'Toy Collection',
-     category: 'Toys & models',
-     region: 'Wellington',
-     price: 30,
-     description: 'Assortment of toys for kids of all ages. Encourage creativity and play with this diverse collection.',
-   },
-   {
-     id: 12,
-     name: 'Vintage Collectibles',
-     category: 'Trade Me Marketplace listings',
-     region: 'Christchurch',
-     price: 20,
-     description: 'Unique vintage collectibles from various sellers on Trade Me Marketplace. Discover hidden treasures.',
-   },
-   // Add more products as needed
- ];
- 
- 
- 
-   // Your product data
-
-export default function GuestPage  ({ addToCart }) {
+const ProductList = () => {
   const [selectedCategory, setSelectedCategory] = useState('');
-    const [selectedRegion, setSelectedRegion] = useState('');
-    const [minPrice, setMinPrice] = useState('');
-    const [maxPrice, setMaxPrice] = useState('');
-    const [searchKeyword, setSearchKeyword] = useState('');
-    const [filteredProducts, setFilteredProducts] = useState([]);
-  
-    const allCategories = [...new Set(products.map(product => product.category))];
-    const allRegions = [...new Set(products.map(product => product.region))];
-  
-    const handleCategoryChange = (e) => {
-      setSelectedCategory(e.target.value);
-    };
-  
-    const handleRegionChange = (e) => {
-      setSelectedRegion(e.target.value);
-    };
-  
-    const handleMinPriceChange = (e) => {
-      setMinPrice(e.target.value);
-    };
-  
-    const handleMaxPriceChange = (e) => {
-      setMaxPrice(e.target.value);
-    };
-  
-    const handleSearchKeywordChange = (e) => {
-      setSearchKeyword(e.target.value);
-    };
-  
-    const handleFilterClick = () => {
-      const newFilteredProducts = products.filter(product => (
-        (selectedCategory === '' || product.category === selectedCategory) &&
-        (selectedRegion === '' || product.region === selectedRegion) &&
-        (minPrice === '' || parseFloat(product.price) >= parseFloat(minPrice)) &&
-        (maxPrice === '' || parseFloat(product.price) <= parseFloat(maxPrice)) &&
-        (searchKeyword === '' || product.name.toLowerCase().includes(searchKeyword.toLowerCase()))
-      ));
-  
-      setFilteredProducts(newFilteredProducts);
-    };
-  return (
-    <div className='dealsBody'>
-      <Header/>
-      <h1>GuestPage</h1>
-      <p>Harikash testing</p>
-      <div className="filter-section">
-          <div>
-            <label>Filter by Category:</label>
-            <select value={selectedCategory} onChange={handleCategoryChange}>
-              <option value="">All Categories</option>
-              {allCategories.map(category => (
-                <option key={category} value={category}>{category}</option>
-              ))}
-            </select>
-          </div>
-  
-          <div>
-            <label>Filter by Region:</label>
-            <select value={selectedRegion} onChange={handleRegionChange}>
-              <option value="">All Regions</option>
-              {allRegions.map(region => (
-                <option key={region} value={region}>{region}</option>
-              ))}
-            </select>
-          </div>
-  
-          <div>
-            <label>Price Range:</label>
-            <input type="number" placeholder="Min Price" value={minPrice} onChange={handleMinPriceChange} />
-            <span>-</span>
-            <input type="number" placeholder="Max Price" value={maxPrice} onChange={handleMaxPriceChange} />
-          </div>
-  
-          <div>
-            <label>Search by Keyword:</label>
-            <input type="text" placeholder="Enter keyword" value={searchKeyword} onChange={handleSearchKeywordChange} />
-          </div>
-  
-          <button onClick={handleFilterClick}>Filter</button>
-        </div>
-  
-        {filteredProducts.map(product => (
-          <div key={product.id} className="product-card">
-            <h3>{product.name}</h3>
-            <p>{product.description}</p>
-            <p>Category: {product.category}</p>
-            <p>Region: {product.region}</p>
-            <p>Price: ${product.price}</p>
-            <button onClick={() => addToCart(product)}>Add to Cart</button>
-          </div>
-        ))}
-    </div>
+  const [selectedRegion, setSelectedRegion] = useState('');
+  const [selectedPrice, setSelectedPrice] = useState('');
+  const [searchTerm, setSearchTerm] = useState('');
+  const [listings, setListings] = useState([]);
+  const [filteredListings, setFilteredlistings] = useState([]);
+  const [addedToCart, setAddedToCart] = useState(false);
+  const [cartLength, setCartLength] = useState(0);
+  const [loading, setLoading] = useState(true);
 
-  )
-}
+  useEffect(() => {
+    async function fetchListings() {
+      const listingsRef = collection(db, "listings");
+      const q = query(listingsRef, orderBy("timestamp", "desc"));
+      const querySnapshot = await getDocs(q);
+      let listings = [];
+      querySnapshot.forEach((doc) => {
+        listings.push({
+          id: doc.id,
+          data: doc.data(),
+        });
+      });
+      setListings(listings);
+      setLoading(false);
+    }
+    fetchListings();
+  }, []);
+
+  const addToCart = (listing) => {
+    let cart = JSON.parse(sessionStorage.getItem('cart')) || [];
+      // Include the listing ID along with the data
+    const cartItem = {
+      id: listing.id, // This assumes listing includes the id. If not, adjust accordingly.
+      data: listing,
+     };
+    cart.push(cartItem);
+   // cart.push(listing);
+
+    sessionStorage.setItem('cart', JSON.stringify(cart));
+    setCartLength(cart.length);
+    setAddedToCart(true);
+    setTimeout(() => {
+      setAddedToCart(false);
+    }, 2000);
+  };
+
+  const handleCategoryChange = (e) => {
+    setSelectedCategory(e.target.value);
+  };
+
+  const handleRegionChange = (e) => {
+    setSelectedRegion(e.target.value);
+  };
+
+  const handlePriceChange = (e) => {
+    setSelectedPrice(e.target.value);
+  };
+
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const handleFilter = () => {
+    const newFilteredlistings = listings.filter(listing => {
+      return (
+        (selectedCategory === '' || listing.data.category === selectedCategory) &&
+        (selectedRegion === '' || listing.data.region === selectedRegion) &&
+        (selectedPrice === '' || listing.data.price <= parseInt(selectedPrice)) &&
+        (searchTerm === '' || listing.data.name.toLowerCase().includes(searchTerm.toLowerCase()))
+      );
+    });
+
+    setFilteredlistings(newFilteredlistings);
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-r from-purple-100 to-teal-100">
+      <Header />
+      <div className="filter-section">
+        <label htmlFor="category">Filter by Category:</label>
+        <select id="category" value={selectedCategory} onChange={handleCategoryChange}>
+          <option value="">All Categories</option>
+          <option value="Computers">Computers</option>
+          <option value="Electronics & Photography">Electronics & Photography</option>
+          <option value="Gaming">Gaming</option>
+          <option value="Health & Beauty">Health & Beauty</option>
+          <option value="Home & Living">Home & Living</option>
+          <option value="Jewellery & Watches">Jewellery & Watches</option>
+          <option value="Mobile Phones">Mobile Phones</option>
+          <option value="Music & Instruments">Music & Instruments</option>
+          <option value="Pets & Animals">Pets & Animals</option>
+          <option value="Sports">Sports</option>
+          <option value="Toys & Models">Toys & Models</option>
+        </select>
+
+        <label htmlFor="region">Filter by Region:</label>
+        <select id="region" value={selectedRegion} onChange={handleRegionChange}>
+          <option value="">All Regions</option>
+          <option value="Auckland">Auckland</option>
+          <option value="Christchurch">Christchurch</option>
+          <option value="Palmerston North">Palmerston North</option>
+          <option value="Wellington">Wellington</option>
+          <option value="Tauranga">Tauranga</option>
+          <option value="Hamilton">Hamilton</option>
+          <option value="Dunedin">Dunedin</option>
+          <option value="Napier-Hastings">Napier-Hastings</option>
+        </select>
+
+        <label htmlFor="price">Filter by Price:</label>
+        <input
+          type="number"
+          id="price"
+          value={selectedPrice}
+          onChange={handlePriceChange}
+          placeholder="Enter max price"
+        />
+
+        <label htmlFor="search">Search:</label>
+        <input
+          type="text"
+          id="search"
+          value={searchTerm}
+          onChange={handleSearchChange}
+          placeholder="Search listings"
+        />
+
+        <button onClick={handleFilter}>Filter</button>
+
+        <Link to="/Cart">
+          <img src={cart} className='cart-logo' alt="Cart" />
+          ({cartLength})
+        </Link>
+      </div>
+
+      <div>
+        <h2>Filtered Listings:</h2>
+        {!loading && listings.length > 0 && (
+          <>
+            <ul className="sm:grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+              {filteredListings.map((listing) => (
+                <ListingItem
+                  key={listing.id}
+                  id={listing.id}
+                  listing={listing.data}
+                  addToCart={() => addToCart({id: listing.id, data: listing.data})} // Pass the entire listing object
+                />
+              ))}
+            </ul>
+          </>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default ProductList;

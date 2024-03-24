@@ -1,14 +1,11 @@
 import React from 'react'
 import Dashboard from './AdminNavPages/Dashboard';
-//import Nav from '../Components/Nav';
-//import { Link} from 'react-router-dom';
-//import HeaderAfterLogin from '../Components/HeaderAfterLogin';
 import SideNav from './SideNav';
+
 
 export default function AdminDashboard() {
   return (
-    <div>
-      {/* <HeaderAfterLogin/>  */}    
+    <div className="min-h-screen bg-gradient-to-r from-purple-100 to-teal-100">  
       <SideNav/> 
       <Dashboard/>
       
