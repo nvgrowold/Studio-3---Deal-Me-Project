@@ -1,26 +1,9 @@
-
-
 import React, { useState, useEffect } from 'react';
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/firestore';
 import "../Styling/CheckoutPage.css";
 import Header from '../Components/Header';
 import { toast } from 'react-toastify';
-
-// Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyDGOv3hJPU-JWreMNnrCCN2pvsuv07sdrE",
-  authDomain: "deal-me-f6455.firebaseapp.com",
-  projectId: "deal-me-f6455",
-  storageBucket: "deal-me-f6455.appspot.com",
-  messagingSenderId: "402382833091",
-  appId: "1:402382833091:web:75eef4981bf82b9b246976"
-};
-
-// Initialize Firebase app
-if (!firebase.apps.length) {
-  firebase.initializeApp(firebaseConfig);
-}
+import { getFirestore, collection, addDoc, serverTimestamp, doc, updateDoc } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 
 const CheckoutPage = () => {
   const [purchasedItems, setPurchasedItems] = useState([]);
@@ -28,16 +11,22 @@ const CheckoutPage = () => {
   const [totalPrice, setTotalPrice] = useState(0); // State to hold total price
 
   useEffect(() => {
-    // Retrieve productList from session storage
-    const productList = JSON.parse(sessionStorage.getItem('productList')) || {};
-    // Convert productList object to an array of products
-    const products = Object.values(productList);
-    setPurchasedItems(products);
-
-    // Calculate total price
-    const totalPrice = products.reduce((acc, product) => acc + product.price * product.quantity, 0);
-    setTotalPrice(totalPrice);
-
+    // Retrieve cart from session storage
+    const storedCart = sessionStorage.getItem('productList');
+    const storedData = sessionStorage.getItem('userInfo');
+    if (storedCart) {
+      const cartItemsObject = JSON.parse(storedCart);
+      // Assuming the structure is { id: { name, price, quantity, ... } }
+      const cartItemsArray = Object.entries(cartItemsObject).map(([id, data]) => ({
+        id,
+        data
+      }));
+      setPurchasedItems(cartItemsArray);
+    }
+    if (storedData) {
+      const { cartItems, totalPrice, ...userInfo } = JSON.parse(storedData);
+      setTotalPrice(totalPrice); // Use the totalPrice as is, no need for parseFloat since it's already a number
+    };
     // Retrieve userInfo from session storage
     const storedUserInfo = JSON.parse(sessionStorage.getItem('userInfo')) || {};
     setUserInfo(storedUserInfo);
@@ -46,27 +35,53 @@ const CheckoutPage = () => {
   // Function to handle payment and data storage
   const handlePayment = async () => {
     try {
-      const db = firebase.firestore();
-      const user = firebase.auth().currentUser; // Get the currently signed-in user
-
+      const auth = getAuth();
+      const db = getFirestore();
+      const user = auth.currentUser; // Get the currently signed-in user
+  
       if (!user) {
         alert('No user signed in.');
         return;
       }
-
-      const userId = user.uid; // Get the user's UID
-  
+      
       // Combine user information and purchased items into a single object
       const orderData = {
         userInfo: userInfo,
-        purchasedItems: purchasedItems,
-        userRef: userId, // Add userRef here
-        timestamp: firebase.firestore.FieldValue.serverTimestamp(), // Optional: Add a timestamp
+        purchasedItems: purchasedItems.map(item => ({ 
+          id: item.id, // Save the id as well
+          name: item.data.name,
+          price: item.data.price,
+          quantity: item.data.quantity,
+          // include any other item data you need to send
+        })),
+        userRef: auth.currentUser.uid, // Add userRef here
+        timestamp: serverTimestamp(), // Optional: Add a timestamp
       };
   
       // Store combined data in the 'orderitems' collection
-      await db.collection('orderitems').add(orderData);
-  
+      //await db.collection('orderitems').add(orderData);
+      await addDoc(collection(db, 'orderitems'), orderData);
+
+
+      // After successful payment, update each item's status to 'sold'
+      for (const item of purchasedItems) {
+          const listingDocRef = doc(db, "listings", item.id); // Reference to the document in 'listings' collection
+          await updateDoc(listingDocRef, {
+              status: "sold",
+              // If you also want to update the soldPrice, you can do it here
+              soldPrice: item.data.price, // Example: updating the soldPrice to item's price
+              soldTime: serverTimestamp(), // Record the current time as sold time
+              buyerInfo: {
+                firstName: userInfo.firstName,
+                lastName: userInfo.lastName,
+                email: userInfo.email,
+                mobileNumber: userInfo.mobileNumber,
+                deliveryAddress: userInfo.deliveryAddress
+              }
+            });
+      }
+
+        
       // Notify user about successful payment
       toast.success('Payment successful! Your order has been placed.');
   
@@ -101,14 +116,15 @@ const CheckoutPage = () => {
       <div className="purchased-items-section">
         <h3>Purchased Items</h3>
         <ul className="purchased-items-list">
-          {purchasedItems.map((product, index) => (
-            <li key={index} className="purchased-item">
-              <p><strong>Product Name:</strong> {product.name}</p>
-              <p><strong>Price:</strong> ${product.price}</p>
-              <p><strong>Quantity:</strong> {product.quantity}</p>
-              <hr className="divider" />
-            </li>
-          ))}
+            {purchasedItems.map((item, index) => (
+              <li key={item.id || index} className="purchased-item">
+                <p><strong>Product Name:</strong> {item.data.name}</p>
+                <p><strong>Price:</strong> ${item.data.price}</p>
+                <p><strong>Quantity:</strong> {item.data.quantity}</p>
+                <p><strong>Delivery Fee:</strong> ${item.data.delivery ? parseFloat(item.data.delivery).toFixed(2) : 0 }</p>
+                <hr className="divider" />
+              </li> 
+            ))}
         </ul>
       </div>
 

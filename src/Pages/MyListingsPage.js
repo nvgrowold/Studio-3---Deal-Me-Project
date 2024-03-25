@@ -21,7 +21,7 @@ export default function MyListingsPage() {
     useEffect(() => {
         async function fetchUserListings() {
         const listingRef = collection(db, "listings");
-        const q = query(listingRef, where("userRef", "==", auth.currentUser.uid), orderBy("timestamp", "desc"));
+        const q = query(listingRef, where("userRef", "==", auth.currentUser.uid), where("status", "==", "available"), orderBy("timestamp", "desc"));
         const querySnapshot = await getDocs(q);
         let listings = [];
         querySnapshot.forEach((doc) => {

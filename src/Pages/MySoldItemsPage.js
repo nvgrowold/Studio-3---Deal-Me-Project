@@ -3,9 +3,10 @@ import Header from '../Components/Header';
 import { collection, query, orderBy, where, getDocs, deleteDoc, doc,  } from 'firebase/firestore';
 import { db } from '../firebase';
 import { getAuth } from 'firebase/auth';
-import ListingItem from '../Components/ListingItem';
+import SoldListingItem from '../Components/SoldListingItem';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import SoldItem from '../Components/SoldItem';
 
 export default function MySoldItemsPage() {
 
@@ -20,20 +21,25 @@ export default function MySoldItemsPage() {
     //need to create indexes that need to be used to power compound queries in firestore
     useEffect(() => {
         async function fetchUserListings() {
-        const listingRef = collection(db, "listings");
-        const q = query(listingRef, where("userRef", "==", auth.currentUser.uid), orderBy("timestamp", "desc"));
-        const querySnapshot = await getDocs(q);
-        let listings = [];
-        querySnapshot.forEach((doc) => {
-            return listings.push({
-            id:doc.id,
-            data:doc.data(),
+
+            const listingRef = collection(db, "listings");
+            // Adjust query to only fetch sold listings:where("status", "==", "sold"),
+            const q = query(listingRef, where("userRef", "==", auth.currentUser.uid), where("status", "==", "sold"), orderBy("timestamp", "desc"));
+            const querySnapshot = await getDocs(q);
+            let listings = [];
+            querySnapshot.forEach((doc) => {
+                // Include soldPrice, commission calculation, and buyerInfo in the data pushed to the listings array
+                return listings.push({
+                id:doc.id,
+                data:doc.data(),
+                commission: doc.data().soldPrice * 0.06, // Assuming a 6% commission rate
+                });
             });
-        });
-        setListings(listings); // Update the listings state with the fetched data
-        setLoading(false);
-        }
-        fetchUserListings();
+            setListings(listings); // Update the listings state with the fetched data
+            setLoading(false);
+            }
+            fetchUserListings();
+
     }, [auth.currentUser.uid]); // Dependency array includes auth.currentUser.uid to refetch when it changes
 
     //handle onDelete event of the listed item
@@ -48,12 +54,6 @@ export default function MySoldItemsPage() {
             toast.success("Successfully deleted the listing")
         }
     }
-    
-    //handle onEdit event of the listed item
-    function onEdit(listingID){
-        navigate(`/edit-listing/${listingID}`);
-
-    }
 
     return (
         <div className="min-h-screen bg-gradient-to-r from-purple-100 to-teal-100">
@@ -65,25 +65,28 @@ export default function MySoldItemsPage() {
                 </h2>
                 {!loading && listings.length > 0 && (
                 <>
-                   
-                    <ul className="sm:grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+                  <ul className="sm:grid grid-row-2 lg:grid-row-3 xl:grid-cols-4 2xl:grid-cols-5">
                     {listings.map((listing) => (
-                        //create a component for ListingItem
-                        <ListingItem
-                        key={listing.id}
-                        id={listing.id}
-                        listing={listing.data}
-                        onDelete={() => onDelete(listing.id)}
-                        onEdit={() => onEdit(listing.id)}
-                        />
-                    ))}
+                        <div>
+                         <SoldListingItem
+                            key={listing.id}
+                            id={listing.id}
+                            listing={listing.data} />
+                            
+                        <SoldItem // Only use the SoldItem component
+                            soldPrice={listing.data.soldPrice}
+                            commission={listing.commission}
+                            buyerFirstName={listing.data.userInfo?.firstName}
+                            buyerLastName={listing.data.userInfo?.lastName} />
+                        </div>
+                      ))}
                     </ul>
                 </>
                 )}
 
                 {!loading && listings.length === 0 && (
                     <div className="text-center mt-10  text-sky-800">
-                    <p>Oops! Your listing folder is empty...</p>
+                    <p>Oops! You haven't sold any items yet ...</p>
                     </div>
                 )}
 
