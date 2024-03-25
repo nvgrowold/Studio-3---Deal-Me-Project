@@ -22,16 +22,16 @@ export default function OrderHistory({ order, id }) {
             <p className='font-semibold'>{product.name}</p>
             <div className="flex justify-between items-center text-sm"> 
               <p>Quantity:{product.quantity}</p>
-              <p>Price: ${product.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</p>
-              <p>Delivery Fee: ${product.delivery.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</p>
+              <p>Price: ${product.price? product.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}</p>
+              <p>Delivery Fee: ${product.delivery? product.delivery.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")  : 0}</p>
             </div>
           </div>
         ))}
          <div className=" flex item-center mb-3 before:border-t before:flex-1  before:border-gray-300 after:border-t after:flex-1 after:border-gray-300"></div>
       </div>
 
-    <p><strong>Total Price:</strong> ${order.userInfo.totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</p>
-    
+      <p className=" text-sky-800"><strong>Total Price:</strong> <span className="text-gray-500">${order.userInfo && order.userInfo.totalPrice ? order.userInfo.totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","): "N/A"}</span></p>
+      
     {/* Display user info if needed */}
     {order.userInfo && (
     <div className="mt-4">
