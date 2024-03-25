@@ -64,14 +64,14 @@ const CheckoutPage = () => {
       await db.collection('orderitems').add(orderData);
   
       // Notify user about successful payment
-      toast.error('Payment successful! Your order has been placed.');
+      toast.success('Payment successful! Your order has been placed.');
   
       // Clear session storage after successful payment
       sessionStorage.removeItem('productList');
       sessionStorage.removeItem('userInfo');
     } catch (error) {
       console.error('Error processing payment:', error);
-      alert('Payment failed. Please try again later.'); // Show user-friendly error message
+      toast.error('Payment failed. Please try again later.'); // Show user-friendly error message
     }
   };
   
