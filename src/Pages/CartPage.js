@@ -7,7 +7,6 @@ import {toast} from "react-toastify";
 function CartPage() {
     const [cartItems, setCartItems] = useState([]);
     const [totalPrice, setTotalPrice] = useState(0);
-    const [deliveryFee, setDeliveryFee] = useState(0);
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
@@ -15,19 +14,16 @@ function CartPage() {
     const [mobileNumber, setMobileNumber] = useState('');
     const [emailError, setEmailError] = useState('');
     const [mobileNumberError, setMobileNumberError] = useState('');
-    const [showFirstNameError, setShowFirstNameError] = useState(false);
-    const [showLastNameError, setShowLastNameError] = useState(false);
-    const [showEmailError, setShowEmailError] = useState(false);
-    const [showDeliveryAddressError, setShowDeliveryAddressError] = useState(false);
-    const [showMobileNumberError, setShowMobileNumberError] = useState(false);
-
     useEffect(() => {
-        const storedItems = sessionStorage.getItem('productList');
-        if (storedItems) {
-            const parsedItems = JSON.parse(storedItems);
-            const itemsArray = Object.keys(parsedItems).map(key => parsedItems[key]);
-            setCartItems(itemsArray);
-        }
+        const storedCart = sessionStorage.getItem('productList');
+        if (storedCart) {
+            const cartItemsObject = JSON.parse(storedCart);
+            const cartItemsArray = Object.entries(cartItemsObject).map(([id, data]) => ({
+                id,
+                data
+            }));
+            setCartItems(cartItemsArray);
+        }        
     }, []);
 
     useEffect(() => {
@@ -38,15 +34,13 @@ function CartPage() {
         if (!Array.isArray(items)) {
             items = [];
         }
-        let total = 0;
-        let deliveryTotal = 0;
-        items.forEach(item => {
-            const price = parseFloat(item.price) || 0;
-            const quantity = parseInt(item.quantity) || 0;
-            const delivery = parseFloat(item.delivery) || 0;
-            total += (price * quantity);
-            deliveryTotal += (delivery * quantity);
-        });
+
+        const total = items.reduce((acc, item) => {
+            const price = parseFloat(item.data.price) || 0;
+            const quantity = parseInt(item.data.quantity) || 0;
+            const deliveryFee = parseInt(item.data.delivery) || 0;
+            return acc + (price * quantity) + deliveryFee;
+        }, 0);
         setTotalPrice(total);
         setDeliveryFee(deliveryTotal);
     };
@@ -98,18 +92,30 @@ function CartPage() {
         }
     };
 
-    const handleIncrement = (index) => {
-        const updatedItems = [...cartItems];
-        updatedItems[index].quantity++;
-        setCartItems(updatedItems);
-    };
 
-    const handleDecrement = (index) => {
-        const updatedItems = [...cartItems];
-        if (updatedItems[index].quantity > 1) {
-            updatedItems[index].quantity--;
-            setCartItems(updatedItems);
+    const validateEmail = (email) => /\S+@\S+\.\S+/.test(email);
+    const validateMobileNumber = (number) => /^\+64[0-9]{8,9}$/.test(number);
+
+    const handleSave = async () => {
+        if (!validateEmail(email)) {
+            setEmailError('Invalid email address');
+            return;
         }
+        if (!validateMobileNumber(mobileNumber)) {
+            setMobileNumberError('Invalid New Zealand mobile number');
+            return;
+        }
+
+        try {
+            
+
+            const userInfo = { firstName, lastName, email, deliveryAddress, mobileNumber, cartItems, totalPrice };
+            sessionStorage.setItem('userInfo', JSON.stringify(userInfo));
+            window.location.href = '/CheckoutPage';
+        } catch (error) {
+            console.error("Error saving user information: ", error);
+
+        };
     };
 
     const handleRemove = (index) => {
@@ -165,6 +171,7 @@ function CartPage() {
                                         }} 
                                     />
                                     {showEmailError && <p className="error-message">Please fill the required field</p>}
+                                     
                                     {emailError && <p className="error-message">{emailError}</p>}
                                 </td>
                             </tr>
@@ -200,9 +207,11 @@ function CartPage() {
                                         }} 
                                     />
                                     {showMobileNumberError && <p className="error-message">Please fill the required field</p>}
+
                                     {mobileNumberError && <p className="error-message">{mobileNumberError}</p>}
                                 </td>
                             </tr>
+                           
                             <tr>
                                 <td colSpan="2" className="text-center">
                                     <button onClick={handleSave} className="w-full bg-sky-700 text-white px-7 py-2 mb-6 text-sm font-medium uppercase rounded shadow-lg hover:bg-sky-800 transition duration-150 ease-in-out hover:shadow-xl active:bg-blue-900">
@@ -231,11 +240,7 @@ function CartPage() {
                                 <tr key={index}>
                                     <td>{item.name}</td>
                                     <td>{parseFloat(item.price) || 0}</td>
-                                    <td>
-                                        <button onClick={() => handleDecrement(index)}>-</button>
-                                        {/* {item.quantity} */}
-                                        <button onClick={() => handleIncrement(index)}>+</button>
-                                    </td>
+                                    <td>{item.data.quantity}</td>
                                     <td>{parseFloat(item.delivery) || 0}</td>
                                     <td>${((parseFloat(item.price) || 0) * (parseInt(item.quantity) || 0) + (parseFloat(item.delivery) || 0) * (parseInt(item.quantity) || 0)).toFixed(2)}</td>
                                     <td>
