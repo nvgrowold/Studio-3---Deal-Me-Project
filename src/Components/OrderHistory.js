@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from 'react';
 import Moment from "react-moment";
 
 export default function OrderHistory({ order, id }) {
@@ -15,27 +16,27 @@ export default function OrderHistory({ order, id }) {
 
     {/* Assuming you have a list of items in each order */}
       <div>
-        <h3 className="text-lg font-bold  text-sky-800 mb-2">Items Purchased:</h3>
+        <h3 className="text-lg font-bold mb-2">Items Purchased:</h3>
         {order.purchasedItems.map((product, index) => (
           <div className='mb-6' key={index}>
             <p className='font-semibold text-gray-500'>{product.name}</p>
-            <div className="flex justify-between font-semibold items-center text-sm  text-gray-500"> 
+             <div className="flex justify-between font-semibold items-center text-sm  text-gray-500"> 
               <p>Quantity:{product.quantity}</p>
-              <p>Price: ${product.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</p>
-              <p>Delivery Fee: ${product.delivery.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</p>
+              <p>Price: ${product.price? product.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "N/A"}</p>
+              <p>Delivery Fee: ${product.delivery? product.delivery.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")  : 0}</p>
             </div>
           </div>
         ))}
          <div className=" flex item-center mb-3 before:border-t before:flex-1  before:border-gray-300 after:border-t after:flex-1 after:border-gray-300"></div>
       </div>
 
-    <p className=" text-sky-800"><strong>Total Price:</strong> <span className="text-gray-500">${order.userInfo.totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span></p>
-    
+      <p className=" text-sky-800"><strong>Total Price:</strong> <span className="text-gray-500">${order.userInfo && order.userInfo.totalPrice ? order.userInfo.totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","): "N/A"}</span></p>
+      
     {/* Display user info if needed */}
     {order.userInfo && (
     <div className="mt-4  text-sky-800">
         <h3 className="text-lg font-bold mb-2">Delivery Information:</h3>
-        <div className='font-semibold text-sky-600'>
+        <div className='font-semibold'>
           <p>Full Name: <span className="text-gray-500">{order.userInfo.firstName} {order.userInfo.lastName}</span></p>
           <p>Email: <span className="text-gray-500">{order.userInfo.email}</span></p>
           <p>Delivery Address: <span className="text-gray-500">{order.userInfo.deliveryAddress}</span></p>

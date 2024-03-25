@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import "../Styling/CheckoutPage.css";
 import Header from '../Components/Header';
 import { toast } from 'react-toastify';
-
 import { getFirestore, collection, addDoc, serverTimestamp, doc, updateDoc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 
@@ -44,7 +43,7 @@ const CheckoutPage = () => {
         alert('No user signed in.');
         return;
       }
-  
+      
       // Combine user information and purchased items into a single object
       const orderData = {
         userInfo: userInfo,

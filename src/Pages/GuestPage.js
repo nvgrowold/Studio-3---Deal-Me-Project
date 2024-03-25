@@ -38,6 +38,7 @@ const ProductList = () => {
 
   const addToCart = (listing) => {
     let cart = JSON.parse(sessionStorage.getItem('cart')) || [];
+
       // Include the listing ID along with the data
     const cartItem = {
       id: listing.id, // This assumes listing includes the id. If not, adjust accordingly.

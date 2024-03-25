@@ -31,6 +31,10 @@ function CartPage() {
     }, [cartItems]);
 
     const calculateTotalPrice = (items) => {
+        if (!Array.isArray(items)) {
+            items = [];
+        }
+
         const total = items.reduce((acc, item) => {
             const price = parseFloat(item.data.price) || 0;
             const quantity = parseInt(item.data.quantity) || 0;
