@@ -50,8 +50,7 @@ export default function MyPurchasedItemsPage() {
                 </h2>
                 {!loading && orders.length > 0 && (
                 <>
-                   
-                    <ul className="sm:grid xl:grid-cols-2 2xl:grid-cols-5 bg-transparent">
+                   <ul className="sm:grid xl:grid-cols-2 2xl:grid-cols-5 bg-transparent">
                     {orders.map((order) => (
                         //create a component for PurchasedItem
                         <OrderHistory

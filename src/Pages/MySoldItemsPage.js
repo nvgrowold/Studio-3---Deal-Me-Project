@@ -21,7 +21,6 @@ export default function MySoldItemsPage() {
     //need to create indexes that need to be used to power compound queries in firestore
     useEffect(() => {
         async function fetchUserListings() {
-
             const listingRef = collection(db, "listings");
             // Adjust query to only fetch sold listings:where("status", "==", "sold"),
             const q = query(listingRef, where("userRef", "==", auth.currentUser.uid), where("status", "==", "sold"), orderBy("timestamp", "desc"));
@@ -39,7 +38,6 @@ export default function MySoldItemsPage() {
             setLoading(false);
             }
             fetchUserListings();
-
     }, [auth.currentUser.uid]); // Dependency array includes auth.currentUser.uid to refetch when it changes
 
     //handle onDelete event of the listed item
@@ -54,6 +52,7 @@ export default function MySoldItemsPage() {
             toast.success("Successfully deleted the listing")
         }
     }
+
 
     return (
         <div className="min-h-screen bg-gradient-to-r from-purple-100 to-teal-100">

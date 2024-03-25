@@ -81,7 +81,6 @@ const CheckoutPage = () => {
             });
       }
 
-        
       // Notify user about successful payment
       toast.success('Payment successful! Your order has been placed.');
   
@@ -132,7 +131,8 @@ const CheckoutPage = () => {
       <p><strong>Total Price:</strong> ${totalPrice}</p>
 
       {/* Payment Button */}
-      <button className="payment-button" onClick={handlePayment}>Make Payment</button>
+      <button className="payment-button w-full bg-gradient-to-r from-purple-300 to-teal-300 text-slate-800 px-7 py-2 mb-6 text-sm font-medium uppercase rounded shadow-lg hover:bg-sky-800 transition duration-150 ease-in-out hover:shadow-xl active:bg-blue-900" onClick={handlePayment}>Make Payment</button>
+
     </div>
     </div>
     
