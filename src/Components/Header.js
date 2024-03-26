@@ -84,9 +84,9 @@ export default function Header() {
                   <li className='cursor-pointer text-white hover:text-sky-500 hover:font-extrabold transition duration-150 ease-in-out'
                       onClick={() => navigate("/UserProfilePage")}>My DealMe</li>
                   <div className='flex flex-col -mt-3'>
-                      <li className='cursor-pointer text-white hover:text-sky-500 hover:font-extrabold transition duration-150 ease-in-out'
+                      <li className='cursor-pointer text-purple-100 hover:text-purple-300 hover:font-extrabold transition duration-150 ease-in-out'
                         onClick={() => navigate("/UserProfilePage")}>Hi, {userInfo.username || 'User'}</li>
-                      <li className='cursor-pointer text-sm text-white hover:text-red-700 hover:font-extrabold transition duration-150 ease-in-out'
+                      <li className='cursor-pointer text-sm text-teal-100 hover:text-teal-300 hover:font-extrabold transition duration-150 ease-in-out'
                         onClick={handleLogout}>Logout</li>
                   </div>
                   </>
