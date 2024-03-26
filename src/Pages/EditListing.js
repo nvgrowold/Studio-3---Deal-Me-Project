@@ -262,8 +262,8 @@ export default function CreateListing() {
               value={true}
               onClick={onChange}
               className={`mr-3 px-7 py-2 font-medium text-sm uppercase shadow-md rounded hover:shadow-lg focus:shadow-lg active:shadow-lg transition duration-150 ease-in-out w-full ${
-                !shipping ? "bg-white text-gray-500" : "bg-slate-600 text-white"
-              }`}
+                !shipping ? "bg-white text-gray-500" : "bg-teal-400 text-white"
+              } hover:bg-purple-300`}
             >
               Delivery
             </button>
@@ -273,8 +273,8 @@ export default function CreateListing() {
               value={false}
               onClick={onChange}
               className={`ml-3 px-7 py-2 font-medium text-sm uppercase shadow-md rounded hover:shadow-lg focus:shadow-lg active:shadow-lg transition duration-150 ease-in-out w-full ${
-                shipping ? "bg-white text-gray-500" : "bg-slate-600 text-white"
-              }`}
+                shipping ? "bg-white text-gray-500" : "bg-teal-400 text-white"
+              }  hover:bg-purple-300`}
             >
               Pickup Only
             </button>
@@ -298,7 +298,7 @@ export default function CreateListing() {
                 min="0"
                 max="400000000"
                 required={shipping}
-                className="w-full px-4 py-1 text-base text-gray-500 bg-white border border-gray-300 rounded transition duration-150 ease-in-out focus:text-gray-700 focus:bg-white focus:border-slate-600 text-center mb-1"
+                className="w-full px-4 py-1 text-base text-gray-500 bg-white border border-gray-300 rounded transition duration-150 ease-in-out focus:text-gray-700 focus:bg-white focus:border-teal-600 text-center mb-1"
               />
              
               </div>
@@ -343,7 +343,7 @@ export default function CreateListing() {
           {/* images */}
           <div className="mt-3">
             <p className="text-lg font-semibold  text-sky-800 mb-1">Images</p>
-            <p className="text-gray-600 mb-1">
+            <p className="text-xs text-gray-600 mb-1">
               The first image will be the cover (max 6)
             </p>
             <input
@@ -371,7 +371,7 @@ export default function CreateListing() {
           </div>
           <button
             type="submit"
-            className="mt-8 w-full px-7 py-2 bg-sky-700 text-white font-medium text-sm uppercase rounded shadow-md hover:bg-sky-900 hover:shadow-lg focus:bg-sky-700 focus:shadow-lg active:bg-sky-800 active:shadow-lg transition duration-150 ease-in-out"
+            className='w-full bg-gradient-to-r from-purple-300 to-teal-300 text-slate-800 px-7 py-2 my-8 text-sm font-medium uppercase rounded shadow-lg hover:bg-sky-800 transition duration-150 ease-in-out hover:shadow-xl active:bg-blue-900'
           >
             Edit Listing
           </button>

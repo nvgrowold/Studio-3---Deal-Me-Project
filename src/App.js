@@ -14,6 +14,7 @@ import GuestPage from "./Pages/GuestPage";
 import Register from "./Pages/Register";
 import ContactUsPage from "./Pages/ContactUsPage";
 import UserProfilePage from "./Pages/UserProfilePage";
+import VerifyUser from "./Pages/VerifyUserPage";
 import MyListingsPage from "./Pages/MyListingsPage";
 import CreateListing from "./Pages/CreateListing";
 import EditListing from "./Pages/EditListing";
@@ -50,6 +51,12 @@ function App() {
           <Route path="/UserProfilePage" element={<PrivateRoute />}>
             <Route path="/UserProfilePage" element={<UserProfilePage />} />
           </Route>
+
+          {/* private route for CreateListing, only after login could create listing*/}
+          <Route path="/VerifyUser" element={<PrivateRoute />}>
+             <Route path="/VerifyUser" element={<VerifyUser />} />
+          </Route>
+
           {/* private route for CreateListing, only after login could create listing*/}
           <Route path="/CreateListing" element={<PrivateRoute />}>
             <Route path="/CreateListing" element={<CreateListing />} />

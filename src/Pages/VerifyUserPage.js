@@ -13,9 +13,11 @@ import { db } from '../firebase';
 import { useNavigate } from "react-router-dom";
 import profileSideImage from "../assets/profileSideImage.jpg";
 
-export default function CreateListing() {
+export default function VerifyUser() {
     //a hook to track image uploading progress
     const [uploadProgress, setUploadProgress] = useState([]);
+
+    const [licenseFile, setLicenseFile] = useState(null);
 
     //const [selectedCategory, setSelectedCategory] = useState('');
     const navigate = useNavigate();
@@ -174,10 +176,25 @@ export default function CreateListing() {
         <section>
 
         <div className="max-w-md px-2 mx-auto shadow-lg">      
-        <h1 className='text-center mt-6 pt-6 text-2xl font-semibold  text-sky-800'>Listing An Item</h1>
+        <h1 className='text-center pt-6 mt-6 text-2xl font-semibold  text-sky-800'>User Verification</h1>
+        <h5 className='text-center mt-6 text-base font-semibold  text-sky-400'>! Please became a verified user to creating a listing</h5>
         <form onSubmit={onSubmit} className='flex-auto max-w-lg shadow-md rounded p-6 px-10'>          
           {/* Name input area */}
-          <p className="text-lg mt-6 font-semibold text-sky-800">Product Name</p>
+          <p className="text-lg mt-3 font-semibold text-sky-800">First Name</p>
+          <input
+            type="text"
+            id="productName"
+            value={productName}
+            onChange={onChange} //handle the input from user
+            placeholder="Product Name"
+            maxLength="32" //max length of the name character no more than 32, this is a built in validation function of HTML
+            minLength="3" //min length of the name character no less than 10
+            required //this field is required, no form submission without this field filled
+            className="w-full px-4 py-1 text-base text-gray-500 bg-white border border-gray-300 rounded transition duration-150 ease-in-out focus:text-gray-700 focus:bg-white focus:border-slate-600 mb-1"
+          />
+
+          {/* Name input area */}
+          <p className="text-lg mt-6 font-semibold text-sky-800">Last Name</p>
           <input
             type="text"
             id="productName"
@@ -191,161 +208,37 @@ export default function CreateListing() {
           />
 
           {/* Dropdown for product category */}
-          <p className="text-lg mt-6 font-semibold  text-sky-800">Product Category</p>
+          <p className="text-lg mt-6 font-semibold  text-sky-800">Proof of Identity</p>
           <select id="category" value={category} onChange={onChange}
           className='w-full px-4 py-1 text-base text-gray-500 bg-white border border-gray-300 rounded transition duration-150 ease-in-out focus:text-gray-700 focus:bg-white focus:border-slate-600 mb-1'>
               {/* Options here */}
               <option value="">All Categories</option>
-              <option value="Computers">Computers</option>
-              <option value="Electronics & photography">Electronics & Photography</option>
-              <option value="Gaming">Gaming</option>
-              <option value="Health & beauty">Health & Beauty</option>
-              <option value="Home & living">Home & Living</option>
-              <option value="Jewellery & watches">Jewellery & Watches</option>
-              <option value="Mobile phones">Mobile Phones</option>
-              <option value="Music & instruments">Music & Instruments</option>
-              <option value="Pets & animals">Pets & Animals</option>
-              <option value="Sports">Sports</option>
-              <option value="Toys & models">Toys & Models</option>
+              <option value="Passport">Passport</option>
+              <option value="Driver's License">Driver's License</option>
             </select>
-
-          {/* Dropdown for Region */}
-          <p className="text-lg mt-6 font-semibold text-sky-800">Region</p>
-          <select id="region" value={region} onChange={onChange}
-          className='w-full px-4 py-1 text-base text-gray-500 bg-white border border-gray-300 rounded transition duration-150 ease-in-out focus:text-gray-700 focus:bg-white focus:border-slate-600 mb-1'>
-              {/* Options here */}
-              <option value="">All Regions</option>
-              <option value="Auckland">Auckland</option>
-              <option value="Christchurch">Christchurch</option>
-              <option value="Palmerston North">Palmerston North</option>
-              <option value="Wellington">Wellington</option>
-              <option value="Tauranga">Tauranga</option>
-              <option value="Hamilton">Hamilton</option>
-              <option value="Dunedin">Dunedin</option>
-              <option value="Napier-Hastings">Napier-Hastings</option>
-            </select>
-
-          {/* Shipping method */}
-          <p className="text-lg mt-6 font-semibold text-sky-800">Shipping Method</p>
-          <div className="flex">
-            <button
-              type="button"
-              id="shipping"
-              value={true}
-              onClick={onChange}
-              className={`mr-3 px-7 py-2 font-medium text-sm uppercase shadow-md rounded hover:shadow-lg focus:shadow-lg active:shadow-lg transition duration-150 ease-in-out w-full ${
-                !shipping ? "bg-white text-gray-500" : "bg-teal-400 text-white"
-              } hover:bg-purple-300`}
-            >
-              Delivery
-            </button>
-            <button
-              type="button"
-              id="shipping"
-              value={false}
-              onClick={onChange}
-              className={`ml-3 px-7 py-2 font-medium text-sm uppercase shadow-md rounded hover:shadow-lg focus:shadow-lg active:shadow-lg transition duration-150 ease-in-out w-full ${
-                shipping ? "bg-white text-gray-500" : "bg-teal-400 text-white"
-              } hover:bg-purple-300`}
-            >
-              Pickup Only
-            </button>
-          </div>
-
-          {shipping && (
-          <div className="flex items-center mt-3 mb-1">
-            <div className="">
-              <p className="text-lg font-semibold  text-sky-800">Delivery Fee</p>
-              <div className="flex w-full justify-center items-center space-x-6">
-              <div className="">
-                  <p className="text-sm align-middle text-gray-500 w-full whitespace-nowrap">
-                    NZ$
-                  </p>
-                </div> 
-              <input
-                type="number"
-                id="deliveryFee"
-                value={deliveryFee}
-                onChange={onChange}
-                min="0"
-                max="400000000"
-                required={shipping}
-                className="w-full px-4 py-1 text-base text-gray-500 bg-white border border-gray-300 rounded transition duration-150 ease-in-out focus:text-gray-700 focus:bg-white focus:border-slate-600 text-center mb-1"
-              />
-             
-              </div>
-            </div>
-          </div>
-        )}
-
-          {/* Description field */}
-          <p className="text-lg font-semibold mt-6  text-sky-800">Description</p>
-          <textarea
-            type="text"
-            id="description"
-            value={description}
-            onChange={onChange}
-            placeholder="Description"
-            required
-            className="w-full px-4 py-1 text-base text-gray-500 bg-white border border-gray-300 rounded transition duration-150 ease-in-out focus:text-gray-700 focus:bg-white focus:border-slate-600 mb-1"
-          />
-
-          {/* Regular price filed */}
-          <div className="flex items-center mt-3">
-            <div className="">
-              <p className="text-lg font-semibold  text-sky-800">Price</p>
-              <div className="flex w-full justify-center items-center space-x-6">
-                  <div className="">
-                    <p className="text-sm text-gray-500 w-full whitespace-nowrap">NZ$</p>
-                  </div>
-                <input
-                  type="number"
-                  id="regularPrice"
-                  value={regularPrice}
-                  onChange={onChange}
-                  min="1"
-                  max="400000000"
-                  required
-                  className="w-full px-4 py-1 text-base text-gray-500 bg-white border border-gray-300 rounded transition duration-150 ease-in-out focus:text-gray-700 focus:bg-white focus:border-slate-600 text-center mb-1"
-                />
-              </div>
-            </div>
-          </div>
 
           {/* images */}
           <div className="mt-3">
-            <p className="text-lg font-semibold  text-sky-800 mb-1">Images</p>
-            <p className="text-xs text-gray-600 mb-1">
-              The first image will be the cover (max 6)
+            <p className="text-lg font-semibold  text-sky-800 mb-1">Upload Proof of Identity</p>
+            <p className="text-gray-600 mb-1 text-xs">
+              Max 6 Images, verification result will come back within 2 working hours.
             </p>
             <input
               type="file"
-              id="images"
+              id="identityProof"
               onChange={onChange}
               accept=".jpg,.png,.jpeg"
               multiple
               required
               className="w-full px-3 py-1 text-gray-700 bg-white border border-gray-300 rounded transition duration-150 ease-in-out focus:bg-white focus:border-slate-600"
             />
-            {/* Display upload progress here */}
-            {/* ###################### not working well################## */}
-            <div className="mt-4">
-                {uploadProgress.map((progress, index) => (
-                    <div key={index}>
-                        <p>Uploading image {index + 1}: {progress.toFixed(2)}%</p>
-                        {/* add a progress bar */}
-                        <div className="bg-red-200 rounded h-2">
-                            <div className="bg-sky-600 h-2 rounded" style={{width: `${progress}%`}}></div>
-                        </div>
-                    </div>
-                ))}
-            </div>
           </div>
+
           <button
             type="submit"
-            className='w-full bg-gradient-to-r from-purple-300 to-teal-300 text-slate-800 px-7 py-2 my-8 text-sm font-medium uppercase rounded shadow-lg hover:bg-sky-800 transition duration-150 ease-in-out hover:shadow-xl active:bg-blue-900'
+            className="mt-8 w-full px-7 py-2 bg-sky-700 text-white font-medium text-sm uppercase rounded shadow-md hover:bg-sky-900 hover:shadow-lg focus:bg-sky-700 focus:shadow-lg active:bg-sky-800 active:shadow-lg transition duration-150 ease-in-out"
           >
-            Create Listing
+            Submit
           </button>
         </form>
       </div>

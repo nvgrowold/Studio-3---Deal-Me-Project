@@ -41,6 +41,7 @@ export default function GoogleSignIn() {
           name: user.displayName,
           email: user.email,
           username: user.username,
+          isLicenseVerified: false,
           timestamp: serverTimestamp(),
         })
       }
