@@ -53,6 +53,7 @@ export default function MySoldItemsPage() {
         }
     }
 
+
     return (
         <div className="min-h-screen bg-gradient-to-r from-purple-100 to-teal-100">
             <Header />
@@ -63,8 +64,7 @@ export default function MySoldItemsPage() {
                 </h2>
                 {!loading && listings.length > 0 && (
                 <>
-                   
-                    <ul className="sm:grid grid-row-2 lg:grid-row-3 xl:grid-cols-4 2xl:grid-cols-5">
+                  <ul className="sm:grid grid-row-2 lg:grid-row-3 xl:grid-cols-4 2xl:grid-cols-5">
                     {listings.map((listing) => (
                         <div>
                          <SoldListingItem
@@ -80,7 +80,6 @@ export default function MySoldItemsPage() {
                         </div>
                       ))}
                     </ul>
-
                 </>
                 )}
 

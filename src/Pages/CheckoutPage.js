@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import "../Styling/CheckoutPage.css";
 import Header from '../Components/Header';
 import { toast } from 'react-toastify';
-
 import { getFirestore, collection, addDoc, serverTimestamp, doc, updateDoc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 
@@ -44,7 +43,7 @@ const CheckoutPage = () => {
         alert('No user signed in.');
         return;
       }
-  
+
       // Combine user information and purchased items into a single object
       const orderData = {
         userInfo: userInfo,
@@ -82,7 +81,7 @@ const CheckoutPage = () => {
             });
       }
 
-        
+
       // Notify user about successful payment
       toast.success('Payment successful! Your order has been placed.');
   
@@ -133,7 +132,7 @@ const CheckoutPage = () => {
       <p><strong>Total Price:</strong> ${totalPrice}</p>
 
       {/* Payment Button */}
-      <button className="payment-button" onClick={handlePayment}>Make Payment</button>
+      <button className="payment-button w-full bg-gradient-to-r from-purple-300 to-teal-300 text-slate-800 px-7 py-2 mb-6 text-sm font-medium uppercase rounded shadow-lg hover:bg-sky-800 transition duration-150 ease-in-out hover:shadow-xl active:bg-blue-900" onClick={handlePayment}>Make Payment</button>
     </div>
     </div>
     
