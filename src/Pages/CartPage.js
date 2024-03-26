@@ -7,13 +7,21 @@ import {toast} from "react-toastify";
 function CartPage() {
     const [cartItems, setCartItems] = useState([]);
     const [totalPrice, setTotalPrice] = useState(0);
+    const [deliveryFee, setDeliveryFee] = useState(0); // Added state for delivery fee
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
     const [deliveryAddress, setDeliveryAddress] = useState('');
-    const [mobileNumber, setMobileNumber] = useState('');
+    const [mobileNumber, setMobileNumber] = useState('+64');
     const [emailError, setEmailError] = useState('');
     const [mobileNumberError, setMobileNumberError] = useState('');
+     // Added state variables for showing errors
+     const [showFirstNameError, setShowFirstNameError] = useState(false);
+     const [showLastNameError, setShowLastNameError] = useState(false);
+     const [showEmailError, setShowEmailError] = useState(false);
+     const [showDeliveryAddressError, setShowDeliveryAddressError] = useState(false);
+     const [showMobileNumberError, setShowMobileNumberError] = useState(false);
+
     useEffect(() => {
         const storedCart = sessionStorage.getItem('productList');
         if (storedCart) {
@@ -31,51 +39,89 @@ function CartPage() {
     }, [cartItems]);
 
     const calculateTotalPrice = (items) => {
-        if (!Array.isArray(items)) {
-            items = [];
-        }
-
-        const total = items.reduce((acc, item) => {
+        let total = 0;
+        let deliveryTotal = 0;
+        items.forEach(item => {
             const price = parseFloat(item.data.price) || 0;
             const quantity = parseInt(item.data.quantity) || 0;
             const deliveryFee = parseInt(item.data.delivery) || 0;
-            return acc + (price * quantity) + deliveryFee;
-        }, 0);
+            total += price * quantity;
+            deliveryTotal += deliveryFee * quantity;
+        });
         setTotalPrice(total);
         setDeliveryFee(deliveryTotal);
     };
+
+    // const validateEmail = (email) => /\S+@\S+\.\S+/.test(email);
+    // const validateMobileNumber = (number) => /^\+64[0-9]{8,9}$/.test(number);
+
+    // const handleSave = async () => {
+
+    //     if (!firstName) {
+    //         setShowFirstNameError(true);
+    //     }
+    //     if (!lastName) {
+    //         setShowLastNameError(true);
+    //     }
+    //     if (!email) {
+    //         setShowEmailError(true);
+    //     }
+    //     if (!deliveryAddress) {
+    //         setShowDeliveryAddressError(true);
+    //     }
+    //     if (!mobileNumber) {
+    //         setShowMobileNumberError(true);
+    //     }
+
+    //     if (!firstName || !lastName || !email || !deliveryAddress || !mobileNumber) {
+    //         return;
+    //     }
+
+    //     if (!validateEmail(email)) {
+    //         setEmailError('Invalid email address');
+    //         return;
+    //     }
+    //     if (!validateMobileNumber(mobileNumber)) {
+    //         setMobileNumberError('Invalid New Zealand mobile number');
+    //         return;
+    //     }
+
+    //     if (cartItems.length === 0) {
+    //         toast.error("Please add items to your cart before proceeding to payment.");
+    //         return;
+    //     }
+
+    //     try {
+    //         const userInfo = { firstName, lastName, email, deliveryAddress, mobileNumber, cartItems, totalPrice, deliveryFee };
+    //         sessionStorage.setItem('userInfo', JSON.stringify(userInfo));
+    //         window.location.href = '/CheckoutPage';
+    //     } catch (error) {
+    //         console.error("Error saving user information: ", error);
+    //     }
+    // };
+
 
     const validateEmail = (email) => /\S+@\S+\.\S+/.test(email);
     const validateMobileNumber = (number) => /^\+64[0-9]{8,9}$/.test(number);
 
     const handleSave = async () => {
-        if (!firstName) {
-            setShowFirstNameError(true);
-        }
-        if (!lastName) {
-            setShowLastNameError(true);
-        }
-        if (!email) {
-            setShowEmailError(true);
-        }
-        if (!deliveryAddress) {
-            setShowDeliveryAddressError(true);
-        }
-        if (!mobileNumber) {
-            setShowMobileNumberError(true);
-        }
-
-        if (!firstName || !lastName || !email || !deliveryAddress || !mobileNumber) {
-            return;
-        }
-
+        setShowFirstNameError(!firstName);
+        setShowLastNameError(!lastName);
+        setShowEmailError(!email);
+        setShowDeliveryAddressError(!deliveryAddress);
+        setShowMobileNumberError(!mobileNumber);
         if (!validateEmail(email)) {
             setEmailError('Invalid email address');
             return;
+        } else {
+            setEmailError('');
         }
+
         if (!validateMobileNumber(mobileNumber)) {
             setMobileNumberError('Invalid New Zealand mobile number');
             return;
+        } else {
+            setMobileNumberError('');
         }
 
         if (cartItems.length === 0) {
@@ -83,39 +129,17 @@ function CartPage() {
             return;
         }
 
-        try {
-            const userInfo = { firstName, lastName, email, deliveryAddress, mobileNumber, cartItems, totalPrice, deliveryFee };
-            sessionStorage.setItem('userInfo', JSON.stringify(userInfo));
-            window.location.href = '/CheckoutPage';
-        } catch (error) {
-            console.error("Error saving user information: ", error);
+
+        // If no errors, proceed with saving user information
+        if (firstName && lastName && email && deliveryAddress && mobileNumber && validateEmail(email) && validateMobileNumber(mobileNumber)) {
+            try {
+                const userInfo = { firstName, lastName, email, deliveryAddress, mobileNumber, cartItems, totalPrice, deliveryFee };
+                sessionStorage.setItem('userInfo', JSON.stringify(userInfo));
+                window.location.href = '/CheckoutPage';
+            } catch (error) {
+                console.error("Error saving user information: ", error);
+            }
         }
-    };
-
-
-    const validateEmail = (email) => /\S+@\S+\.\S+/.test(email);
-    const validateMobileNumber = (number) => /^\+64[0-9]{8,9}$/.test(number);
-
-    const handleSave = async () => {
-        if (!validateEmail(email)) {
-            setEmailError('Invalid email address');
-            return;
-        }
-        if (!validateMobileNumber(mobileNumber)) {
-            setMobileNumberError('Invalid New Zealand mobile number');
-            return;
-        }
-
-        try {
-            
-
-            const userInfo = { firstName, lastName, email, deliveryAddress, mobileNumber, cartItems, totalPrice };
-            sessionStorage.setItem('userInfo', JSON.stringify(userInfo));
-            window.location.href = '/CheckoutPage';
-        } catch (error) {
-            console.error("Error saving user information: ", error);
-
-        };
     };
 
     const handleRemove = (index) => {
@@ -236,13 +260,13 @@ function CartPage() {
                             </tr>
                         </thead>
                         <tbody>
-                            {Array.isArray(cartItems) && cartItems.map((item, index) => (
+                            {cartItems.map((item, index) => (
                                 <tr key={index}>
-                                    <td>{item.name}</td>
-                                    <td>{parseFloat(item.price) || 0}</td>
+                                    <td>{item.data.name}</td>
+                                    <td>{parseFloat(item.data.price) || 0}</td>
                                     <td>{item.data.quantity}</td>
-                                    <td>{parseFloat(item.delivery) || 0}</td>
-                                    <td>${((parseFloat(item.price) || 0) * (parseInt(item.quantity) || 0) + (parseFloat(item.delivery) || 0) * (parseInt(item.quantity) || 0)).toFixed(2)}</td>
+                                    <td>{parseFloat(item.data.delivery) || 0}</td>
+                                    <td>${((parseFloat(item.data.price) || 0) * (parseInt(item.data.quantity) || 0) + (parseFloat(item.data.delivery) || 0) * (parseInt(item.data.quantity) || 0)).toFixed(2)}</td>
                                     <td>
                                         <button onClick={() => handleRemove(index)}>Remove</button>
                                     </td>
