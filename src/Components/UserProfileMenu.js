@@ -36,7 +36,7 @@ function UserProfileMenu() {
                 </p>
 
                 <Link to='/MySoldItemsPage ' className="mr-6 cursor-pointer  hover:text-sky-950 hover:font-semibold transition duration-150 ease-in-out" style={{ textDecoration: 'none', color:'#64007D' }}>
-                    Sold Items
+                    My Sold Items
                 </Link>
 
               </div>

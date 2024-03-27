@@ -171,7 +171,7 @@ export default function UserProfilePage() {
 
                     <div className='flex justify-between whitespace-nowrap text-xs sm:text-base'>
                       <p className='text-base font-semibold  text-sky-800'>Verified User</p>
-                      <p className='text-base text-gray-500'>yes/no</p>
+                      <p className='text-base text-gray-500'>No</p>
                     </div>
 
                     {/*add a line  */}

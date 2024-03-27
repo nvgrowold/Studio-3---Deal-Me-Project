@@ -26,11 +26,12 @@ export default function VerifyUser() {
     const[formData, setFormData] = useState({
         firstName: "",
         lastName: "",
+        email:"",
         category: "",
         images: {},
     })
     //destructuring, all these values come from formData
-    const {firstName,lastName, category,images} = formData;
+    const {firstName, lastName, email, category,images} = formData;
 
     //handle all changes in the form all-in-one here
     function onChange(e){ //e: is the event, the input
@@ -142,25 +143,27 @@ export default function VerifyUser() {
       //uploading image to database
 
       const imgUrls = await Promise.all(
-        [...images].map((image) => storeImage(image))
-      ).catch((error) => {
+        [...images].map((image, index) => storeImage(image, index))
+      ).catch(() => {
         setLoading(false);
         toast.error("Images not uploaded");
         return;
       });
+
+      if (!imgUrls) return; // If imgUrls is null, stop the execution.
   
       const formDataCopy = {
         ...formData,
         imgUrls,
         timestamp: serverTimestamp(),
-        userRef: auth.currentUser.uid,
-        isVerified: true, // Add status field to distinguish sold and selling items
+        //userRef: auth.currentUser.uid,
+        //isVerified: true, // Add status field to distinguish sold and selling items
       };
 
       //delete image
       delete formDataCopy.images;
-      !formDataCopy.offer && delete formDataCopy.discountedPrice;
-      const docRef = await addDoc(collection(db, "IdentityProofs"), formDataCopy);
+      //!formDataCopy.offer && delete formDataCopy.discountedPrice;
+      await addDoc(collection(db, "users", auth.currentUser.uid, "IdentityProofs"), formDataCopy);
       setLoading(false);
       toast.success("User Verification File Submitted");
       navigate("/UserProfilePage");
@@ -191,8 +194,6 @@ export default function VerifyUser() {
             value={firstName}
             onChange={onChange} //handle the input from user
             placeholder="First Name"
-            maxLength="32" //max length of the name character no more than 32, this is a built in validation function of HTML
-            minLength="3" //min length of the name character no less than 10
             required //this field is required, no form submission without this field filled
             className="w-full px-4 py-1 text-base text-gray-500 bg-white border border-gray-300 rounded transition duration-150 ease-in-out focus:text-gray-700 focus:bg-white focus:border-slate-600 mb-1"
           />
@@ -205,8 +206,18 @@ export default function VerifyUser() {
             value={lastName}
             onChange={onChange} //handle the input from user
             placeholder="Last Name"
-            maxLength="32" //max length of the name character no more than 32, this is a built in validation function of HTML
-            minLength="3" //min length of the name character no less than 10
+            required //this field is required, no form submission without this field filled
+            className="w-full px-4 py-1 text-base text-gray-500 bg-white border border-gray-300 rounded transition duration-150 ease-in-out focus:text-gray-700 focus:bg-white focus:border-slate-600 mb-1"
+          />
+
+          {/* Name input area */}
+          <p className="text-lg mt-6 font-semibold text-sky-800">Email Address</p>
+          <input
+            type="email"
+            id="email"
+            value={email}
+            onChange={onChange} //handle the input from user
+            placeholder="example@gmail.com"
             required //this field is required, no form submission without this field filled
             className="w-full px-4 py-1 text-base text-gray-500 bg-white border border-gray-300 rounded transition duration-150 ease-in-out focus:text-gray-700 focus:bg-white focus:border-slate-600 mb-1"
           />
