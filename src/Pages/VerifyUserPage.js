@@ -29,6 +29,7 @@ export default function VerifyUser() {
         email:"",
         category: "",
         images: {},
+        timestamp: serverTimestamp(),
     })
     //destructuring, all these values come from formData
     const {firstName, lastName, email, category,images} = formData;

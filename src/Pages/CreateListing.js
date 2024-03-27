@@ -33,6 +33,7 @@ export default function CreateListing() {
         description: "",
         regularPrice: 0,
         images: {},
+        timestamp: serverTimestamp(),
     })
     //destructuring, all these values come from formData
     const {productName,category, region, shipping, deliveryFee, description, regularPrice, images} = formData;
@@ -154,7 +155,7 @@ export default function CreateListing() {
       //delete image
       delete formDataCopy.images;
       !formDataCopy.offer && delete formDataCopy.discountedPrice;
-      const docRef = await addDoc(collection(db, "listings"), formDataCopy);
+      const docRef = await addDoc(collection(db, "users", auth.currentUser.uid, "listing"), formDataCopy);
       setLoading(false);
       toast.success("Listing created");
       navigate("/UserProfilePage");
