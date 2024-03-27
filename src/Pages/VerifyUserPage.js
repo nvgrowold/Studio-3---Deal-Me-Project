@@ -14,10 +14,7 @@ import { useNavigate } from "react-router-dom";
 import profileSideImage from "../assets/profileSideImage.jpg";
 
 export default function VerifyUser() {
-    //a hook to track image uploading progress
     const [uploadProgress, setUploadProgress] = useState([]);
-
-    const [licenseFile, setLicenseFile] = useState(null);
 
     //const [selectedCategory, setSelectedCategory] = useState('');
     const navigate = useNavigate();
@@ -27,17 +24,13 @@ export default function VerifyUser() {
 
     //hook state for delivery or pickup only button + destructure it
     const[formData, setFormData] = useState({
-        productName: "",
+        firstName: "",
+        lastName: "",
         category: "",
-        region: "",
-        shipping: false,
-        deliveryFee:0,
-        description: "",
-        regularPrice: 0,
         images: {},
     })
     //destructuring, all these values come from formData
-    const {productName,category, region, shipping, deliveryFee, description, regularPrice, images} = formData;
+    const {firstName,lastName, category,images} = formData;
 
     //handle all changes in the form all-in-one here
     function onChange(e){ //e: is the event, the input
@@ -55,6 +48,7 @@ export default function VerifyUser() {
           images:e.target.files, //set the images to e.target.files
         }))
       }
+
       //for text/boolean/number
       if(!e.target.files){
         setFormData((prevState) => ({
@@ -70,14 +64,26 @@ export default function VerifyUser() {
 
       e.preventDefault(); //no refreshing if click submit button with some field of empty input
       setLoading(true); //after clicking submit, setLoading to true, run the spinner. After storing to the firebase, set the loading back to false
+      
+      if (!auth.currentUser) {
+        // Handle the case where no user is authenticated
+        setLoading(false); //stop the loading process as the operation cannot proceed
+        toast.error("You must be logged in to perform this action.");
+        navigate("/Login");
+        return; //exit the function to prevent further execution
+      }
+      
+      
       if(images.length > 6) { //add some conditions, if not meet the condition, stop loading
         setLoading(false);
         toast.error("Maximum 6 images are allowed");
         return;
       }
-      
+
+            
       // Initialize the uploadProgress state with zeroes for each image
-      setUploadProgress(new Array(images.length).fill(0));      
+      setUploadProgress(new Array(images.length).fill(0));   
+         
 
       //upload image one by one to storage
       //https://firebase.google.com/docs/storage/web/upload-files
@@ -130,8 +136,6 @@ export default function VerifyUser() {
         });
       }
 
-
-      
       // Initialize the uploadProgress state with zeroes for each image
       setUploadProgress(new Array(images.length).fill(0));
 
@@ -150,15 +154,15 @@ export default function VerifyUser() {
         imgUrls,
         timestamp: serverTimestamp(),
         userRef: auth.currentUser.uid,
-        status: "available", // Add status field to distinguish sold and selling items
+        isVerified: true, // Add status field to distinguish sold and selling items
       };
 
       //delete image
       delete formDataCopy.images;
       !formDataCopy.offer && delete formDataCopy.discountedPrice;
-      const docRef = await addDoc(collection(db, "listings"), formDataCopy);
+      const docRef = await addDoc(collection(db, "IdentityProofs"), formDataCopy);
       setLoading(false);
-      toast.success("Listing created");
+      toast.success("User Verification File Submitted");
       navigate("/UserProfilePage");
       // navigate(`/category/${formDataCopy.type}/${docRef.id}`);
     }
@@ -180,13 +184,13 @@ export default function VerifyUser() {
         <h5 className='text-center mt-6 text-base font-semibold  text-sky-400'>! Please became a verified user to creating a listing</h5>
         <form onSubmit={onSubmit} className='flex-auto max-w-lg shadow-md rounded p-6 px-10'>          
           {/* Name input area */}
-          <p className="text-lg mt-3 font-semibold text-sky-800">First Name</p>
+          <p className="text-lg font-semibold text-sky-800">First Name</p>
           <input
             type="text"
-            id="productName"
-            value={productName}
+            id="firstName"
+            value={firstName}
             onChange={onChange} //handle the input from user
-            placeholder="Product Name"
+            placeholder="First Name"
             maxLength="32" //max length of the name character no more than 32, this is a built in validation function of HTML
             minLength="3" //min length of the name character no less than 10
             required //this field is required, no form submission without this field filled
@@ -197,10 +201,10 @@ export default function VerifyUser() {
           <p className="text-lg mt-6 font-semibold text-sky-800">Last Name</p>
           <input
             type="text"
-            id="productName"
-            value={productName}
+            id="lastName"
+            value={lastName}
             onChange={onChange} //handle the input from user
-            placeholder="Product Name"
+            placeholder="Last Name"
             maxLength="32" //max length of the name character no more than 32, this is a built in validation function of HTML
             minLength="3" //min length of the name character no less than 10
             required //this field is required, no form submission without this field filled
@@ -236,7 +240,7 @@ export default function VerifyUser() {
 
           <button
             type="submit"
-            className="mt-8 w-full px-7 py-2 bg-sky-700 text-white font-medium text-sm uppercase rounded shadow-md hover:bg-sky-900 hover:shadow-lg focus:bg-sky-700 focus:shadow-lg active:bg-sky-800 active:shadow-lg transition duration-150 ease-in-out"
+            className='w-full bg-gradient-to-r from-purple-300 to-teal-300 text-slate-800 px-7 py-2 my-8 text-sm font-medium uppercase rounded shadow-lg hover:bg-sky-800 transition duration-150 ease-in-out hover:shadow-xl active:bg-blue-900'
           >
             Submit
           </button>
