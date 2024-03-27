@@ -25,7 +25,8 @@ import Dashboard from "./Pages/AdminNavPages/Dashboard";
 import Messages from "./Pages/AdminNavPages/Messages";
 import Reports from "./Pages/AdminNavPages/Reports";
 import Settings from "./Pages/AdminNavPages/Settings";
-
+ import User from "./User";
+//import Logout from "./Logout";
 //private route for user UserProfilePage protection
 import PrivateRoute from "./Components/PrivateRoute";
 import Deal from "./Pages/Deal";
@@ -90,6 +91,8 @@ function App() {
           <Route exact path='/Messages' element={<Messages/>}/>
           <Route exact path='/Reports' element={<Reports/>}/>
           <Route exact path='/Settings' element={<Settings/>}/>
+          <Route exact path='/User' element={<User/>}/>
+          {/* <Route exact path='/Logout' element={<Logout/>}/> */}
         </Routes>
       </BrowserRouter>
 
