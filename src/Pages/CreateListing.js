@@ -155,7 +155,7 @@ export default function CreateListing() {
       //delete image
       delete formDataCopy.images;
       !formDataCopy.offer && delete formDataCopy.discountedPrice;
-      const docRef = await addDoc(collection(db, "users", auth.currentUser.uid, "listing"), formDataCopy);
+      const docRef = await addDoc(collection(db, "users", auth.currentUser.uid, "listings"), formDataCopy);
       setLoading(false);
       toast.success("Listing created");
       navigate("/UserProfilePage");
