@@ -26,6 +26,8 @@ function Register(){
         username:"",
         email: "",
         password:"",
+        isVerified: false,
+        timestamp: serverTimestamp(),
     });
     //Hook for show password, the initial state is false not showing
     const[showPassword, setShowPassword] = useState(false);
