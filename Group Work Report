@@ -46,35 +46,35 @@ PS: Check out coding standard
 22/02/2024
 Previous task:
 -- Agreed on App Name: DealMe
--- Done with business requirements, system requirements and basic user stories
+-- Done with business requirements, system requirements, and basic user stories
 
 
-To do list for this session:
+To-do list for this session:
 --Sprint plan
 --Agreeing coding standard -- https://www.tatvasoft.com/blog/reactjs-best-practices/
 
 
-To do list before next session (Tomorrow:23/02/2024)
--- Basic dashboard for Sellers, Buyers and Admin users
---Detail of how to do pull request and version control practice
+To-do list before next session (Tomorrow:23/02/2024)
+-- Basic dashboard for Sellers, Buyers, and Admin users
+--Detail of how to do pull requests and version control practice
 
-PS: Keep self learning React
+PS: Keep self-learning React
 PS: List out what data needed to support buyer user
-PS: Adding working document folder
+PS: Adding a working document folder
 #####################################################################################################################################################
 23/02/2024
 Previous task:
--- Basic dashboard for Sellers, Buyers and Admin users: Liman--Home Page, Harikash -- search bar, Mitchell--Figured out the final layout the Admin page, need to try the basic code
+-- Basic dashboard for Sellers, Buyers, and Admin users: Liman--Home Page, Harikash -- search bar, Mitchell--Figured out the final layout the Admin page, need to try the basic code
 -- Clear about pull request
 
-To do list before next Thursday:
+To-do list before next Thursday:
 --Homepage basic function
 --Admin page basic frame
---Searchging product
+--Searching product
 -- PDR
 #####################################################################################################################################################
 29/02/2024
-Notes with client on 27th Feb:
+Notes with the client on 27th Feb:
 --ERD diagram: entities
 --Attributes for each entity
 --NoSql database
@@ -82,10 +82,148 @@ Notes with client on 27th Feb:
 Previous Task:
 --Home page:80% Basic function working
 --Admin page: 55% Dashboard done, 
--- Searching product:30% listed category but searching need to be fixed
--- Liman selflearning: 55%
+-- Searching product:30% listed category but searching needs to be fixed
+-- Liman self-learning: 55%
 -- Mitchell selflearning:35%
 -- Harikash selflearning:50%
+############################################################################################################################################################
+01/03/2024
+
+Previous Task 
+--finished the Entity Diagram
+-- made the UI design
+--Reviewed the dashboard
+home page finished 
+
+Today's Task
+7th March:
+
+Task: Fixed issues on the V3.2 Dashboard.
+Completion Time: Completed and committed by 1:15 pm.
+Action: Pull request submitted.
+
+8th March:
+Task: Implemented V4 Database for deals.
+Completion Time: Completed and pull request submitted by 11:59 pm.
+
+10th March:
+Task: Developed V5 User Profile page.
+Completion Time: Finished and submitted pull request by 11:59 pm.
+
+11th March:
+Task: Enhanced User Profile with V5.1 User Profile Protection.
+Completion Time: Completed and pull request submitted by 11:59 pm.
+
+#########################################################################################################################################################################
+08/03/2024
+
+Previous Task:
+--
+--
+--
+
+Today's Tasks:
+
+Task: Initiated V6 Listing Product.
+Completion Time: Due by 11:59 pm.
+
+
+Task: Implemented V7 Cart Page.
+Completion Time: Due by 11:59 pm.
+
+Task: Developed V8 Checkout Page.
+Completion Time: Due by 11:59 pm.
+
+Task: Completed V6 Listing Product.
+Completion Time: Done, and pull request submitted.
+
+#######################################################################################################
+16/03/2024
+previous Task 
+--Managed to fix issues on the Dashboard 100%
+--database for deals 
+--Profile page set up 
+--User Protection Authentication
+--Listing of Products
+-- Cart Page implemented (functionally)
+
+Today's task 
+17th March:
+
+Contributor: Harikash
+Task: Implemented V7 Cart Page.
+Completion Time: Due by 11:59 pm.
+Action: Pull request submitted.
+18th March:
+
+Contributor: Liman
+Task: Extended functionality and formatting for creating a page in V8.
+Completion Time: Due by 11:59 pm.
+Action: Pending pull request.
+18th March:
+
+Contributor: Liman
+Task: Enhanced CSS for the Home Page in V9.
+Completion Time: Due by 11:59 pm.
+Action: Pull request submitted.
+19th March:
+
+Contributor: Harikash
+Task: Developed V10 Checkout Page.
+Completion Time: Due by 11:59 pm.
+Action: Pull request submitted.
+Overall Status:
+
+--Progress continues steadily with tasks being completed according to schedule.
+--Liman's tasks on the create listing page and home page CSS are in progress, with one pull request already submitted.
+--Harikash completed tasks related to the cart and checkout pages, with pull requests submitted promptly.
+####################################################################################################################################################
+23/03/2024
+Previous Task
+
+--Mitchell completed the V6 Listing Product.
+--Harikash completed the V7 Cart Page.
+--Liman's tasks:
+V8 (Formatting and additional functionality for creating page) in progress.
+V9 (Home page CSS) completed.
+--Harikash completed the V7 Cart Page
+--Liman worked on:
+V8 (Formatting and additional functionality for create-listing page) in progress.
+V9 (Home page CSS) completed.
+--19th March:
+
+Harikash completed the V10 Checkout Page.
+
+Todays Tasks 
+21st March:
+--did a teams meeting 
+
+--Contributor: Mitchell
+Task: Implemented V11.1 Confirmation Page with admin authentication.
+Completion Time: Due by 11:59 pm.
+Action: Pull request submitted.
+22nd March:
+
+--Contributor: Harikash
+Task: Addressed minor issues on the checkout cart page in V11.2.
+Completion Time: Due by 11:59 pm.
+Action: Pull request submitted.
+Overall Status:
+
+Mitchell completed the implementation of the  admin authentication, submitting a pull request as scheduled.
+Harikash addressed minor issues on the checkout cart page, ensuring smooth functionality, and submitted the corresponding pull request promptly.
+###############################################################################################################################################################
+28/07/2024
+
+Previous Task 
+--Had a run down with our Client and suggested a few more pages(confirmation page, admin dashboard fetch data from the firebase )
+--completed a full admin panel authentication
+--fixed minor issues on the checkout page and cart page 
+
+Todays Task 
+--create user listing with their %
+
+
 
 
 
