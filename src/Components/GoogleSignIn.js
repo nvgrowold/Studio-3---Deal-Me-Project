@@ -40,7 +40,7 @@ export default function GoogleSignIn() {
         await setDoc(docRef,{
           name: user.displayName,
           email: user.email,
-          username: user.username,
+          //username: user.username,
           timestamp: serverTimestamp(),
         })
       }
