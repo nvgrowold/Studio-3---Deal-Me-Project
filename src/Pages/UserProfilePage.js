@@ -115,7 +115,8 @@ export default function UserProfilePage() {
     <div className="min-h-screen bg-gradient-to-r from-purple-100 to-teal-100">
       <Header/>
       <div className='grid gap-8 md:w-auto justify-center mt-10 lg:grid-cols-3 lg:justify-start'>
-       <UserProfileMenu/>
+        {/* the UserProfilePage to pass the isVerified state to the UserProfileMenu component: */}
+       <UserProfileMenu isVerified={userInfo.isVerified}/>
         <section>
             {/* <div className='flex justify-center flex-wrap items-center px-6 py-12 max-w-full mx-auto mt-16 max-mt-20'>         */}
             <div className='lg:mt-10 md:min-w-96'>  
