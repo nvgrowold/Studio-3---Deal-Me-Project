@@ -56,6 +56,7 @@ export default function UserProfilePage() {
     username: auth.currentUser.username,
     name: auth.currentUser.displayName,
     email:auth.currentUser.email,
+    isVerified:auth.currentUser.isVerified
   });
   //destructure the name and email, otherwise will get error
   const {username,name, email} =formData;
@@ -171,7 +172,7 @@ export default function UserProfilePage() {
 
                     <div className='flex justify-between whitespace-nowrap text-xs sm:text-base'>
                       <p className='text-base font-semibold  text-sky-800'>Verified User</p>
-                      <p className='text-base text-gray-500'>No</p>
+                      <p className='text-base text-gray-500'>{userInfo.isVerified ? "Yes" : "No"}</p>
                     </div>
 
                     {/*add a line  */}
