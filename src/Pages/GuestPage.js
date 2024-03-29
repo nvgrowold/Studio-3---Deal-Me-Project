@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import cart from "../assets/cart-shopping-solid.svg";
 import ListingItem from '../Components/ListingItem'; 
 import { FaCartShopping } from "react-icons/fa6";
+import OfferSlider from '../Components/OfferSlider';
 
 const ProductList = () => {
   const [selectedCategory, setSelectedCategory] = useState('');
@@ -88,6 +89,7 @@ const ProductList = () => {
   return (
     <div className="min-h-screen bg-gradient-to-r from-purple-100 to-teal-100">
       <Header />
+      <OfferSlider/>
       <div className="filter-section">
         <div>
           <label htmlFor="category" className='text-base xl:ml-10 font-semibold'>Filter by Category</label>
