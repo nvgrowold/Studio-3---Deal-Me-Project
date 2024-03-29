@@ -17,6 +17,8 @@ export default function Header() {
   //fetch data for users collection
   const [userInfo, setUserInfo] = useState({});
 
+  const [isMenuOpen, setIsMenuOpen] = useState(false); // State to manage hamburger menu visibility
+
   //update the page state based on the authentication
   const auth = getAuth();
 
@@ -36,8 +38,6 @@ export default function Header() {
   
      fetchUserData();
    }, [auth.currentUser]);
-
-
 
   //useEffect to check the changes of auth
   useEffect(()=>{
@@ -63,6 +63,11 @@ export default function Header() {
     }
   };
   
+  // Toggle function for mobile menu
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   return (
     <div className='h-16 bg-slate-900 border-b-2 shadow-lg sticky top-0 z-50 py-2 px-3'>
       <header className='flex justify-between items-center
@@ -71,14 +76,17 @@ export default function Header() {
             onClick={() => navigate("/")}>
           <LogoForHeader/>
         </div>
-        <div>
+        <div className='hidden lg:flex'>
             <ul className='flex space-x-12 cursor-pointer text-center font-semibold mr-5 pb-3'>
                 <li className='no-underline  text-white hover:text-sky-500 hover:font-extrabold transition duration-150 ease-in-out'
                   onClick={() => navigate("/")}>Home</li>
+
+                <li className='no-underline  text-white hover:text-sky-500 hover:font-extrabold transition duration-150 ease-in-out'
+                  onClick={() => navigate("/GuestPage")}>MarketPlace</li>
             
-            <li className='no-underline  text-white hover:text-sky-500 hover:font-extrabold transition duration-150 ease-in-out'
-                  onClick={() => navigate("/ContactUsPage")}>Contact Us</li>
-    
+                <li className='no-underline  text-white hover:text-sky-500 hover:font-extrabold transition duration-150 ease-in-out'
+                      onClick={() => navigate("/ContactUsPage")}>Contact Us</li>
+        
             {isLoggedIn ? (
                   <>
                   <li className='cursor-pointer text-white hover:text-sky-500 hover:font-extrabold transition duration-150 ease-in-out'
@@ -95,6 +103,41 @@ export default function Header() {
                     onClick={() => navigate("/Login")}>Log In</li>
                 )}           
             </ul>
+        </div>
+        <div className='lg:hidden flex items-center'>
+          {/* Hamburger menu icon here */}
+          <button onClick={toggleMenu} className='-mt-10 p-2 bg-gradient-to-r from-purple-300 to-teal-300 text-slate-800'>
+              {/* Hamburger icon */}
+              <span className='hamburger-icon'>☰</span>
+          </button>
+          {isMenuOpen && (
+            <ul className='absolute top-full rounded-xl right-0 w-auto flex flex-col space-y-2 cursor-pointer text-right pr-4 py-3 font-semibold text-slate-800 bg-purple-50'>
+              <li className='no-underline hover:text-sky-500 hover:font-extrabold transition duration-150 ease-in-out'
+                onClick={() => navigate("/")}>Home</li>
+
+              <li className='no-underline hover:text-sky-500 hover:font-extrabold transition duration-150 ease-in-out'
+                onClick={() => navigate("/GuestPage")}>MarketPlace</li>
+          
+              <li className='no-underline hover:text-sky-500 hover:font-extrabold transition duration-150 ease-in-out'
+                    onClick={() => navigate("/ContactUsPage")}>Contact Us</li>
+      
+              {isLoggedIn ? (
+                <>
+                <li className='cursor-pointer hover:text-sky-500 hover:font-extrabold transition duration-150 ease-in-out'
+                    onClick={() => navigate("/UserProfilePage")}>My DealMe</li>
+                <div className='flex flex-col -mt-3'>
+                    <li className='cursor-pointer text-purple-800 hover:text-purple-900 hover:font-extrabold transition duration-150 ease-in-out'
+                      onClick={() => navigate("/UserProfilePage")}>Hi, {userInfo.username || 'User'}</li>
+                    <li className='cursor-pointer text-sm text-teal-700 hover:text-teal-800 hover:font-extrabold transition duration-150 ease-in-out'
+                      onClick={handleLogout}>Logout</li>
+                </div>
+                </>
+                  ) : (
+                <li className='text-white hover:text-sky-500 transition duration-150 ease-in-out'
+                  onClick={() => navigate("/Login")}>Log In</li>
+              )}           
+            </ul>
+          )}
         </div>
       </header>
     </div>
