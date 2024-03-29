@@ -6,6 +6,7 @@ import { db } from '../firebase';
 import { Link } from 'react-router-dom';
 import cart from "../assets/cart-shopping-solid.svg";
 import ListingItem from '../Components/ListingItem'; 
+import { FaCartShopping } from "react-icons/fa6";
 
 const ProductList = () => {
   const [selectedCategory, setSelectedCategory] = useState('');
@@ -88,8 +89,9 @@ const ProductList = () => {
     <div className="min-h-screen bg-gradient-to-r from-purple-100 to-teal-100">
       <Header />
       <div className="filter-section">
-        <label htmlFor="category">Filter by Category:</label>
-        <select id="category" value={selectedCategory} onChange={handleCategoryChange}>
+        <div>
+          <label htmlFor="category" className='text-base xl:ml-10 font-semibold'>Filter by Category</label>
+        <select id="category" value={selectedCategory} onChange={handleCategoryChange} className='text-sm rounded-lg border-separate bg-transparent'>
           <option value="">All Categories</option>
           <option value="Computers">Computers</option>
           <option value="Electronics & Photography">Electronics & Photography</option>
@@ -103,9 +105,11 @@ const ProductList = () => {
           <option value="Sports">Sports</option>
           <option value="Toys & Models">Toys & Models</option>
         </select>
-
-        <label htmlFor="region">Filter by Region:</label>
-        <select id="region" value={selectedRegion} onChange={handleRegionChange}>
+        </div>
+        
+        <div>
+          <label htmlFor="region" className='text-base font-semibold'>Region</label>
+        <select id="region" value={selectedRegion} onChange={handleRegionChange} className='text-sm rounded-lg  border-separate bg-transparent'>
           <option value="">All Regions</option>
           <option value="Auckland">Auckland</option>
           <option value="Christchurch">Christchurch</option>
@@ -116,38 +120,48 @@ const ProductList = () => {
           <option value="Dunedin">Dunedin</option>
           <option value="Napier-Hastings">Napier-Hastings</option>
         </select>
+        </div>
+        
+        <div>
+          <label htmlFor="price" className='text-base font-semibold'>Price</label>
+          <input
+            type="number"
+            id="price"
+            value={selectedPrice}
+            onChange={handlePriceChange}
+            placeholder="Enter max price"
+            className='text-sm rounded-lg  border-separate bg-transparent'
+          />
+        </div>
 
-        <label htmlFor="price">Filter by Price:</label>
-        <input
-          type="number"
-          id="price"
-          value={selectedPrice}
-          onChange={handlePriceChange}
-          placeholder="Enter max price"
-        />
+        <div>
+          <label htmlFor="search" className='text-base font-semibold'>Key Words</label>
+          <input
+            type="text"
+            id="search"
+            value={searchTerm}
+            onChange={handleSearchChange}
+            placeholder="Search listings"
+            className='text-sm rounded-lg  border-separate bg-transparent'
+          />
+        </div>
 
-        <label htmlFor="search">Search:</label>
-        <input
-          type="text"
-          id="search"
-          value={searchTerm}
-          onChange={handleSearchChange}
-          placeholder="Search listings"
-        />
 
-        <button onClick={handleFilter}>Filter</button>
+        <button onClick={handleFilter} className='text-base border-none font-semibold h-10 w-16'>Filter</button>
 
-        <Link to="/Cart">
-          <img src={cart} className='cart-logo' alt="Cart" />
-          ({cartLength})
+        <div className='ml-10 mt-2'>
+          <Link to="/Cart" className='text-purple-400' style={{ fontSize: '2rem' }}>
+          <FaCartShopping className='cursor-pointer' />
         </Link>
-      </div>
+        </div>
+
+      </div>        
+
 
       <div>
-        <h2>Filtered Listings:</h2>
         {!loading && listings.length > 0 && (
           <>
-            <ul className="sm:grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+            <ul className="sm:grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 mr-6">
               {filteredListings.map((listing) => (
                 <ListingItem
                   key={listing.id}
