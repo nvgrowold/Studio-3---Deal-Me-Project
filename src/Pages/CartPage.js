@@ -133,11 +133,12 @@ function CartPage() {
         // If no errors, proceed with saving user information
         if (firstName && lastName && email && deliveryAddress && mobileNumber && validateEmail(email) && validateMobileNumber(mobileNumber)) {
             try {
-                const userInfo = { firstName, lastName, email, deliveryAddress, mobileNumber, cartItems, totalPrice, deliveryFee };
+                const userInfo = { firstName, lastName, email, deliveryAddress, mobileNumber, cartItems, totalPrice: totalPrice + deliveryFee };
                 sessionStorage.setItem('userInfo', JSON.stringify(userInfo));
                 window.location.href = '/CheckoutPage';
             } catch (error) {
                 console.error("Error saving user information: ", error);
+                toast.error("Please input valid user information!")
             }
         }
     };

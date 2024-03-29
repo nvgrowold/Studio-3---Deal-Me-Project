@@ -94,13 +94,12 @@ const CheckoutPage = () => {
   };
   
   return (
-    <div>
+    <div className="min-h-screen bg-gradient-to-r from-purple-100 to-teal-100">
       <Header/>
-      <div className="checkout-container">
-      <h2 className="checkout-heading">Checkout</h2>
+      <div className="checkout-container mt-20">
 
       {/* User Information Section */}
-      <div className="user-info-section">
+      <div className="user-info-section shadow-xl px-3">
         <h3>User Information</h3>
         <div className="user-info">
           <p><strong>First Name:</strong> {userInfo.firstName}</p>
@@ -112,7 +111,7 @@ const CheckoutPage = () => {
       </div>
 
       {/* Purchased Items Section */}
-      <div className="purchased-items-section">
+      <div className="purchased-items-section shadow-xl px-3 mt-6">
         <h3>Purchased Items</h3>
         <ul className="purchased-items-list">
             {purchasedItems.map((item, index) => (

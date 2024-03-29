@@ -185,7 +185,7 @@ export default function CreateListing() {
             value={productName}
             onChange={onChange} //handle the input from user
             placeholder="Product Name"
-            maxLength="32" //max length of the name character no more than 32, this is a built in validation function of HTML
+            maxLength="100" //max length of the name character no more than 32, this is a built in validation function of HTML
             minLength="3" //min length of the name character no less than 10
             required //this field is required, no form submission without this field filled
             className="w-full px-4 py-1 text-base text-gray-500 bg-white border border-gray-300 rounded transition duration-150 ease-in-out focus:text-gray-700 focus:bg-white focus:border-slate-600 mb-1"
@@ -208,6 +208,7 @@ export default function CreateListing() {
               <option value="Pets & animals">Pets & Animals</option>
               <option value="Sports">Sports</option>
               <option value="Toys & models">Toys & Models</option>
+              <option value="Books">Books</option>
             </select>
 
           {/* Dropdown for Region */}

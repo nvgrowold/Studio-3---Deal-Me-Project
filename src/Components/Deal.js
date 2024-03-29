@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { db } from '../firebase';
 import {getDoc, doc,  } from 'firebase/firestore';
-import Spinner from '../Components/Spinner';
-import Header from '../Components/Header';
+import Spinner from './Spinner';
+import Header from './Header';
 //import { getAuth } from "firebase/auth";
 
 //import react-slideshow-image

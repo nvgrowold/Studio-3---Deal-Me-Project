@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { collection, getDocs, limit, orderBy, query } from "firebase/firestore";
+import { collection, getDocs, limit, orderBy, query, where } from "firebase/firestore";
 import { db } from "../firebase";
 import Spinner from "../Components/Spinner";
 import { useNavigate } from "react-router-dom";
@@ -14,7 +14,7 @@ export default function OfferSlider() {
   useEffect(() => {
     async function fetchListings() {
       const listingsRef = collection(db, "listings");
-      const q = query(listingsRef, orderBy("timestamp", "desc"), limit(5));
+      const q = query(listingsRef, where("status", "==", "available"), orderBy("timestamp", "desc"), limit(5));
       const querySnap = await getDocs(q);
       let listings = [];
       querySnap.forEach((doc) => {
@@ -36,8 +36,8 @@ export default function OfferSlider() {
   return (
     <Fade duration={3000} transitionDuration={1000}>
       {listings.map((listing) => (
-        <div key={listing.id} className="each-slide" onClick={() => navigate(`/category/${listing.data.category}/${listing.id}`)}>
-          <div style={{ ...divStyle, backgroundImage: `url(${listing.data.imgUrl})` }}>
+        <div key={listing.id} className="each-slide hover:scale-105 transition-scale duration-200 ease-in-out cursor-pointer" onClick={() => navigate(`/category/${listing.category}/${listing.id}`)}>
+          <div style={{ ...divStyle, backgroundImage: `url(${listing.data.imgUrls[0]})` }}>
             <span>{listing.data.name}</span>
           </div>
         </div>

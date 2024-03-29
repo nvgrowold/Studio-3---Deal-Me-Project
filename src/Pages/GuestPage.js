@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../Components/Header';
 import '../Styling/StyleGuestPage.css';
-import { collection, query, getDocs, orderBy } from 'firebase/firestore'; 
+import { collection, query, getDocs, orderBy, where } from 'firebase/firestore'; 
 import { db } from '../firebase';
 import { Link } from 'react-router-dom';
-import cart from "../assets/cart-shopping-solid.svg";
 import ListingItem from '../Components/ListingItem'; 
 import { FaCartShopping } from "react-icons/fa6";
 import OfferSlider from '../Components/OfferSlider';
@@ -23,7 +22,7 @@ const ProductList = () => {
   useEffect(() => {
     async function fetchListings() {
       const listingsRef = collection(db, "listings");
-      const q = query(listingsRef, orderBy("timestamp", "desc"));
+      const q = query(listingsRef,where("status", "==", "available"), orderBy("timestamp", "desc"));
       const querySnapshot = await getDocs(q);
       let listings = [];
       querySnapshot.forEach((doc) => {
@@ -106,6 +105,7 @@ const ProductList = () => {
           <option value="Pets & Animals">Pets & Animals</option>
           <option value="Sports">Sports</option>
           <option value="Toys & Models">Toys & Models</option>
+          <option value="Books">Books</option>
         </select>
         </div>
         
@@ -149,9 +149,9 @@ const ProductList = () => {
         </div>
 
 
-        <button onClick={handleFilter} className='text-base border-none font-semibold h-10 w-16'>Filter</button>
+        <button onClick={handleFilter} className='text-base bg-teal-400 border-none font-semibold h-10 w-16 hover:scale-105 transition-scale duration-200 ease-in-out'>Filter</button>
 
-        <div className='ml-10 mt-2'>
+        <div className='ml-10 mt-2 hover:scale-125 transition-scale duration-200 ease-in-out'>
           <Link to="/Cart" className='text-purple-400' style={{ fontSize: '2rem' }}>
           <FaCartShopping className='cursor-pointer' />
         </Link>

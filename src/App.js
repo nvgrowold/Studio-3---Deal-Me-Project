@@ -30,7 +30,7 @@ import Settings from "./Pages/AdminNavPages/Settings";
 
 //private route for user UserProfilePage protection
 import PrivateRoute from "./Components/PrivateRoute";
-import Deal from "./Pages/Deal";
+import Deal from "./Components/Deal";
 import MyPurchasedItemsPage from "./Pages/MyPurchasedItemsPage";
 import MySoldItemsPage from "./Pages/MySoldItemsPage";
 
