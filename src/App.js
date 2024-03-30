@@ -4,7 +4,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
-
+//dispalying users 
+import DispalyingUsers from './Pages/AdminNavPages/DispalyingUsers';
+import Chart from './Pages/Chart';
+import Inventory from "./Pages/AdminNavPages/Inventory";
 //import all pages
 import AdminDashboard from "./Pages/AdminDashboard";
 import Homepage from "./Pages/Homepage";
@@ -59,7 +62,10 @@ function App() {
           <Route path="/VerifyUser" element={<PrivateRoute />}>
              <Route path="/VerifyUser" element={<VerifyUser />} />
           </Route>
-
+           {/* diplaying users */}
+           
+               
+          
           {/* private route for CreateListing, only after login could create listing*/}
           <Route path="/CreateListing" element={<PrivateRoute />}>
             <Route path="/CreateListing" element={<CreateListing />} />
@@ -100,6 +106,9 @@ function App() {
           <Route exact path='/Messages' element={<Messages/>}/>
           <Route exact path='/Reports' element={<Reports/>}/>
           <Route exact path='/Settings' element={<Settings/>}/>
+          <Route exact path='/DispalyingUsers' element={<DispalyingUsers/>}/>
+          <Route exact path='/Chart' element={<Chart/>}/>
+          <Route exact path='/Inventory' element={<Inventory/>}/>
         </Routes>
       </BrowserRouter>
 
