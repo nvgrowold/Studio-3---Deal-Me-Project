@@ -89,7 +89,6 @@ export default function Header() {
   }, [isLoggedIn, auth]); // Depend on isLoggedIn and auth to ensure the effect is updated appropriately
   
 
-
   return (
     <div className='h-16 bg-slate-900 border-b-2 shadow-lg sticky top-0 z-50 py-2 px-3'>
       <header className='flex justify-between items-center
