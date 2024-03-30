@@ -4,7 +4,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
-
+//dispalying users 
+import DispalyingUsers from './Pages/AdminNavPages/DispalyingUsers';
+import Chart from './Pages/Chart';
+import Inventory from "./Pages/AdminNavPages/Inventory";
 //import all pages
 import AdminDashboard from "./Pages/AdminDashboard";
 import Homepage from "./Pages/Homepage";
@@ -14,11 +17,13 @@ import GuestPage from "./Pages/GuestPage";
 import Register from "./Pages/Register";
 import ContactUsPage from "./Pages/ContactUsPage";
 import UserProfilePage from "./Pages/UserProfilePage";
+import VerifyUser from "./Pages/VerifyUserPage";
 import MyListingsPage from "./Pages/MyListingsPage";
 import CreateListing from "./Pages/CreateListing";
 import EditListing from "./Pages/EditListing";
 import CartPage from "./Pages/CartPage";
 import CheckoutPage from "./Pages/CheckoutPage";
+import AdminPage from "./Pages/AdminPage";
 //import AdminDashboard stuff
 import AdminDashboardLayout from "./Pages/AdminNavPages/AdminDashboardLayout";
 import Dashboard from "./Pages/AdminNavPages/Dashboard";
@@ -28,7 +33,7 @@ import Settings from "./Pages/AdminNavPages/Settings";
 
 //private route for user UserProfilePage protection
 import PrivateRoute from "./Components/PrivateRoute";
-import Deal from "./Pages/Deal";
+import Deal from "./Components/Deal";
 import MyPurchasedItemsPage from "./Pages/MyPurchasedItemsPage";
 import MySoldItemsPage from "./Pages/MySoldItemsPage";
 
@@ -45,11 +50,22 @@ function App() {
           <Route exact path='/Login' element={<Login/>}/>
           <Route exact path='/Register' element={<Register/>}/>     
           <Route exact path='/category/:categoryName/:listingID' element={<Deal/>}/>
+          {/* <Route exact path='/order/:orderId' element={<OrderDetailPage/>}/> */}
           <Route exact path='/CheckoutPage' element={<CheckoutPage/>}/>
+          <Route exact path='/AdminPage' element={<AdminPage/>}/>
           {/* user profile protection route */}
           <Route path="/UserProfilePage" element={<PrivateRoute />}>
             <Route path="/UserProfilePage" element={<UserProfilePage />} />
           </Route>
+
+          {/* private route for CreateListing, only after login could create listing*/}
+          <Route path="/VerifyUser" element={<PrivateRoute />}>
+             <Route path="/VerifyUser" element={<VerifyUser />} />
+          </Route>
+           {/* diplaying users */}
+           
+               
+          
           {/* private route for CreateListing, only after login could create listing*/}
           <Route path="/CreateListing" element={<PrivateRoute />}>
             <Route path="/CreateListing" element={<CreateListing />} />
@@ -90,6 +106,9 @@ function App() {
           <Route exact path='/Messages' element={<Messages/>}/>
           <Route exact path='/Reports' element={<Reports/>}/>
           <Route exact path='/Settings' element={<Settings/>}/>
+          <Route exact path='/DispalyingUsers' element={<DispalyingUsers/>}/>
+          <Route exact path='/Chart' element={<Chart/>}/>
+          <Route exact path='/Inventory' element={<Inventory/>}/>
         </Routes>
       </BrowserRouter>
 

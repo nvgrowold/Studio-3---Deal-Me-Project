@@ -1,0 +1,105 @@
+/* Reports.css */
+
+.admin-dashboard {
+    display: center;
+  }
+  
+  .main-content {
+    flex: 1;
+    display: center; /* Use flexbox for main content */
+    flex-direction: column; /* Arrange items in a column */
+    padding: 20px;
+  }
+  
+  .page-title {
+    margin-bottom: 20px;
+  }
+  
+  .reports-section {
+    display: center; /* Use flexbox for reports section */
+    flex-direction: column; /* Arrange items in a column */
+    flex: 1; /* Allow reports section to grow and occupy remaining space */
+    margin-right: 20px; /* Add margin for spacing */
+  }
+  
+  .reports-title {
+    margin-bottom: 10px;
+    margin-left: 20%;
+  }
+  
+  .report-table-container {
+    overflow-x: auto;
+    margin-left: 20%;
+  }
+  
+  .report-table {
+    width: 60%;
+    border-collapse: collapse;
+  }
+  
+  .report-table th,
+  .report-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .report-table th {
+    background-color: #f2f2f2;
+  }
+  
+  .report-textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    resize: vertical;
+  }
+  
+  .save-button {
+    background-color: black;
+    color: #fff;
+    margin-left: 60%;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .save-button:hover {
+    background-color: plum;
+  }
+  
+  .calendar-section {
+    max-width: 400px; /* Set max width for calendar */
+    margin-top: 20px; /* Adjust margin for spacing */
+    margin-left: 20%;
+  }
+  .react-calendar {
+    max-width: 400px;
+    margin: 0 auto;
+    background-color: gray; /* Set background color */
+    border-radius: 8px; /* Add border radius for rounded corners */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add box shadow for depth */
+  }
+  
+  .react-calendar__navigation {
+    margin-bottom: 10px;
+  }
+  
+  .react-calendar__navigation button {
+    background-color:black;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .react-calendar__navigation button:hover {
+    background-color: #0056b3;
+  }
+  
+  .react-calendar__month-view__days__day--weekend {
+    color: #d9534f;
+  }

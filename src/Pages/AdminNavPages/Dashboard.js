@@ -1,87 +1,153 @@
 import React, { useState, useEffect } from 'react';
-import './Dashboard.css';
 import Header from '../../Components/Header';
 import SideNav from '../SideNav';
+import { collection, getDocs } from 'firebase/firestore'; 
+import { db } from '../../firebase';
 
-
-
-const Dashboard = () => {
-  const [statistics, setStatistics] = useState(null);
+function Dashboard() {
+  const [loading, setLoading] = useState(true);
+  const [totalUsers, setTotalUsers] = useState(0);
+  const [totalListings, setTotalListings] = useState(0);
+  const [totalOrders, setTotalOrders] = useState(0);
+  const [recentActivities, setRecentActivities] = useState([]);
+  const [users, setUsers] = useState([]);
+  const [totalSalesRevenue, setTotalSalesRevenue] = useState(0);
+  const [averageSalesRevenue, setAverageSalesRevenue] = useState(0);
 
   useEffect(() => {
-    // Fetch statistics data from your backend API
-    fetchStatistics();
-  }, []);
+    async function fetchData() {
+      try {
+        // Fetch total users
+        const usersRef = collection(db, "users");
+        const usersSnapshot = await getDocs(usersRef);
+        const usersData = usersSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        setTotalUsers(usersSnapshot.size);
+        setUsers(usersData);
 
-  const fetchStatistics = async () => {
-    try {
-      // Simulating fetching statistics data from backend
-      
-      const simulatedStatistics = {
-        totalUsers: 1000,
-        totalProducts: 500,
-        totalSales: 10000,
-        portfolioPerformance: 75, // percentage
-        technicalSupportTickets: 25,
-        monthlySales: 5000,
-        totalDeposits: 25000,
-        totalEmails: 2000,
-        totalAccounts: 150,
-      };
-      setStatistics(simulatedStatistics);
-    } catch (error) {
-      console.error('Error fetching statistics:', error);
+        // Fetch total listings
+        const listingsRef = collection(db, "listings");
+        const listingsSnapshot = await getDocs(listingsRef);
+        setTotalListings(listingsSnapshot.size);
+
+        // Fetch total orders from order items
+        const orderItemsRef = collection(db, "orderitems");
+        const orderItemsSnapshot = await getDocs(orderItemsRef);
+        setTotalOrders(orderItemsSnapshot.size);
+
+        // Calculate total sales revenue and average sales revenue
+        let totalRevenue = 0;
+        orderItemsSnapshot.forEach(doc => {
+          const orderitemsData = doc.data();
+          totalRevenue += orderitemsData.price * orderitemsData.quantity;
+        });
+        setTotalSalesRevenue(totalRevenue);
+        if (orderItemsSnapshot.size > 0) {
+          const averageRevenue = totalRevenue / orderItemsSnapshot.size;
+          setAverageSalesRevenue(averageRevenue);
+        } else {
+          setAverageSalesRevenue(0);
+        }
+
+        // Fetch recent activities
+        const activitiesRef = collection(db, "users");
+        const activitiesSnapshot = await getDocs(activitiesRef);
+        const recentActivitiesData = activitiesSnapshot.docs.map(doc => {
+          const userData = doc.data();
+          return {
+            id: doc.id,
+            name: userData.name,
+            activity: userData.isLoggedIn ? 'Active' : 'Away'
+          };
+        });
+        setRecentActivities(recentActivitiesData);
+      } catch (error) {
+        console.error('Error fetching data: ', error);
+      } finally {
+        setLoading(false);
+      }
     }
-  };
+    fetchData();
+  }, []);
 
   return (
     <div className="min-h-screen bg-gradient-to-r from-purple-100 to-teal-100">
-    
-    <Header/>
-    <SideNav/>
-    <div className='page__main'>
-      <h3 className="pageTitle">Dashboard</h3>
-      {statistics ? (
-        <div className="statistics-container">
-          <div className="statistic-box">
-            <h3>Total Users</h3>
-            <p>{statistics.totalUsers}</p>
+      <Header />
+      <div className='flex'>
+          <div className="w-1/6 min-h-screen shadow-lg">
+              <SideNav />
           </div>
-          <div className="statistic-box">
-            <h3>Total Products</h3>
-            <p>{statistics.totalProducts}</p>
+          <div className="w-5/6 p-8">
+            <div className="dashboard-container" style={{ marginLeft: '13%', textAlign: 'center' }}>
+              <div className="statistics-box bg-transparent">              
+                <div className="card statistics-item">
+                  <h2>Total Users</h2>
+                  <p>{loading ? 'Loading...' : totalUsers}</p>
+                </div>
+                <div className="card statistics-item">
+                  <h2>Total Listings</h2>
+                  <p>{loading ? 'Loading...' : totalListings}</p>
+                </div>
+                <div className="card statistics-item">
+                  <h2>Total Orders</h2>
+                  <p>{loading ? 'Loading...' : totalOrders}</p>
+                </div>
+              </div>
+              
+              <div className="activities-container">
+                <h2 className="activities-heading">Recent Activities</h2>
+                {loading ? (
+                  <p>Loading...</p>
+                ) : (
+                  <table className="activities-table">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Activity</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {recentActivities.map((activity, index) => (
+                        <tr key={index}>
+                          <td>{index + 1}</td>
+                          <td>{activity.name}</td>
+                          <td>{activity.activity}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                )}
+              </div>
+              <div className="users-container">
+                <h2 className="users-heading">Users</h2>
+                {loading ? (
+                  <p>Loading...</p>
+                ) : (
+                  <table className="users-table">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {users.map(user => (
+                        <tr key={user.id}>
+                          <td>{user.id}</td>
+                          <td>{user.name}</td>
+                          <td>{user.email}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                )}
+              </div>
+            </div>
           </div>
-          <div className="statistic-box">
-            <h3>Total Sales</h3>
-            <p>{statistics.totalSales}</p>
-          </div>
-          <div className="statistic-box">
-            <h3>Portfolio Performance</h3>
-            <p>{statistics.portfolioPerformance}%</p>
-          </div>
-          <div className="statistic-box">
-            <h3>Technical Support Tickets</h3>
-            <p>{statistics.technicalSupportTickets}</p>
-          </div>
-          <div className="statistic-box">
-            <h3>Monthly Sales</h3>
-            <p>${statistics.monthlySales}</p>
-          </div>
-          <div className="statistic-box">
-            <h3>Total Deposits</h3>
-            <p>${statistics.totalDeposits}</p>
-          </div>
-          <div className="statistic-box">
-            <h3>Total Accounts</h3>
-            <p>{statistics.totalAccounts}</p>
-          </div>
-        </div>
-      ) : (
-        <p>Loading statistics...</p>
-      )}
-    </div>
+      </div>
     </div>
   );
-};
+}
 
 export default Dashboard;

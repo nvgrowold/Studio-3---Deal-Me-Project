@@ -52,55 +52,6 @@ function CartPage() {
         setDeliveryFee(deliveryTotal);
     };
 
-    // const validateEmail = (email) => /\S+@\S+\.\S+/.test(email);
-    // const validateMobileNumber = (number) => /^\+64[0-9]{8,9}$/.test(number);
-
-    // const handleSave = async () => {
-
-    //     if (!firstName) {
-    //         setShowFirstNameError(true);
-    //     }
-    //     if (!lastName) {
-    //         setShowLastNameError(true);
-    //     }
-    //     if (!email) {
-    //         setShowEmailError(true);
-    //     }
-    //     if (!deliveryAddress) {
-    //         setShowDeliveryAddressError(true);
-    //     }
-    //     if (!mobileNumber) {
-    //         setShowMobileNumberError(true);
-    //     }
-
-    //     if (!firstName || !lastName || !email || !deliveryAddress || !mobileNumber) {
-    //         return;
-    //     }
-
-    //     if (!validateEmail(email)) {
-    //         setEmailError('Invalid email address');
-    //         return;
-    //     }
-    //     if (!validateMobileNumber(mobileNumber)) {
-    //         setMobileNumberError('Invalid New Zealand mobile number');
-    //         return;
-    //     }
-
-    //     if (cartItems.length === 0) {
-    //         toast.error("Please add items to your cart before proceeding to payment.");
-    //         return;
-    //     }
-
-    //     try {
-    //         const userInfo = { firstName, lastName, email, deliveryAddress, mobileNumber, cartItems, totalPrice, deliveryFee };
-    //         sessionStorage.setItem('userInfo', JSON.stringify(userInfo));
-    //         window.location.href = '/CheckoutPage';
-    //     } catch (error) {
-    //         console.error("Error saving user information: ", error);
-    //     }
-    // };
-
-
     const validateEmail = (email) => /\S+@\S+\.\S+/.test(email);
     const validateMobileNumber = (number) => /^\+64[0-9]{8,9}$/.test(number);
 
@@ -133,11 +84,12 @@ function CartPage() {
         // If no errors, proceed with saving user information
         if (firstName && lastName && email && deliveryAddress && mobileNumber && validateEmail(email) && validateMobileNumber(mobileNumber)) {
             try {
-                const userInfo = { firstName, lastName, email, deliveryAddress, mobileNumber, cartItems, totalPrice, deliveryFee };
+                const userInfo = { firstName, lastName, email, deliveryAddress, mobileNumber, cartItems, totalPrice: totalPrice + deliveryFee };
                 sessionStorage.setItem('userInfo', JSON.stringify(userInfo));
                 window.location.href = '/CheckoutPage';
             } catch (error) {
                 console.error("Error saving user information: ", error);
+                toast.error("Please input valid user information!")
             }
         }
     };
@@ -148,13 +100,50 @@ function CartPage() {
     };
 
     return (
-        <div>
+        <div className="min-h-screen bg-gradient-to-r from-purple-100 to-teal-100">
             <Header/>
-            <div className="containercart">
-                <h2>Cart</h2>
-                <div className="user-info">
+            <div className='flex flex-col w-3/4 mx-auto'>
+              <div className="containercart w-full">                
+                <div className="cart-products bg-transparent">
+                    <h3>Cart</h3>
+                    <div className="overflow-x-auto">
+                    <table className="w-full min-w-max">
+                    {/* <table className="w-full overflow-x-auto"> */}
+                        <thead>
+                            <tr>
+                                <th>Product Name</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Delivery Fee</th>
+                                <th>Sub-Total</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {cartItems.map((item, index) => (
+                                <tr key={index}>
+                                    <td>{item.data.name}</td>
+                                    <td>{parseFloat(item.data.price) || 0}</td>
+                                    <td>{item.data.quantity}</td>
+                                    <td>{parseFloat(item.data.delivery) || 0}</td>
+                                    <td>${((parseFloat(item.data.price) || 0) * (parseInt(item.data.quantity) || 0) + (parseFloat(item.data.delivery) || 0) * (parseInt(item.data.quantity) || 0)).toFixed(2)}</td>
+                                    <td>
+                                        <button className='bg-teal-400 hover:bg-purple-400' onClick={() => handleRemove(index)}>Remove</button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                    </div>
+                    <p>Total Price: ${totalPrice.toFixed(2)}</p>
+                    <p>Total Price Including Delivery Fee: ${(totalPrice + deliveryFee).toFixed(2)}</p>
+                </div>
+                <Link to="/GuestPage" className="w-full no-underline inline-block text-center bg-gradient-to-r from-purple-300 to-teal-300 text-white px-7 py-2 mb-6 text-sm font-medium uppercase rounded shadow-lg hover:bg-sky-800 transition duration-150 ease-in-out hover:shadow-xl active:bg-blue-900">Back to Product page</Link>
+            </div>
+
+            <div className="user-info w-full">
                     <h3>User Information</h3>
-                    <table>
+                    <table className="w-full">
                         <tbody>
                             <tr>
                                 <td>
@@ -238,7 +227,7 @@ function CartPage() {
                            
                             <tr>
                                 <td colSpan="2" className="text-center">
-                                    <button onClick={handleSave} className="w-full bg-sky-700 text-white px-7 py-2 mb-6 text-sm font-medium uppercase rounded shadow-lg hover:bg-sky-800 transition duration-150 ease-in-out hover:shadow-xl active:bg-blue-900">
+                                    <button onClick={handleSave} className='w-full  text-slate-800 bg-gradient-to-r from-purple-300 to-teal-300 px-7 py-2 mb-6 text-sm font-medium uppercase rounded shadow-lg hover:bg-sky-800 transition duration-150 ease-in-out hover:shadow-xl active:bg-blue-900'>
                                         Proceed To Payment Page
                                     </button>
                                     </td>
@@ -246,39 +235,9 @@ function CartPage() {
                         </tbody>
                     </table>
                 </div>
-                <div className="cart-products">
-                    <h3>Cart Products</h3>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Product Name</th>
-                                <th>Price</th>
-                                <th>Quantity</th>
-                                <th>Delivery Fee</th>
-                                <th>Sub-Total</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {cartItems.map((item, index) => (
-                                <tr key={index}>
-                                    <td>{item.data.name}</td>
-                                    <td>{parseFloat(item.data.price) || 0}</td>
-                                    <td>{item.data.quantity}</td>
-                                    <td>{parseFloat(item.data.delivery) || 0}</td>
-                                    <td>${((parseFloat(item.data.price) || 0) * (parseInt(item.data.quantity) || 0) + (parseFloat(item.data.delivery) || 0) * (parseInt(item.data.quantity) || 0)).toFixed(2)}</td>
-                                    <td>
-                                        <button onClick={() => handleRemove(index)}>Remove</button>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                    <p>Total Price: ${totalPrice.toFixed(2)}</p>
-                    <p>Total Price Including Delivery Fee: ${(totalPrice + deliveryFee).toFixed(2)}</p>
-                </div>
-                <Link to="/GuestPage" className="w-full bg-sky-700 text-white px-7 py-2 mb-6 text-sm font-medium uppercase rounded shadow-lg hover:bg-sky-800 transition duration-150 ease-in-out hover:shadow-xl active:bg-blue-900 inline-block text-center">Back to Product page</Link>
+
             </div>
+            
         </div>
     );
 }
