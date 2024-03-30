@@ -46,9 +46,11 @@ function App() {
           <Route exact path='/Login' element={<Login/>}/>
           <Route exact path='/Register' element={<Register/>}/>     
           <Route exact path='/category/:categoryName/:listingID' element={<Deal/>}/>
+            
           {/* <Route exact path='/order/:orderId' element={<OrderDetailPage/>}/> */}
           <Route exact path='/CheckoutPage' element={<CheckoutPage/>}/>
           <Route exact path='/AdminPage' element={<AdminPage/>}/>
+            
           {/* user profile protection route */}
           <Route path="/UserProfilePage" element={<PrivateRoute />}>
             <Route path="/UserProfilePage" element={<UserProfilePage />} />
@@ -60,8 +62,7 @@ function App() {
           </Route>
            {/* diplaying users */}
            
-               
-          
+ 
           {/* private route for CreateListing, only after login could create listing*/}
           <Route path="/CreateListing" element={<PrivateRoute />}>
             <Route path="/CreateListing" element={<CreateListing />} />
@@ -121,6 +122,7 @@ function App() {
           <Route path="/Settings" element={<PrivateRouteAdmin />}>
           <Route path="/Settings" element={<Settings />} />
           </Route>
+
 
         </Routes>
       </BrowserRouter>

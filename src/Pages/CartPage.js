@@ -84,12 +84,19 @@ function CartPage() {
         // If no errors, proceed with saving user information
         if (firstName && lastName && email && deliveryAddress && mobileNumber && validateEmail(email) && validateMobileNumber(mobileNumber)) {
             try {
+<<<<<<< HEAD
                 const userInfo = { firstName, lastName, email, deliveryAddress, mobileNumber, cartItems, totalPrice: totalPrice + deliveryFee };
+=======
+                const userInfo = { firstName, lastName, email, deliveryAddress, mobileNumber, cartItems, totalPrice, deliveryFee };
+>>>>>>> main
                 sessionStorage.setItem('userInfo', JSON.stringify(userInfo));
                 window.location.href = '/CheckoutPage';
             } catch (error) {
                 console.error("Error saving user information: ", error);
+<<<<<<< HEAD
                 toast.error("Please input valid user information!")
+=======
+>>>>>>> main
             }
         }
     };
@@ -100,6 +107,7 @@ function CartPage() {
     };
 
     return (
+<<<<<<< HEAD
         <div className="min-h-screen bg-gradient-to-r from-purple-100 to-teal-100">
             <Header/>
             <div className='flex flex-col w-3/4 mx-auto'>
@@ -144,6 +152,15 @@ function CartPage() {
             <div className="user-info w-full">
                     <h3>User Information</h3>
                     <table className="w-full">
+=======
+        <div>
+            <Header/>
+            <div className="containercart">
+                <h2>Cart</h2>
+                <div className="user-info">
+                    <h3>User Information</h3>
+                    <table>
+>>>>>>> main
                         <tbody>
                             <tr>
                                 <td>
@@ -184,7 +201,10 @@ function CartPage() {
                                         }} 
                                     />
                                     {showEmailError && <p className="error-message">Please fill the required field</p>}
+<<<<<<< HEAD
                                      
+=======
+>>>>>>> main
                                     {emailError && <p className="error-message">{emailError}</p>}
                                 </td>
                             </tr>
@@ -220,14 +240,21 @@ function CartPage() {
                                         }} 
                                     />
                                     {showMobileNumberError && <p className="error-message">Please fill the required field</p>}
+<<<<<<< HEAD
 
+=======
+>>>>>>> main
                                     {mobileNumberError && <p className="error-message">{mobileNumberError}</p>}
                                 </td>
                             </tr>
                            
                             <tr>
                                 <td colSpan="2" className="text-center">
+<<<<<<< HEAD
                                     <button onClick={handleSave} className='w-full  text-slate-800 bg-gradient-to-r from-purple-300 to-teal-300 px-7 py-2 mb-6 text-sm font-medium uppercase rounded shadow-lg hover:bg-sky-800 transition duration-150 ease-in-out hover:shadow-xl active:bg-blue-900'>
+=======
+                                    <button onClick={handleSave} className="w-full bg-sky-700 text-white px-7 py-2 mb-6 text-sm font-medium uppercase rounded shadow-lg hover:bg-sky-800 transition duration-150 ease-in-out hover:shadow-xl active:bg-blue-900">
+>>>>>>> main
                                         Proceed To Payment Page
                                     </button>
                                     </td>
@@ -235,9 +262,45 @@ function CartPage() {
                         </tbody>
                     </table>
                 </div>
+<<<<<<< HEAD
 
             </div>
             
+=======
+                <div className="cart-products">
+                    <h3>Cart Products</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Product Name</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Delivery Fee</th>
+                                <th>Sub-Total</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {cartItems.map((item, index) => (
+                                <tr key={index}>
+                                    <td>{item.data.name}</td>
+                                    <td>{parseFloat(item.data.price) || 0}</td>
+                                    <td>{item.data.quantity}</td>
+                                    <td>{parseFloat(item.data.delivery) || 0}</td>
+                                    <td>${((parseFloat(item.data.price) || 0) * (parseInt(item.data.quantity) || 0) + (parseFloat(item.data.delivery) || 0) * (parseInt(item.data.quantity) || 0)).toFixed(2)}</td>
+                                    <td>
+                                        <button onClick={() => handleRemove(index)}>Remove</button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                    <p>Total Price: ${totalPrice.toFixed(2)}</p>
+                    <p>Total Price Including Delivery Fee: ${(totalPrice + deliveryFee).toFixed(2)}</p>
+                </div>
+                <Link to="/GuestPage" className="w-full bg-sky-700 text-white px-7 py-2 mb-6 text-sm font-medium uppercase rounded shadow-lg hover:bg-sky-800 transition duration-150 ease-in-out hover:shadow-xl active:bg-blue-900 inline-block text-center">Back to Product page</Link>
+            </div>
+>>>>>>> main
         </div>
     );
 }

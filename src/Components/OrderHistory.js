@@ -30,6 +30,10 @@ export default function OrderHistory({ order, id }) {
          <div className=" flex item-center mb-3 before:border-t before:flex-1  before:border-gray-300 after:border-t after:flex-1 after:border-gray-300"></div>
       </div>
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> main
       <p className=" text-sky-800"><strong>Total Price:</strong> <span className="text-gray-500">${order.userInfo && order.userInfo.totalPrice ? order.userInfo.totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","): "N/A"}</span></p>
       
     {/* Display user info if needed */}
