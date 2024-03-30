@@ -13,8 +13,7 @@ import { db } from '../firebase';
 import { useNavigate } from "react-router-dom";
 import profileSideImage from "../assets/profileSideImage.jpg";
 
-export default function CreateListing() {
-    //a hook to track image uploading progress
+export default function VerifyUser() {
     const [uploadProgress, setUploadProgress] = useState([]);
 
     //const [selectedCategory, setSelectedCategory] = useState('');
@@ -25,21 +24,15 @@ export default function CreateListing() {
 
     //hook state for delivery or pickup only button + destructure it
     const[formData, setFormData] = useState({
-        productName: "",
+        firstName: "",
+        lastName: "",
+        email:"",
         category: "",
-        region: "",
-        shipping: false,
-        deliveryFee:0,
-        description: "",
-        regularPrice: 0,
         images: {},
-<<<<<<< HEAD
         timestamp: serverTimestamp(),
-=======
->>>>>>> main
     })
     //destructuring, all these values come from formData
-    const {productName,category, region, shipping, deliveryFee, description, regularPrice, images} = formData;
+    const {firstName, lastName, email, category,images} = formData;
 
     //handle all changes in the form all-in-one here
     function onChange(e){ //e: is the event, the input
@@ -57,6 +50,7 @@ export default function CreateListing() {
           images:e.target.files, //set the images to e.target.files
         }))
       }
+
       //for text/boolean/number
       if(!e.target.files){
         setFormData((prevState) => ({
@@ -72,14 +66,26 @@ export default function CreateListing() {
 
       e.preventDefault(); //no refreshing if click submit button with some field of empty input
       setLoading(true); //after clicking submit, setLoading to true, run the spinner. After storing to the firebase, set the loading back to false
+      
+      if (!auth.currentUser) {
+        // Handle the case where no user is authenticated
+        setLoading(false); //stop the loading process as the operation cannot proceed
+        toast.error("You must be logged in to perform this action.");
+        navigate("/Login");
+        return; //exit the function to prevent further execution
+      }
+      
+      
       if(images.length > 6) { //add some conditions, if not meet the condition, stop loading
         setLoading(false);
         toast.error("Maximum 6 images are allowed");
         return;
       }
-      
+
+            
       // Initialize the uploadProgress state with zeroes for each image
-      setUploadProgress(new Array(images.length).fill(0));      
+      setUploadProgress(new Array(images.length).fill(0));   
+         
 
       //upload image one by one to storage
       //https://firebase.google.com/docs/storage/web/upload-files
@@ -132,35 +138,35 @@ export default function CreateListing() {
         });
       }
 
-
-      
       // Initialize the uploadProgress state with zeroes for each image
       setUploadProgress(new Array(images.length).fill(0));
 
       //uploading image to database
 
       const imgUrls = await Promise.all(
-        [...images].map((image) => storeImage(image))
-      ).catch((error) => {
+        [...images].map((image, index) => storeImage(image, index))
+      ).catch(() => {
         setLoading(false);
         toast.error("Images not uploaded");
         return;
       });
+
+      if (!imgUrls) return; // If imgUrls is null, stop the execution.
   
       const formDataCopy = {
         ...formData,
         imgUrls,
         timestamp: serverTimestamp(),
-        userRef: auth.currentUser.uid,
-        status: "available", // Add status field to distinguish sold and selling items
+        //userRef: auth.currentUser.uid,
+        //isVerified: true, // Add status field to distinguish sold and selling items
       };
 
       //delete image
       delete formDataCopy.images;
-      !formDataCopy.offer && delete formDataCopy.discountedPrice;
-      const docRef = await addDoc(collection(db, "listings"), formDataCopy);
+      //!formDataCopy.offer && delete formDataCopy.discountedPrice;
+      await addDoc(collection(db, "users", auth.currentUser.uid, "IdentityProofs"), formDataCopy);
       setLoading(false);
-      toast.success("Listing created");
+      toast.success("User Verification File Submitted");
       navigate("/UserProfilePage");
       // navigate(`/category/${formDataCopy.type}/${docRef.id}`);
     }
@@ -178,208 +184,77 @@ export default function CreateListing() {
         <section>
 
         <div className="max-w-md px-2 mx-auto shadow-lg">      
-<<<<<<< HEAD
-        <h1 className='text-center mt-6 pt-6 text-2xl font-semibold  text-sky-800'>Listing An Item</h1>
-=======
-        <h1 className='text-center mt-6 text-2xl font-semibold  text-sky-800'>Listing An Item</h1>
->>>>>>> main
+        <h1 className='text-center pt-6 mt-6 text-2xl font-semibold  text-sky-800'>User Verification</h1>
+        <h5 className='text-center mt-6 text-base font-semibold  text-sky-400'>! Please became a verified user to creating a listing</h5>
         <form onSubmit={onSubmit} className='flex-auto max-w-lg shadow-md rounded p-6 px-10'>          
           {/* Name input area */}
-          <p className="text-lg mt-6 font-semibold text-sky-800">Product Name</p>
+          <p className="text-lg font-semibold text-sky-800">First Name</p>
           <input
             type="text"
-            id="productName"
-            value={productName}
+            id="firstName"
+            value={firstName}
             onChange={onChange} //handle the input from user
-            placeholder="Product Name"
-<<<<<<< HEAD
-            maxLength="100" //max length of the name character no more than 32, this is a built in validation function of HTML
-=======
-            maxLength="32" //max length of the name character no more than 32, this is a built in validation function of HTML
->>>>>>> main
-            minLength="3" //min length of the name character no less than 10
+            placeholder="First Name"
+            required //this field is required, no form submission without this field filled
+            className="w-full px-4 py-1 text-base text-gray-500 bg-white border border-gray-300 rounded transition duration-150 ease-in-out focus:text-gray-700 focus:bg-white focus:border-slate-600 mb-1"
+          />
+
+          {/* Name input area */}
+          <p className="text-lg mt-6 font-semibold text-sky-800">Last Name</p>
+          <input
+            type="text"
+            id="lastName"
+            value={lastName}
+            onChange={onChange} //handle the input from user
+            placeholder="Last Name"
+            required //this field is required, no form submission without this field filled
+            className="w-full px-4 py-1 text-base text-gray-500 bg-white border border-gray-300 rounded transition duration-150 ease-in-out focus:text-gray-700 focus:bg-white focus:border-slate-600 mb-1"
+          />
+
+          {/* Name input area */}
+          <p className="text-lg mt-6 font-semibold text-sky-800">Email Address</p>
+          <input
+            type="email"
+            id="email"
+            value={email}
+            onChange={onChange} //handle the input from user
+            placeholder="example@gmail.com"
             required //this field is required, no form submission without this field filled
             className="w-full px-4 py-1 text-base text-gray-500 bg-white border border-gray-300 rounded transition duration-150 ease-in-out focus:text-gray-700 focus:bg-white focus:border-slate-600 mb-1"
           />
 
           {/* Dropdown for product category */}
-          <p className="text-lg mt-6 font-semibold  text-sky-800">Product Category</p>
+          <p className="text-lg mt-6 font-semibold  text-sky-800">Proof of Identity</p>
           <select id="category" value={category} onChange={onChange}
           className='w-full px-4 py-1 text-base text-gray-500 bg-white border border-gray-300 rounded transition duration-150 ease-in-out focus:text-gray-700 focus:bg-white focus:border-slate-600 mb-1'>
               {/* Options here */}
               <option value="">All Categories</option>
-              <option value="Computers">Computers</option>
-              <option value="Electronics & photography">Electronics & Photography</option>
-              <option value="Gaming">Gaming</option>
-              <option value="Health & beauty">Health & Beauty</option>
-              <option value="Home & living">Home & Living</option>
-              <option value="Jewellery & watches">Jewellery & Watches</option>
-              <option value="Mobile phones">Mobile Phones</option>
-              <option value="Music & instruments">Music & Instruments</option>
-              <option value="Pets & animals">Pets & Animals</option>
-              <option value="Sports">Sports</option>
-              <option value="Toys & models">Toys & Models</option>
-<<<<<<< HEAD
-              <option value="Books">Books</option>
-=======
->>>>>>> main
+              <option value="Passport">Passport</option>
+              <option value="Driver's License">Driver's License</option>
             </select>
-
-          {/* Dropdown for Region */}
-          <p className="text-lg mt-6 font-semibold text-sky-800">Region</p>
-          <select id="region" value={region} onChange={onChange}
-          className='w-full px-4 py-1 text-base text-gray-500 bg-white border border-gray-300 rounded transition duration-150 ease-in-out focus:text-gray-700 focus:bg-white focus:border-slate-600 mb-1'>
-              {/* Options here */}
-              <option value="">All Regions</option>
-              <option value="Auckland">Auckland</option>
-              <option value="Christchurch">Christchurch</option>
-              <option value="Palmerston North">Palmerston North</option>
-              <option value="Wellington">Wellington</option>
-              <option value="Tauranga">Tauranga</option>
-              <option value="Hamilton">Hamilton</option>
-              <option value="Dunedin">Dunedin</option>
-              <option value="Napier-Hastings">Napier-Hastings</option>
-            </select>
-
-          {/* Shipping method */}
-          <p className="text-lg mt-6 font-semibold text-sky-800">Shipping Method</p>
-          <div className="flex">
-            <button
-              type="button"
-              id="shipping"
-              value={true}
-              onClick={onChange}
-              className={`mr-3 px-7 py-2 font-medium text-sm uppercase shadow-md rounded hover:shadow-lg focus:shadow-lg active:shadow-lg transition duration-150 ease-in-out w-full ${
-<<<<<<< HEAD
-                !shipping ? "bg-white text-gray-500" : "bg-teal-400 text-white"
-              } hover:bg-purple-300`}
-=======
-                !shipping ? "bg-white text-gray-500" : "bg-slate-600 text-white"
-              }`}
->>>>>>> main
-            >
-              Delivery
-            </button>
-            <button
-              type="button"
-              id="shipping"
-              value={false}
-              onClick={onChange}
-              className={`ml-3 px-7 py-2 font-medium text-sm uppercase shadow-md rounded hover:shadow-lg focus:shadow-lg active:shadow-lg transition duration-150 ease-in-out w-full ${
-<<<<<<< HEAD
-                shipping ? "bg-white text-gray-500" : "bg-teal-400 text-white"
-              } hover:bg-purple-300`}
-=======
-                shipping ? "bg-white text-gray-500" : "bg-slate-600 text-white"
-              }`}
->>>>>>> main
-            >
-              Pickup Only
-            </button>
-          </div>
-
-          {shipping && (
-          <div className="flex items-center mt-3 mb-1">
-            <div className="">
-              <p className="text-lg font-semibold  text-sky-800">Delivery Fee</p>
-              <div className="flex w-full justify-center items-center space-x-6">
-              <div className="">
-                  <p className="text-sm align-middle text-gray-500 w-full whitespace-nowrap">
-                    NZ$
-                  </p>
-                </div> 
-              <input
-                type="number"
-                id="deliveryFee"
-                value={deliveryFee}
-                onChange={onChange}
-                min="0"
-                max="400000000"
-                required={shipping}
-                className="w-full px-4 py-1 text-base text-gray-500 bg-white border border-gray-300 rounded transition duration-150 ease-in-out focus:text-gray-700 focus:bg-white focus:border-slate-600 text-center mb-1"
-              />
-             
-              </div>
-            </div>
-          </div>
-        )}
-
-          {/* Description field */}
-          <p className="text-lg font-semibold mt-6  text-sky-800">Description</p>
-          <textarea
-            type="text"
-            id="description"
-            value={description}
-            onChange={onChange}
-            placeholder="Description"
-            required
-            className="w-full px-4 py-1 text-base text-gray-500 bg-white border border-gray-300 rounded transition duration-150 ease-in-out focus:text-gray-700 focus:bg-white focus:border-slate-600 mb-1"
-          />
-
-          {/* Regular price filed */}
-          <div className="flex items-center mt-3">
-            <div className="">
-              <p className="text-lg font-semibold  text-sky-800">Price</p>
-              <div className="flex w-full justify-center items-center space-x-6">
-                  <div className="">
-                    <p className="text-sm text-gray-500 w-full whitespace-nowrap">NZ$</p>
-                  </div>
-                <input
-                  type="number"
-                  id="regularPrice"
-                  value={regularPrice}
-                  onChange={onChange}
-                  min="1"
-                  max="400000000"
-                  required
-                  className="w-full px-4 py-1 text-base text-gray-500 bg-white border border-gray-300 rounded transition duration-150 ease-in-out focus:text-gray-700 focus:bg-white focus:border-slate-600 text-center mb-1"
-                />
-              </div>
-            </div>
-          </div>
 
           {/* images */}
           <div className="mt-3">
-            <p className="text-lg font-semibold  text-sky-800 mb-1">Images</p>
-<<<<<<< HEAD
-            <p className="text-xs text-gray-600 mb-1">
-=======
-            <p className="text-gray-600 mb-1">
->>>>>>> main
-              The first image will be the cover (max 6)
+            <p className="text-lg font-semibold  text-sky-800 mb-1">Upload Proof of Identity</p>
+            <p className="text-gray-600 mb-1 text-xs">
+              Max 6 Images, verification result will come back within 2 working hours.
             </p>
             <input
               type="file"
-              id="images"
+              id="identityProof"
               onChange={onChange}
               accept=".jpg,.png,.jpeg"
               multiple
               required
               className="w-full px-3 py-1 text-gray-700 bg-white border border-gray-300 rounded transition duration-150 ease-in-out focus:bg-white focus:border-slate-600"
             />
-            {/* Display upload progress here */}
-            {/* ###################### not working well################## */}
-            <div className="mt-4">
-                {uploadProgress.map((progress, index) => (
-                    <div key={index}>
-                        <p>Uploading image {index + 1}: {progress.toFixed(2)}%</p>
-                        {/* add a progress bar */}
-                        <div className="bg-red-200 rounded h-2">
-                            <div className="bg-sky-600 h-2 rounded" style={{width: `${progress}%`}}></div>
-                        </div>
-                    </div>
-                ))}
-            </div>
           </div>
+
           <button
             type="submit"
-<<<<<<< HEAD
             className='w-full bg-gradient-to-r from-purple-300 to-teal-300 text-slate-800 px-7 py-2 my-8 text-sm font-medium uppercase rounded shadow-lg hover:bg-sky-800 transition duration-150 ease-in-out hover:shadow-xl active:bg-blue-900'
-=======
-            className="mt-8 w-full px-7 py-2 bg-sky-700 text-white font-medium text-sm uppercase rounded shadow-md hover:bg-sky-900 hover:shadow-lg focus:bg-sky-700 focus:shadow-lg active:bg-sky-800 active:shadow-lg transition duration-150 ease-in-out"
->>>>>>> main
           >
-            Create Listing
+            Submit
           </button>
         </form>
       </div>

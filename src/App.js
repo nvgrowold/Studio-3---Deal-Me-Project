@@ -4,9 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
-
-//import all pages
-import AdminDashboard from "./Pages/AdminDashboard";
+//All pages
 import Homepage from "./Pages/Homepage";
 import Login from "./Pages/Login";
 import ForgotPassword from "./Pages/ForgotPassword";
@@ -14,23 +12,26 @@ import GuestPage from "./Pages/GuestPage";
 import Register from "./Pages/Register";
 import ContactUsPage from "./Pages/ContactUsPage";
 import UserProfilePage from "./Pages/UserProfilePage";
+import VerifyUser from "./Pages/VerifyUserPage";
 import MyListingsPage from "./Pages/MyListingsPage";
 import CreateListing from "./Pages/CreateListing";
 import EditListing from "./Pages/EditListing";
 import CartPage from "./Pages/CartPage";
 import CheckoutPage from "./Pages/CheckoutPage";
+
 //import AdminDashboard stuff
-import AdminDashboardLayout from "./Pages/AdminNavPages/AdminDashboardLayout";
-import Dashboard from "./Pages/AdminNavPages/Dashboard";
-import Messages from "./Pages/AdminNavPages/Messages";
+import AdminPage from "./Pages/AdminPage";
+import Inventory from "./Pages/AdminNavPages/Inventory";
+import AdminDashboard from "./Pages/AdminDashboard";
 import Reports from "./Pages/AdminNavPages/Reports";
 import Settings from "./Pages/AdminNavPages/Settings";
 
 //private route for user UserProfilePage protection
 import PrivateRoute from "./Components/PrivateRoute";
-import Deal from "./Pages/Deal";
+import Deal from "./Components/Deal";
 import MyPurchasedItemsPage from "./Pages/MyPurchasedItemsPage";
 import MySoldItemsPage from "./Pages/MySoldItemsPage";
+import PrivateRouteAdmin from "./Components/PrivateRouteAdmin";
 
 function App() {
   return (
@@ -45,11 +46,23 @@ function App() {
           <Route exact path='/Login' element={<Login/>}/>
           <Route exact path='/Register' element={<Register/>}/>     
           <Route exact path='/category/:categoryName/:listingID' element={<Deal/>}/>
+            
+          {/* <Route exact path='/order/:orderId' element={<OrderDetailPage/>}/> */}
           <Route exact path='/CheckoutPage' element={<CheckoutPage/>}/>
+          <Route exact path='/AdminPage' element={<AdminPage/>}/>
+            
           {/* user profile protection route */}
           <Route path="/UserProfilePage" element={<PrivateRoute />}>
             <Route path="/UserProfilePage" element={<UserProfilePage />} />
           </Route>
+
+          {/* private route for CreateListing, only after login could create listing*/}
+          <Route path="/VerifyUser" element={<PrivateRoute />}>
+             <Route path="/VerifyUser" element={<VerifyUser />} />
+          </Route>
+           {/* diplaying users */}
+           
+ 
           {/* private route for CreateListing, only after login could create listing*/}
           <Route path="/CreateListing" element={<PrivateRoute />}>
             <Route path="/CreateListing" element={<CreateListing />} />
@@ -84,12 +97,33 @@ function App() {
            <Route path="/CheckoutPage" element={<CheckoutPage />} />
           </Route>
 
-          {/* Admin Pages below */}
-          <Route exact path='/AdminDashboardLayout' element={<AdminDashboardLayout/>}/>
-          <Route exact path='/Dashboard' element={<Dashboard/>}/>
-          <Route exact path='/Messages' element={<Messages/>}/>
-          <Route exact path='/Reports' element={<Reports/>}/>
-          <Route exact path='/Settings' element={<Settings/>}/>
+          {/*Protected route for Admin Pages below *******************************************************************/}
+          {/* private route for AdminDashboard, only after login could create listing*/}
+          <Route path="/AdminDashboard" element={<PrivateRouteAdmin />}>
+          <Route path="/AdminDashboard" element={<AdminDashboard />} />
+          </Route>
+
+          {/* private route for Report, only after login could create listing*/}
+          <Route path="/Reports" element={<PrivateRouteAdmin />}>
+          <Route path="/Reports" element={<Reports />} />
+          </Route>
+
+          {/* private route for AdminPage, only after login could create listing*/}
+          <Route path="/AdminPage" element={<PrivateRouteAdmin />}>
+          <Route path="/AdminPage" element={<AdminPage />} />
+          </Route>
+
+          {/* private route for Inventory, only after login could create listing*/}
+          <Route path="/Inventory" element={<PrivateRouteAdmin />}>
+          <Route path="/Inventory" element={<Inventory />} />
+          </Route>
+
+          {/* private route for Settings, only after login could create listing*/}
+          <Route path="/Settings" element={<PrivateRouteAdmin />}>
+          <Route path="/Settings" element={<Settings />} />
+          </Route>
+
+
         </Routes>
       </BrowserRouter>
 

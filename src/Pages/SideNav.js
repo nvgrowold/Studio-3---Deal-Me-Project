@@ -1,25 +1,47 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './AdminNavPages/Dashboard.css';
+import '../Pages/SideNav.css'; // Import CSS for styling
 
 const SideNav = () => {
   return (
-    <>
     <div className="side-nav">
-      <Link to='/Dashboard' className="nav-link" style={{ textDecoration: 'none', color:'#64007D' }}>
-        Dashboard
-      </Link>
-      <Link to='/Reports' className="nav-link" style={{ textDecoration: 'none', color:'#64007D' }}>
-        Reports
-      </Link>
-      <Link to='/Settings' className="nav-link" style={{ textDecoration: 'none', color:'#64007D' }}>
-        Settings
-      </Link>
-      
-
+      <div className="nav-item">
+        <Link to='/AdminDashboard' className="nav-link">
+          <span className="nav-icon">📊</span>
+          Dashboard
+        </Link>
+      </div>
+      <div className="nav-item">
+        <Link to='/Reports' className="nav-link">
+          <span className="nav-icon">📈</span>
+          Reports
+        </Link>
+      </div>
+      <div className="nav-item">
+        <Link to='/AdminPage' className="nav-link">
+          <span className="nav-icon">👤</span>
+          User Verification
+        </Link>
+      </div>
+      <div className="nav-item">
+        <Link to='/Inventory' className="nav-link">
+          <span className="nav-icon"> 📦</span>
+          Inventory
+        </Link>
+      </div>
+      <div className="nav-item">
+        <Link to='/Settings' className="nav-link">
+          <span className="nav-icon">⚙️</span>
+          Settings
+        </Link>
+      </div>
+      <div className="nav-item logout">
+        <Link to='/' className="nav-link"> {/* Changed to home page route */}
+          <span className="nav-icon">🚪</span>
+          Log out
+        </Link>
+      </div>
     </div>
-    </>
   );
 };
 

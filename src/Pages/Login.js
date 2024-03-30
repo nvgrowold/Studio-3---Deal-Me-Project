@@ -48,7 +48,7 @@ function Login(){
             const auth = getAuth()
             //2. get the user credentials
             const userCredential = await signInWithEmailAndPassword(auth, email, password)
-            if (email === 'DealMeAdmin@gmail.com')
+            if (email === 'dealmeadmin@gmail.com')
              {
                 // If it's the admin email, navigate to the dashboard
                 navigate("/AdminDashboard");

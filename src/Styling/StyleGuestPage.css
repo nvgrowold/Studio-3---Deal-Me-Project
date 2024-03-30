@@ -3,7 +3,7 @@
 .dealsBody {
     font-family: 'Arial', sans-serif;
     background-color: #f4f4f4;
-    margin: 0;
+    margin: 6;
     padding: 0;
   }
   
@@ -24,8 +24,12 @@
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
+<<<<<<< HEAD
+    margin: 20px;
+=======
     margin-bottom: 20px;
     margin-top: 20px;
+>>>>>>> main
   }
   
   label {
@@ -46,15 +50,19 @@
   
   button {
     padding: 10px 15px;
-    background-color: #007BFF;
+    background-color: teal;
     color: #fff;
     border: none;
-    border-radius: 4px;
+    border-radius: 10px;
     cursor: pointer;
   }
 
   button:hover{
+<<<<<<< HEAD
+    background-color: #667f99;
+=======
     background-color: #03458c;
+>>>>>>> main
   }
   
   .product-card {
@@ -78,11 +86,14 @@
     background-color: #28a745;
   }
 
+<<<<<<< HEAD
+=======
   .cart-logo{
     width: 35px;
     height: 35x;
     margin-top: 10px;
   }
+>>>>>>> main
   
   /* Add more styles as needed */
   .link-back {

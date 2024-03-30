@@ -27,6 +27,10 @@ export default function GoogleSignIn() {
       //connect the result to the user
       const user = result.user
       console.log(user);
+
+      // Example of generating a simple username from the email address
+      const emailPrefix = user.email.split('@')[0];
+
       //add the user to database
       //check if user already exist or not
       // docRef to hold the reference which is the address of the user id, by using the doc() method from firebase firestore
@@ -40,7 +44,12 @@ export default function GoogleSignIn() {
         await setDoc(docRef,{
           name: user.displayName,
           email: user.email,
+<<<<<<< HEAD
+          username: emailPrefix, // Assign the username here
+          isVerified: false,
+=======
           username: user.username,
+>>>>>>> main
           timestamp: serverTimestamp(),
         })
       }
