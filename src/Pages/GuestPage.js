@@ -1,20 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../Components/Header';
 import '../Styling/StyleGuestPage.css';
-<<<<<<< HEAD
 import { collection, query, getDocs, orderBy, where } from 'firebase/firestore'; 
 import { db } from '../firebase';
 import { Link } from 'react-router-dom';
 import ListingItem from '../Components/ListingItem'; 
 import { FaCartShopping } from "react-icons/fa6";
 import OfferSlider from '../Components/OfferSlider';
-=======
-import { collection, query, getDocs, orderBy } from 'firebase/firestore'; 
-import { db } from '../firebase';
-import { Link } from 'react-router-dom';
-import cart from "../assets/cart-shopping-solid.svg";
-import ListingItem from '../Components/ListingItem'; 
->>>>>>> main
 
 const ProductList = () => {
   const [selectedCategory, setSelectedCategory] = useState('');
@@ -30,11 +22,7 @@ const ProductList = () => {
   useEffect(() => {
     async function fetchListings() {
       const listingsRef = collection(db, "listings");
-<<<<<<< HEAD
       const q = query(listingsRef,where("status", "==", "available"), orderBy("timestamp", "desc"));
-=======
-      const q = query(listingsRef, orderBy("timestamp", "desc"));
->>>>>>> main
       const querySnapshot = await getDocs(q);
       let listings = [];
       querySnapshot.forEach((doc) => {
@@ -100,17 +88,11 @@ const ProductList = () => {
   return (
     <div className="min-h-screen bg-gradient-to-r from-purple-100 to-teal-100">
       <Header />
-<<<<<<< HEAD
       <OfferSlider/>
       <div className="filter-section">
         <div>
           <label htmlFor="category" className='text-base xl:ml-10 font-semibold'>Filter by Category</label>
         <select id="category" value={selectedCategory} onChange={handleCategoryChange} className='text-sm rounded-lg border-separate bg-transparent'>
-=======
-      <div className="filter-section">
-        <label htmlFor="category">Filter by Category:</label>
-        <select id="category" value={selectedCategory} onChange={handleCategoryChange}>
->>>>>>> main
           <option value="">All Categories</option>
           <option value="Computers">Computers</option>
           <option value="Electronics & Photography">Electronics & Photography</option>
@@ -123,7 +105,6 @@ const ProductList = () => {
           <option value="Pets & Animals">Pets & Animals</option>
           <option value="Sports">Sports</option>
           <option value="Toys & Models">Toys & Models</option>
-<<<<<<< HEAD
           <option value="Books">Books</option>
         </select>
         </div>
@@ -131,12 +112,6 @@ const ProductList = () => {
         <div>
           <label htmlFor="region" className='text-base font-semibold'>Region</label>
         <select id="region" value={selectedRegion} onChange={handleRegionChange} className='text-sm rounded-lg  border-separate bg-transparent'>
-=======
-        </select>
-
-        <label htmlFor="region">Filter by Region:</label>
-        <select id="region" value={selectedRegion} onChange={handleRegionChange}>
->>>>>>> main
           <option value="">All Regions</option>
           <option value="Auckland">Auckland</option>
           <option value="Christchurch">Christchurch</option>
@@ -147,7 +122,6 @@ const ProductList = () => {
           <option value="Dunedin">Dunedin</option>
           <option value="Napier-Hastings">Napier-Hastings</option>
         </select>
-<<<<<<< HEAD
         </div>
         
         <div>
@@ -190,40 +164,6 @@ const ProductList = () => {
         {!loading && listings.length > 0 && (
           <>
             <ul className="sm:grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 mr-6">
-=======
-
-        <label htmlFor="price">Filter by Price:</label>
-        <input
-          type="number"
-          id="price"
-          value={selectedPrice}
-          onChange={handlePriceChange}
-          placeholder="Enter max price"
-        />
-
-        <label htmlFor="search">Search:</label>
-        <input
-          type="text"
-          id="search"
-          value={searchTerm}
-          onChange={handleSearchChange}
-          placeholder="Search listings"
-        />
-
-        <button onClick={handleFilter}>Filter</button>
-
-        <Link to="/Cart">
-          <img src={cart} className='cart-logo' alt="Cart" />
-          ({cartLength})
-        </Link>
-      </div>
-
-      <div>
-        <h2>Filtered Listings:</h2>
-        {!loading && listings.length > 0 && (
-          <>
-            <ul className="sm:grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
->>>>>>> main
               {filteredListings.map((listing) => (
                 <ListingItem
                   key={listing.id}

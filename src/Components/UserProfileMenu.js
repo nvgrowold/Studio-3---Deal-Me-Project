@@ -1,11 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-<<<<<<< HEAD
 function UserProfileMenu({ isVerified }) {// Accept isVerified as a prop from UserProfilePage
-=======
-function UserProfileMenu() {
->>>>>>> main
   return (
     <div>
        <section className='lg:ml-40 lg:mt-16 lg:max-w-40'>
@@ -28,7 +24,6 @@ function UserProfileMenu() {
               <div className='mt-5'>
                 <p className='text-lg font-semibold text-sky-800'>Selling</p>
                 <p>
-<<<<<<< HEAD
                   {/* Conditionally render the link based on isVerified */}
                    {isVerified ? (
                     <Link to='/CreateListing' className="mr-6 cursor-pointer  hover:text-sky-950 hover:font-semibold transition duration-150 ease-in-out" style={{ textDecoration: 'none', color:'#64007D' }}>
@@ -39,11 +34,6 @@ function UserProfileMenu() {
                       Verify to List Items
                     </Link> 
                       )}
-=======
-                    <Link to='/CreateListing' className="mr-6 cursor-pointer  hover:text-sky-950 hover:font-semibold transition duration-150 ease-in-out" style={{ textDecoration: 'none', color:'#64007D' }}>
-                        Listing an item
-                    </Link>  
->>>>>>> main
                 </p>
 
                 <p>
@@ -53,11 +43,7 @@ function UserProfileMenu() {
                 </p>
 
                 <Link to='/MySoldItemsPage ' className="mr-6 cursor-pointer  hover:text-sky-950 hover:font-semibold transition duration-150 ease-in-out" style={{ textDecoration: 'none', color:'#64007D' }}>
-<<<<<<< HEAD
                     My Sold Items
-=======
-                    Sold Items
->>>>>>> main
                 </Link>
 
               </div>

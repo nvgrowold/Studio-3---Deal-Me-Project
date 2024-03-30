@@ -33,10 +33,7 @@ export default function CreateListing() {
         description: "",
         regularPrice: 0,
         images: {},
-<<<<<<< HEAD
         timestamp: serverTimestamp(),
-=======
->>>>>>> main
     })
     //destructuring, all these values come from formData
     const {productName,category, region, shipping, deliveryFee, description, regularPrice, images} = formData;
@@ -178,11 +175,7 @@ export default function CreateListing() {
         <section>
 
         <div className="max-w-md px-2 mx-auto shadow-lg">      
-<<<<<<< HEAD
         <h1 className='text-center mt-6 pt-6 text-2xl font-semibold  text-sky-800'>Listing An Item</h1>
-=======
-        <h1 className='text-center mt-6 text-2xl font-semibold  text-sky-800'>Listing An Item</h1>
->>>>>>> main
         <form onSubmit={onSubmit} className='flex-auto max-w-lg shadow-md rounded p-6 px-10'>          
           {/* Name input area */}
           <p className="text-lg mt-6 font-semibold text-sky-800">Product Name</p>
@@ -192,11 +185,7 @@ export default function CreateListing() {
             value={productName}
             onChange={onChange} //handle the input from user
             placeholder="Product Name"
-<<<<<<< HEAD
             maxLength="100" //max length of the name character no more than 32, this is a built in validation function of HTML
-=======
-            maxLength="32" //max length of the name character no more than 32, this is a built in validation function of HTML
->>>>>>> main
             minLength="3" //min length of the name character no less than 10
             required //this field is required, no form submission without this field filled
             className="w-full px-4 py-1 text-base text-gray-500 bg-white border border-gray-300 rounded transition duration-150 ease-in-out focus:text-gray-700 focus:bg-white focus:border-slate-600 mb-1"
@@ -219,10 +208,7 @@ export default function CreateListing() {
               <option value="Pets & animals">Pets & Animals</option>
               <option value="Sports">Sports</option>
               <option value="Toys & models">Toys & Models</option>
-<<<<<<< HEAD
               <option value="Books">Books</option>
-=======
->>>>>>> main
             </select>
 
           {/* Dropdown for Region */}
@@ -250,13 +236,8 @@ export default function CreateListing() {
               value={true}
               onClick={onChange}
               className={`mr-3 px-7 py-2 font-medium text-sm uppercase shadow-md rounded hover:shadow-lg focus:shadow-lg active:shadow-lg transition duration-150 ease-in-out w-full ${
-<<<<<<< HEAD
                 !shipping ? "bg-white text-gray-500" : "bg-teal-400 text-white"
               } hover:bg-purple-300`}
-=======
-                !shipping ? "bg-white text-gray-500" : "bg-slate-600 text-white"
-              }`}
->>>>>>> main
             >
               Delivery
             </button>
@@ -266,13 +247,8 @@ export default function CreateListing() {
               value={false}
               onClick={onChange}
               className={`ml-3 px-7 py-2 font-medium text-sm uppercase shadow-md rounded hover:shadow-lg focus:shadow-lg active:shadow-lg transition duration-150 ease-in-out w-full ${
-<<<<<<< HEAD
                 shipping ? "bg-white text-gray-500" : "bg-teal-400 text-white"
               } hover:bg-purple-300`}
-=======
-                shipping ? "bg-white text-gray-500" : "bg-slate-600 text-white"
-              }`}
->>>>>>> main
             >
               Pickup Only
             </button>
@@ -341,11 +317,7 @@ export default function CreateListing() {
           {/* images */}
           <div className="mt-3">
             <p className="text-lg font-semibold  text-sky-800 mb-1">Images</p>
-<<<<<<< HEAD
             <p className="text-xs text-gray-600 mb-1">
-=======
-            <p className="text-gray-600 mb-1">
->>>>>>> main
               The first image will be the cover (max 6)
             </p>
             <input
@@ -373,11 +345,7 @@ export default function CreateListing() {
           </div>
           <button
             type="submit"
-<<<<<<< HEAD
             className='w-full bg-gradient-to-r from-purple-300 to-teal-300 text-slate-800 px-7 py-2 my-8 text-sm font-medium uppercase rounded shadow-lg hover:bg-sky-800 transition duration-150 ease-in-out hover:shadow-xl active:bg-blue-900'
-=======
-            className="mt-8 w-full px-7 py-2 bg-sky-700 text-white font-medium text-sm uppercase rounded shadow-md hover:bg-sky-900 hover:shadow-lg focus:bg-sky-700 focus:shadow-lg active:bg-sky-800 active:shadow-lg transition duration-150 ease-in-out"
->>>>>>> main
           >
             Create Listing
           </button>

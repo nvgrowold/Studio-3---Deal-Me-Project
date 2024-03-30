@@ -56,10 +56,7 @@ export default function UserProfilePage() {
     username: auth.currentUser.username,
     name: auth.currentUser.displayName,
     email:auth.currentUser.email,
-<<<<<<< HEAD
     isVerified:auth.currentUser.isVerified
-=======
->>>>>>> main
   });
   //destructure the name and email, otherwise will get error
   const {username,name, email} =formData;
@@ -118,12 +115,8 @@ export default function UserProfilePage() {
     <div className="min-h-screen bg-gradient-to-r from-purple-100 to-teal-100">
       <Header/>
       <div className='grid gap-8 md:w-auto justify-center mt-10 lg:grid-cols-3 lg:justify-start'>
-<<<<<<< HEAD
         {/* the UserProfilePage to pass the isVerified state to the UserProfileMenu component: */}
        <UserProfileMenu isVerified={userInfo.isVerified}/>
-=======
-       <UserProfileMenu/>
->>>>>>> main
         <section>
             {/* <div className='flex justify-center flex-wrap items-center px-6 py-12 max-w-full mx-auto mt-16 max-mt-20'>         */}
             <div className='lg:mt-10 md:min-w-96'>  
@@ -180,11 +173,7 @@ export default function UserProfilePage() {
 
                     <div className='flex justify-between whitespace-nowrap text-xs sm:text-base'>
                       <p className='text-base font-semibold  text-sky-800'>Verified User</p>
-<<<<<<< HEAD
                       <p className='text-base text-gray-500'>{userInfo.isVerified ? "Yes" : "No"}</p>
-=======
-                      <p className='text-base text-gray-500'>yes/no</p>
->>>>>>> main
                     </div>
 
                     {/*add a line  */}

@@ -5,10 +5,7 @@ import { db } from '../firebase';
 import { getAuth } from 'firebase/auth';
 import OrderHistory from '../Components/OrderHistory';
 //import { useNavigate } from 'react-router-dom';
-<<<<<<< HEAD
 import OrderItem from '../Components/OrderItem';
-=======
->>>>>>> main
 
 export default function MyPurchasedItemsPage() {
 
@@ -72,7 +69,6 @@ export default function MyPurchasedItemsPage() {
                     <p>Oops! Your order history is empty...</p>
                     </div>
                 )}
-<<<<<<< HEAD
 {/* 
                 <ul className="sm:grid xl:grid-cols-2 2xl:grid-cols-5 bg-transparent">
                     {orders.map((order) => (
@@ -83,8 +79,6 @@ export default function MyPurchasedItemsPage() {
                         />
                     ))}
                 </ul> */}
-=======
->>>>>>> main
 
             </div>           
         </div>

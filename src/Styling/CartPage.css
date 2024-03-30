@@ -1,33 +1,14 @@
 .containercart {
-<<<<<<< HEAD
   margin: 20px auto;
   padding: 20px;
-=======
-  max-width: 800px;
-  margin: 20px auto;
-  padding: 20px;
-  background-color: #fff;
->>>>>>> main
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-<<<<<<< HEAD
 table {
   border-collapse: collapse;
   margin-bottom: 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-=======
-h2 {
-  margin-top: 0;
-  color: #333;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 20px;
->>>>>>> main
 }
 
 th, td {
@@ -37,28 +18,17 @@ th, td {
 }
 
 th {
-<<<<<<< HEAD
   /* background-color: #f5f5f5; */
 }
 
 tr:nth-child(even) {
   /* background-color: #f9f9f9; */
-=======
-  background-color: #f5f5f5;
-}
-
-tr:nth-child(even) {
-  background-color: #f9f9f9;
->>>>>>> main
 }
 
 .user-info table, .cart-products table {
   margin-bottom: 30px;
-<<<<<<< HEAD
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
-=======
->>>>>>> main
 }
 
 .user-info input, .user-info button {
@@ -72,19 +42,11 @@ tr:nth-child(even) {
 }
 
 .user-info button {
-<<<<<<< HEAD
-=======
-  background-color: #007bff;
->>>>>>> main
   color: #fff;
   cursor: pointer;
 }
 
 .add-btn, .remove-btn {
-<<<<<<< HEAD
-=======
-  background-color: #007bff;
->>>>>>> main
   color: #fff;
   border: none;
   padding: 5px 10px;
@@ -93,16 +55,8 @@ tr:nth-child(even) {
   cursor: pointer;
 }
 
-<<<<<<< HEAD
 .cart-products button {
 
-=======
-.add-btn:hover, .remove-btn:hover {
-  background-color: #0056b3;
-}
-.cart-products button {
-  background-color: #0056b3; /* Green */
->>>>>>> main
   border: none;
   color: white;
   padding: 8px 16px;
@@ -116,14 +70,3 @@ tr:nth-child(even) {
   transition: background-color 0.3s; /* Add smooth transition effect */
 }
 
-<<<<<<< HEAD
-
-=======
-.cart-products button:hover {
-  background-color: #2417b7;
-}
-
-.cart-products button:active {
-  background-color: #2417b7;
-}
->>>>>>> main

@@ -20,7 +20,6 @@ export default function MyListingsPage() {
     //need to create indexes that need to be used to power compound queries in firestore
     useEffect(() => {
         async function fetchUserListings() {
-<<<<<<< HEAD
             const listingRef = collection(db, "listings");
             const q = query(listingRef, where("userRef", "==", auth.currentUser.uid), where("status", "==", "available"), orderBy("timestamp", "desc"));
             const querySnapshot = await getDocs(q);
@@ -38,25 +37,6 @@ export default function MyListingsPage() {
         }, [auth.currentUser.uid]); // Dependency array includes auth.currentUser.uid to refetch when it changes
     
     //handle onDelete event of the listed item 
-=======
-        const listingRef = collection(db, "listings");
-        const q = query(listingRef, where("userRef", "==", auth.currentUser.uid), where("status", "==", "available"), orderBy("timestamp", "desc"));
-        const querySnapshot = await getDocs(q);
-        let listings = [];
-        querySnapshot.forEach((doc) => {
-            return listings.push({
-            id:doc.id,
-            data:doc.data(),
-            });
-        });
-        setListings(listings); // Update the listings state with the fetched data
-        setLoading(false);
-        }
-        fetchUserListings();
-    }, [auth.currentUser.uid]); // Dependency array includes auth.currentUser.uid to refetch when it changes
-
-    //handle onDelete event of the listed item
->>>>>>> main
     async function onDelete(listingID){
         if(window.confirm("Are you sure you want to delete this item?")){
             //if user clicked ok, then will action the delete, otherwise won't trigger the following steps
@@ -70,16 +50,9 @@ export default function MyListingsPage() {
     }
     
     //handle onEdit event of the listed item
-<<<<<<< HEAD
     const onEdit = (listingID) => {
         navigate(`/edit-listing/${listingID}`);
     };
-=======
-    function onEdit(listingID){
-        navigate(`/edit-listing/${listingID}`);
-
-    }
->>>>>>> main
 
     return (
         <div className="min-h-screen bg-gradient-to-r from-purple-100 to-teal-100">
@@ -89,7 +62,6 @@ export default function MyListingsPage() {
                 <h2 className="text-center font-semibold mb-10 text-2xl text-sky-800">
                     My Listings
                 </h2>
-<<<<<<< HEAD
                 {!loading && listings.length > 0 ? (
                     <ul className="sm:grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
                         {listings.map((listing) => (
@@ -107,32 +79,6 @@ export default function MyListingsPage() {
                         <p>Oops! Your listing folder is empty...</p>
                     </div>
                 )}
-=======
-                {!loading && listings.length > 0 && (
-                <>
-                   
-                    <ul className="sm:grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
-                    {listings.map((listing) => (
-                        //create a component for ListingItem
-                        <ListingItem
-                        key={listing.id}
-                        id={listing.id}
-                        listing={listing.data}
-                        onDelete={() => onDelete(listing.id)}
-                        onEdit={() => onEdit(listing.id)}
-                        />
-                    ))}
-                    </ul>
-                </>
-                )}
-
-                {!loading && listings.length === 0 && (
-                    <div className="text-center mt-10  text-sky-800">
-                    <p>Oops! Your listing folder is empty...</p>
-                    </div>
-                )}
-
->>>>>>> main
             </div>           
         </div>
     );
