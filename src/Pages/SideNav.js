@@ -6,7 +6,7 @@ const SideNav = () => {
   return (
     <div className="side-nav">
       <div className="nav-item">
-        <Link to='/Dashboard' className="nav-link">
+        <Link to='/AdminDashboard' className="nav-link">
           <span className="nav-icon">📊</span>
           Dashboard
         </Link>

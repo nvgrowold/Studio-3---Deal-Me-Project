@@ -68,6 +68,27 @@ export default function Header() {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  //event listener auto log out user when user close the website
+  useEffect(() => {
+    const handleBeforeUnload = async () => {
+      // Check if the user is logged in before trying to log out
+      if (isLoggedIn) {
+        try {
+          await signOut(auth);
+          // You can also perform other cleanup tasks here
+        } catch (error) {
+          console.error("Logout Error on Window Close:", error);
+        }
+      }
+    };
+  
+    window.addEventListener("beforeunload", handleBeforeUnload);
+  
+    // Cleanup the event listener on component unmount
+    return () => window.removeEventListener("beforeunload", handleBeforeUnload);
+  }, [isLoggedIn, auth]); // Depend on isLoggedIn and auth to ensure the effect is updated appropriately
+  
+
   return (
     <div className='h-16 bg-slate-900 border-b-2 shadow-lg sticky top-0 z-50 py-2 px-3'>
       <header className='flex justify-between items-center
