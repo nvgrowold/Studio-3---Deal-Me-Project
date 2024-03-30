@@ -12,13 +12,19 @@ import GuestPage from "./Pages/GuestPage";
 import Register from "./Pages/Register";
 import ContactUsPage from "./Pages/ContactUsPage";
 import UserProfilePage from "./Pages/UserProfilePage";
+<<<<<<< HEAD
 import VerifyUser from "./Pages/VerifyUserPage";
+=======
+>>>>>>> main
 import MyListingsPage from "./Pages/MyListingsPage";
 import CreateListing from "./Pages/CreateListing";
 import EditListing from "./Pages/EditListing";
 import CartPage from "./Pages/CartPage";
 import CheckoutPage from "./Pages/CheckoutPage";
+<<<<<<< HEAD
 
+=======
+>>>>>>> main
 //import AdminDashboard stuff
 import AdminPage from "./Pages/AdminPage";
 import Inventory from "./Pages/AdminNavPages/Inventory";
@@ -28,10 +34,16 @@ import Settings from "./Pages/AdminNavPages/Settings";
 
 //private route for user UserProfilePage protection
 import PrivateRoute from "./Components/PrivateRoute";
+<<<<<<< HEAD
 import Deal from "./Components/Deal";
 import MyPurchasedItemsPage from "./Pages/MyPurchasedItemsPage";
 import MySoldItemsPage from "./Pages/MySoldItemsPage";
 import PrivateRouteAdmin from "./Components/PrivateRouteAdmin";
+=======
+import Deal from "./Pages/Deal";
+import MyPurchasedItemsPage from "./Pages/MyPurchasedItemsPage";
+import MySoldItemsPage from "./Pages/MySoldItemsPage";
+>>>>>>> main
 
 function App() {
   return (
@@ -46,13 +58,18 @@ function App() {
           <Route exact path='/Login' element={<Login/>}/>
           <Route exact path='/Register' element={<Register/>}/>     
           <Route exact path='/category/:categoryName/:listingID' element={<Deal/>}/>
+<<<<<<< HEAD
           {/* <Route exact path='/order/:orderId' element={<OrderDetailPage/>}/> */}
           <Route exact path='/CheckoutPage' element={<CheckoutPage/>}/>
           <Route exact path='/AdminPage' element={<AdminPage/>}/>
+=======
+          <Route exact path='/CheckoutPage' element={<CheckoutPage/>}/>
+>>>>>>> main
           {/* user profile protection route */}
           <Route path="/UserProfilePage" element={<PrivateRoute />}>
             <Route path="/UserProfilePage" element={<UserProfilePage />} />
           </Route>
+<<<<<<< HEAD
 
           {/* private route for CreateListing, only after login could create listing*/}
           <Route path="/VerifyUser" element={<PrivateRoute />}>
@@ -62,6 +79,8 @@ function App() {
            
                
           
+=======
+>>>>>>> main
           {/* private route for CreateListing, only after login could create listing*/}
           <Route path="/CreateListing" element={<PrivateRoute />}>
             <Route path="/CreateListing" element={<CreateListing />} />
@@ -96,6 +115,7 @@ function App() {
            <Route path="/CheckoutPage" element={<CheckoutPage />} />
           </Route>
 
+<<<<<<< HEAD
           {/*Protected route for Admin Pages below *******************************************************************/}
           {/* private route for AdminDashboard, only after login could create listing*/}
           <Route path="/AdminDashboard" element={<PrivateRouteAdmin />}>
@@ -122,6 +142,14 @@ function App() {
           <Route path="/Settings" element={<Settings />} />
           </Route>
 
+=======
+          {/* Admin Pages below */}
+          <Route exact path='/AdminDashboardLayout' element={<AdminDashboardLayout/>}/>
+          <Route exact path='/Dashboard' element={<Dashboard/>}/>
+          <Route exact path='/Messages' element={<Messages/>}/>
+          <Route exact path='/Reports' element={<Reports/>}/>
+          <Route exact path='/Settings' element={<Settings/>}/>
+>>>>>>> main
         </Routes>
       </BrowserRouter>
 

@@ -4,17 +4,23 @@ import Header from '../Components/Header';
 import { toast } from 'react-toastify';
 import { getFirestore, collection, addDoc, serverTimestamp, doc, updateDoc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
+<<<<<<< HEAD
 import QRCode from 'qrcode.react';
 import { Link } from 'react-router-dom';
 
+=======
+>>>>>>> main
 
 const CheckoutPage = () => {
   const [purchasedItems, setPurchasedItems] = useState([]);
   const [userInfo, setUserInfo] = useState({});
   const [totalPrice, setTotalPrice] = useState(0); // State to hold total price
+<<<<<<< HEAD
   const [showQRCode, setShowQRCode] = useState(false);
   const [qrData, setQRCodeData] = useState('');
 
+=======
+>>>>>>> main
 
   useEffect(() => {
     // Retrieve cart from session storage
@@ -38,11 +44,14 @@ const CheckoutPage = () => {
     setUserInfo(storedUserInfo);
   }, []);
 
+<<<<<<< HEAD
   // Function to hide QR code
   const hideQRCodeModal = () => {
     setShowQRCode(false);
   };
 
+=======
+>>>>>>> main
   // Function to handle payment and data storage
   const handlePayment = async () => {
     try {
@@ -54,7 +63,11 @@ const CheckoutPage = () => {
         alert('No user signed in.');
         return;
       }
+<<<<<<< HEAD
       
+=======
+
+>>>>>>> main
       // Combine user information and purchased items into a single object
       const orderData = {
         userInfo: userInfo,
@@ -92,6 +105,7 @@ const CheckoutPage = () => {
             });
       }
 
+<<<<<<< HEAD
       // Create the order in Firestore and get the generated document ID
       const orderRef = await addDoc(collection(db, 'orderitems'), orderData);
       const orderId = orderRef.id;  // The unique order ID
@@ -130,6 +144,11 @@ const CheckoutPage = () => {
       // setQRCodeData(redirectUrl);
       //####################################################################################
       
+=======
+
+      // Notify user about successful payment
+      toast.success('Payment successful! Your order has been placed.');
+>>>>>>> main
   
       // Clear session storage after successful payment
       sessionStorage.removeItem('productList');
@@ -138,6 +157,7 @@ const CheckoutPage = () => {
       console.error('Error processing payment:', error);
       toast.error('Payment failed. Please try again later.'); // Show user-friendly error message
     }
+<<<<<<< HEAD
 
       // Function to show QR code
       const showQRCodeModal = (data) => {
@@ -217,6 +237,52 @@ const CheckoutPage = () => {
         </div>
       )}
     </div>    
+=======
+  };
+  
+  return (
+    <div>
+      <Header/>
+      <div className="checkout-container">
+      <h2 className="checkout-heading">Checkout</h2>
+
+      {/* User Information Section */}
+      <div className="user-info-section">
+        <h3>User Information</h3>
+        <div className="user-info">
+          <p><strong>First Name:</strong> {userInfo.firstName}</p>
+          <p><strong>Last Name:</strong> {userInfo.lastName}</p>
+          <p><strong>Email:</strong> {userInfo.email}</p>
+          <p><strong>Delivery Address:</strong> {userInfo.deliveryAddress}</p>
+          <p><strong>Mobile Number:</strong> {userInfo.mobileNumber}</p>
+        </div>
+      </div>
+
+      {/* Purchased Items Section */}
+      <div className="purchased-items-section">
+        <h3>Purchased Items</h3>
+        <ul className="purchased-items-list">
+            {purchasedItems.map((item, index) => (
+              <li key={item.id || index} className="purchased-item">
+                <p><strong>Product Name:</strong> {item.data.name}</p>
+                <p><strong>Price:</strong> ${item.data.price}</p>
+                <p><strong>Quantity:</strong> {item.data.quantity}</p>
+                <p><strong>Delivery Fee:</strong> ${item.data.delivery ? parseFloat(item.data.delivery).toFixed(2) : 0 }</p>
+                <hr className="divider" />
+              </li> 
+            ))}
+        </ul>
+      </div>
+
+      {/* Display Total Price */}
+      <p><strong>Total Price:</strong> ${totalPrice}</p>
+
+      {/* Payment Button */}
+      <button className="payment-button w-full bg-gradient-to-r from-purple-300 to-teal-300 text-slate-800 px-7 py-2 mb-6 text-sm font-medium uppercase rounded shadow-lg hover:bg-sky-800 transition duration-150 ease-in-out hover:shadow-xl active:bg-blue-900" onClick={handlePayment}>Make Payment</button>
+    </div>
+    </div>
+    
+>>>>>>> main
   );
 };
 

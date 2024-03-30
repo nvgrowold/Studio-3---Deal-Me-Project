@@ -1,11 +1,18 @@
 /* Checkout Page Container */
 .checkout-container {
+<<<<<<< HEAD
+=======
+    background-color: #f0f8ff; /* Alice blue background */
+>>>>>>> main
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
     max-width: 600px; /* Limit width for better readability */
     margin: 0 auto; /* Center align */
+<<<<<<< HEAD
     margin-top: 3%;
+=======
+>>>>>>> main
     transition: transform 0.3s ease-in-out; /* Add transition effect */
   }
   
@@ -47,6 +54,10 @@
   }
   
   .purchased-item {
+<<<<<<< HEAD
+=======
+    background-color: #e0ffff; /* Light cyan */
+>>>>>>> main
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle box shadow */
     padding: 15px;
     margin-bottom: 15px; /* Add some space between items */
