@@ -5,7 +5,7 @@
 /* Card style */
 .total-users-card {
   /* Add your unique styles here */
-  background-color: #f0f0f0;
+  background-color: clear;
   color: #333;
   /* Add any other styles you want */
 }
@@ -18,7 +18,7 @@
 }
 /* Card style */
 .card {
-  background-color: #fff;
+  background-color: clear;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   padding: 20px;
@@ -39,7 +39,7 @@
   flex: 1;
   text-align: center;
   padding: 20px;
-  background-color: #f0f0f0;
+  background-color: clear;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
@@ -73,7 +73,7 @@
 }
 
 .table th {
-  background-color: #f0f0f0;
+  background-color: clear;
 }
 
 /* Responsive styles */

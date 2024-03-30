@@ -13,32 +13,38 @@ const Settings = () => {
   const [activePage, setActivePage] = useState('profile');
 
   return (
-    <div className="admin-dashboard">
-      <Header/>
-      <SideNav/>
-      {/* Header and SideNav components */}
-      <div className="main-content">
-        <h2 className="page-title"></h2>
+    <div className="min-h-screen bg-gradient-to-r from-purple-100 to-teal-100">
+      <Header />
+      <div className='flex'>
+          <div className="w-1/6 min-h-screen shadow-lg">
+              <SideNav />
+          </div>
+          <div className="w-5/6 p-8">
+              {/* Header and SideNav components */}
+              <div className="main-content">
+                <h2 className="page-title"></h2>
 
-        {/* Navigation Links as Top Inline Navbar */}
-        <div className="top-navbar">
-          <ul className="nav-list">
-            <li className={activePage === 'profile' ? 'active' : ''} onClick={() => setActivePage('profile')}>Profile</li>
-            <li className={activePage === 'personalInfo' ? 'active' : ''} onClick={() => setActivePage('personalInfo')}>Personal Info</li>
-            <li className={activePage === 'passwordChange' ? 'active' : ''} onClick={() => setActivePage('passwordChange')}>Password Change</li>
-            <li className={activePage === 'myAccount' ? 'active' : ''} onClick={() => setActivePage('myAccount')}>My Account</li>
-          </ul>
-        </div>
+                {/* Navigation Links as Top Inline Navbar */}
+                <div className="top-navbar">
+                  <ul className="nav-list">
+                    <li className={activePage === 'profile' ? 'active' : ''} onClick={() => setActivePage('profile')}>Profile</li>
+                    <li className={activePage === 'personalInfo' ? 'active' : ''} onClick={() => setActivePage('personalInfo')}>Personal Info</li>
+                    <li className={activePage === 'passwordChange' ? 'active' : ''} onClick={() => setActivePage('passwordChange')}>Password Change</li>
+                    <li className={activePage === 'myAccount' ? 'active' : ''} onClick={() => setActivePage('myAccount')}>My Account</li>
+                  </ul>
+                </div>
 
-        {/* Render the selected page */}
-        <div className="page-content">
-          {activePage === 'profile' && <Profile />}
-          {activePage === 'personalInfo' && <PersonalInfo />}
-          {activePage === 'passwordChange' && <PasswordChange />}
-          {activePage === 'myAccount' && <MyAccount />}
-        </div>
+                {/* Render the selected page */}
+                <div className="page-content">
+                  {activePage === 'profile' && <Profile />}
+                  {activePage === 'personalInfo' && <PersonalInfo />}
+                  {activePage === 'passwordChange' && <PasswordChange />}
+                  {activePage === 'myAccount' && <MyAccount />}
+                </div>
 
-      </div>
+              </div>
+            </div>
+            </div>
     </div>
   );
 };

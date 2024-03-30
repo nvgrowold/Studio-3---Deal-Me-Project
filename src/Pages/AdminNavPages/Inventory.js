@@ -36,11 +36,14 @@ function Inventory() {
   }, []);
 
   return (
-    <div>
-      <Header/>
-      <SideNav/>
-      <div style={{ marginLeft: '15%', textAlign: 'center' }}>
-        <Typography.Title level={4}>Inventory</Typography.Title>
+    <div className="min-h-screen bg-gradient-to-r from-purple-100 to-teal-100">
+      <Header />
+      <div className='flex'>
+          <div className="w-1/6 min-h-screen shadow-lg">
+              <SideNav />
+          </div>
+          <div className="w-5/6 p-8">
+      <div style={{textAlign: 'center' }}>
         <Table
           loading={loading}
           columns={[
@@ -75,6 +78,8 @@ function Inventory() {
           pagination={{ pageSize: 10 }} // Set pagination options
         />
       </div>
+    </div>
+    </div>
     </div>
   );
 }

@@ -18,21 +18,15 @@ const SideNav = () => {
         </Link>
       </div>
       <div className="nav-item">
-        <Link to='/DispalyingUsers' className="nav-link">
+        <Link to='/AdminPage' className="nav-link">
           <span className="nav-icon">👤</span>
-          User
+          User Verification
         </Link>
       </div>
       <div className="nav-item">
         <Link to='/Inventory' className="nav-link">
           <span className="nav-icon"> 📦</span>
           Inventory
-        </Link>
-      </div>
-      <div className="nav-item">
-        <Link to='/Chart' className="nav-link">
-          <span className="nav-icon">📊</span>
-          Analytics
         </Link>
       </div>
       <div className="nav-item">

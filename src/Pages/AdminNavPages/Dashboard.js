@@ -70,86 +70,81 @@ function Dashboard() {
   }, []);
 
   return (
-    <div>
+    <div className="min-h-screen bg-gradient-to-r from-purple-100 to-teal-100">
       <Header />
-      <SideNav /> 
-      <div className="dashboard-container" style={{ marginLeft: '13%', textAlign: 'center' }}>
-        <div className="statistics-box">
-          <h1 className="dashboard-heading">Dashboard</h1>
-         
-          <div className="card statistics-item">
-            <h2>Total Users</h2>
-            <p>{loading ? 'Loading...' : totalUsers}</p>
+      <div className='flex'>
+          <div className="w-1/6 min-h-screen shadow-lg">
+              <SideNav />
           </div>
-          <div className="card statistics-item">
-            <h2>Total Listings</h2>
-            <p>{loading ? 'Loading...' : totalListings}</p>
+          <div className="w-5/6 p-8">
+            <div className="dashboard-container" style={{ marginLeft: '13%', textAlign: 'center' }}>
+              <div className="statistics-box bg-transparent">              
+                <div className="card statistics-item">
+                  <h2>Total Users</h2>
+                  <p>{loading ? 'Loading...' : totalUsers}</p>
+                </div>
+                <div className="card statistics-item">
+                  <h2>Total Listings</h2>
+                  <p>{loading ? 'Loading...' : totalListings}</p>
+                </div>
+                <div className="card statistics-item">
+                  <h2>Total Orders</h2>
+                  <p>{loading ? 'Loading...' : totalOrders}</p>
+                </div>
+              </div>
+              
+              <div className="activities-container">
+                <h2 className="activities-heading">Recent Activities</h2>
+                {loading ? (
+                  <p>Loading...</p>
+                ) : (
+                  <table className="activities-table">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Activity</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {recentActivities.map((activity, index) => (
+                        <tr key={index}>
+                          <td>{index + 1}</td>
+                          <td>{activity.name}</td>
+                          <td>{activity.activity}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                )}
+              </div>
+              <div className="users-container">
+                <h2 className="users-heading">Users</h2>
+                {loading ? (
+                  <p>Loading...</p>
+                ) : (
+                  <table className="users-table">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {users.map(user => (
+                        <tr key={user.id}>
+                          <td>{user.id}</td>
+                          <td>{user.name}</td>
+                          <td>{user.email}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                )}
+              </div>
+            </div>
           </div>
-          <div className="card statistics-item">
-            <h2>Total Orders</h2>
-            <p>{loading ? 'Loading...' : totalOrders}</p>
-          </div>
-          {/* <div className="card statistics-item">
-            <h2>Total Sales Revenue</h2>
-            <p>{loading ? 'Loading...' : totalSalesRevenue}</p>
-          </div>
-          <div className="card statistics-item">
-            <h2>Average Sales Revenue</h2>
-            <p>{loading ? 'Loading...' : averageSalesRevenue}</p>
-          </div>
-          {/* Add more statistics items as needed */}
-        </div>
-        
-        <div className="activities-container">
-          <h2 className="activities-heading">Recent Activities</h2>
-          {loading ? (
-            <p>Loading...</p>
-          ) : (
-            <table className="activities-table">
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Name</th>
-                  <th>Activity</th>
-                </tr>
-              </thead>
-              <tbody>
-                {recentActivities.map((activity, index) => (
-                  <tr key={index}>
-                    <td>{index + 1}</td>
-                    <td>{activity.name}</td>
-                    <td>{activity.activity}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          )}
-        </div>
-        <div className="users-container">
-          <h2 className="users-heading">Users</h2>
-          {loading ? (
-            <p>Loading...</p>
-          ) : (
-            <table className="users-table">
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Name</th>
-                  <th>Email</th>
-                </tr>
-              </thead>
-              <tbody>
-                {users.map(user => (
-                  <tr key={user.id}>
-                    <td>{user.id}</td>
-                    <td>{user.name}</td>
-                    <td>{user.email}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          )}
-        </div>
       </div>
     </div>
   );

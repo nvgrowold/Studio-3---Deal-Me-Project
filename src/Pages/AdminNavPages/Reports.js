@@ -81,13 +81,16 @@ const Reports = () => {
   };
 
   return (
-    <div className="admin-dashboard">
+    <div className="min-h-screen bg-gradient-to-r from-purple-100 to-teal-100">
       <Header />
-      <SideNav />
+      <div className='flex'>
+          <div className="w-1/6 min-h-screen shadow-lg">
+              <SideNav />
+          </div>
+          <div className="w-5/6 p-8">
       <div className="main-content">
         <h2 className="page-title"></h2>
         <div className="reports-section">
-          <h3 className="reports-title">Reports Section</h3>
           <div className="report-table-container">
             <table className="report-table">
               <thead>
@@ -174,6 +177,8 @@ const Reports = () => {
           </div>       
         </div>
       </div>
+    </div>
+    </div>
     </div>
   );
 };

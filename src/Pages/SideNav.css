@@ -2,11 +2,11 @@
 
 .side-nav {
     position:absolute;
-    top: 10%;
+    top: 8%;
     left: 0;
     width: 200px;
     height: 100%;
-    background-color: whitesmoke;
+    background-color: clear;
     padding-top: 20px;
   }
   
