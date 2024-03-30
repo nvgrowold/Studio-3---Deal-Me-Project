@@ -52,55 +52,6 @@ function CartPage() {
         setDeliveryFee(deliveryTotal);
     };
 
-    // const validateEmail = (email) => /\S+@\S+\.\S+/.test(email);
-    // const validateMobileNumber = (number) => /^\+64[0-9]{8,9}$/.test(number);
-
-    // const handleSave = async () => {
-
-    //     if (!firstName) {
-    //         setShowFirstNameError(true);
-    //     }
-    //     if (!lastName) {
-    //         setShowLastNameError(true);
-    //     }
-    //     if (!email) {
-    //         setShowEmailError(true);
-    //     }
-    //     if (!deliveryAddress) {
-    //         setShowDeliveryAddressError(true);
-    //     }
-    //     if (!mobileNumber) {
-    //         setShowMobileNumberError(true);
-    //     }
-
-    //     if (!firstName || !lastName || !email || !deliveryAddress || !mobileNumber) {
-    //         return;
-    //     }
-
-    //     if (!validateEmail(email)) {
-    //         setEmailError('Invalid email address');
-    //         return;
-    //     }
-    //     if (!validateMobileNumber(mobileNumber)) {
-    //         setMobileNumberError('Invalid New Zealand mobile number');
-    //         return;
-    //     }
-
-    //     if (cartItems.length === 0) {
-    //         toast.error("Please add items to your cart before proceeding to payment.");
-    //         return;
-    //     }
-
-    //     try {
-    //         const userInfo = { firstName, lastName, email, deliveryAddress, mobileNumber, cartItems, totalPrice, deliveryFee };
-    //         sessionStorage.setItem('userInfo', JSON.stringify(userInfo));
-    //         window.location.href = '/CheckoutPage';
-    //     } catch (error) {
-    //         console.error("Error saving user information: ", error);
-    //     }
-    // };
-
-
     const validateEmail = (email) => /\S+@\S+\.\S+/.test(email);
     const validateMobileNumber = (number) => /^\+64[0-9]{8,9}$/.test(number);
 

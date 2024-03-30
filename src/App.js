@@ -47,6 +47,7 @@ function App() {
           <Route exact path='/Login' element={<Login/>}/>
           <Route exact path='/Register' element={<Register/>}/>     
           <Route exact path='/category/:categoryName/:listingID' element={<Deal/>}/>
+          {/* <Route exact path='/order/:orderId' element={<OrderDetailPage/>}/> */}
           <Route exact path='/CheckoutPage' element={<CheckoutPage/>}/>
           <Route exact path='/AdminPage' element={<AdminPage/>}/>
           {/* user profile protection route */}
