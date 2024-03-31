@@ -6,6 +6,7 @@ import { getFirestore, collection, addDoc, serverTimestamp, doc, updateDoc } fro
 import { getAuth } from "firebase/auth";
 import QRCode from 'qrcode.react';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
 const CheckoutPage = () => {
@@ -14,6 +15,8 @@ const CheckoutPage = () => {
   const [totalPrice, setTotalPrice] = useState(0); // State to hold total price
   const [showQRCode, setShowQRCode] = useState(false);
   const [qrData, setQRCodeData] = useState('');
+  
+  const navigate = useNavigate();
 
 
   useEffect(() => {
@@ -145,6 +148,20 @@ const CheckoutPage = () => {
         setShowQRCode(true);
       };
 
+      try {
+        const auth = getAuth();
+        if (!auth.currentUser) {
+          toast.error('Session expired, please login again.');
+          navigate('/Login');  // Redirect user to Login page if not authenticated
+          return;
+        }
+    
+        // Proceed with payment logic if user is authenticated...
+      } catch (error) {
+        console.error('Error processing payment:', error);
+        toast.error('Payment failed. Please try again later.');
+      }
+
   };
   
   return (
@@ -184,7 +201,8 @@ const CheckoutPage = () => {
           <p><strong>Total Price:</strong> ${totalPrice}</p>
 
           {/* Payment Button */}
-          <button className="payment-button w-full bg-gradient-to-r from-purple-300 to-teal-300 text-slate-800 px-7 py-2 mb-6 text-sm font-medium uppercase rounded shadow-lg hover:bg-sky-800 transition duration-150 ease-in-out hover:shadow-xl active:bg-blue-900" onClick={handlePayment}>Make Payment</button>
+          <button className="payment-button w-full bg-gradient-to-r from-purple-300 to-teal-300 text-slate-800 px-7 py-2 mb-6 text-sm font-medium uppercase rounded shadow-lg hover:bg-sky-800 transition duration-150 ease-in-out hover:shadow-xl active:bg-blue-900" 
+          onClick={handlePayment}>Make Payment</button>
         </div>
 
          {/* QRCode */}
