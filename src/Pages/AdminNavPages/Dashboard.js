@@ -133,7 +133,7 @@ function Dashboard() {
         <div className="w-1/6 min-h-screen shadow-lg">
           <SideNav />
         </div>
-        <div className="w-5/6 p-8">
+        <div className="w-5/6 p-8 mt-8">
           <div className="dashboard-container" style={{ marginLeft: '2%', textAlign: 'center' }}>
             <div className="statistics-box">
               <div className="row">
