@@ -6,7 +6,6 @@ import { getFirestore, collection, addDoc, serverTimestamp, doc, updateDoc } fro
 import { getAuth } from "firebase/auth";
 import QRCode from 'qrcode.react';
 import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
 
 
 const CheckoutPage = () => {
@@ -15,8 +14,6 @@ const CheckoutPage = () => {
   const [totalPrice, setTotalPrice] = useState(0); // State to hold total price
   const [showQRCode, setShowQRCode] = useState(false);
   const [qrData, setQRCodeData] = useState('');
-  
-  const navigate = useNavigate();
 
 
   useEffect(() => {
@@ -66,6 +63,7 @@ const CheckoutPage = () => {
           name: item.data.name,
           price: item.data.price,
           quantity: item.data.quantity,
+          delivery: item.data.delivery,
           // include any other item data you need to send
         })),
         userRef: auth.currentUser.uid, // Add userRef here
@@ -147,21 +145,6 @@ const CheckoutPage = () => {
         setQRCodeData(data);
         setShowQRCode(true);
       };
-
-      try {
-        const auth = getAuth();
-        if (!auth.currentUser) {
-          toast.error('Session expired, please login again.');
-          navigate('/Login');  // Redirect user to Login page if not authenticated
-          return;
-        }
-    
-        // Proceed with payment logic if user is authenticated...
-      } catch (error) {
-        console.error('Error processing payment:', error);
-        toast.error('Payment failed. Please try again later.');
-      }
-
   };
   
   return (
@@ -227,7 +210,7 @@ const CheckoutPage = () => {
                 </ul>
               </div>
               <button onClick={hideQRCodeModal} className="w-full mt-6 cursor-pointer bg-gradient-to-r from-purple-300 to-teal-300 text-white px-7 text-sm font-medium uppercase rounded shadow-lg hover:scale-105 transition-scale transition duration-150 ease-in-out hover:shadow-xl">
-                <Link to='/GuestPage' className='no-underline text-white'>
+                <Link to='/MyPuchasedItemPage' className='no-underline text-white'>
                   Continue Shopping</Link>
               </button>
             </div>
