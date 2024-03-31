@@ -1,101 +1,98 @@
 import React, { useState, useEffect } from 'react';
-import { db } from '../../../firebase'; // Import the Firebase instance with Firestore
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const PersonalInfo = () => {
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
-    const [dateOfBirth, setDateOfBirth] = useState('');
-    const [phoneNumber, setPhoneNumber] = useState('');
+    const [personalInfo, setPersonalInfo] = useState({
+        firstName: '',
+        lastName: '',
+        dateOfBirth: '',
+        phoneNumber: ''
+    });
+    const [editing, setEditing] = useState(false);
 
     useEffect(() => {
-        // Fetch personal info from Firestore when component mounts
-        const fetchPersonalInfo = async () => {
-            try {
-                console.log("DB Object:", db); // Check the db object
-                const personalInfoRef = db.collection('Profile').doc('adminReports'); // Replace 'adminID' with the actual ID of the admin
-                const doc = await personalInfoRef.get();
-                if (doc.exists) {
-                    const data = doc.data();
-                    setFirstName(data.firstName || '');
-                    setLastName(data.lastName || '');
-                    setDateOfBirth(data.dateOfBirth || '');
-                    setPhoneNumber(data.phoneNumber || '');
-                } else {
-                    console.log('No such document!');
-                }
-            } catch (error) {
-                console.error('Error fetching document:', error);
-            }
-        };
-
-        fetchPersonalInfo();
+        // Load personal info from local storage when component mounts
+        const storedInfo = JSON.parse(localStorage.getItem('personalInfo'));
+        if (storedInfo) {
+            setPersonalInfo(storedInfo);
+        }
     }, []);
 
-    const handleSavePersonalInfo = async () => {
-        // Save personal info to Firestore
-        try {
-            console.log("DB Object:", db); // Check the db object
-            const personalInfoRef = db.collection('Profile').doc('adminReports'); // Replace 'adminID' with the actual ID of the admin
-            await personalInfoRef.set({
-                firstName,
-                lastName,
-                dateOfBirth,
-                phoneNumber
-            });
-            toast.success('Personal info saved successfully!');
-        } catch (error) {
-            console.error('Error saving personal info:', error);
-            toast.error('Error saving personal info');
-        }
+    const handleEditClick = () => {
+        setEditing(true);
+    };
+
+    const handleSavePersonalInfo = () => {
+        // Save personal info to local storage
+        localStorage.setItem('personalInfo', JSON.stringify(personalInfo));
+        setEditing(false);
+        toast.success('Personal info saved successfully!');
+    };
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setPersonalInfo({
+            ...personalInfo,
+            [name]: value
+        });
     };
 
     return (
         <div className="personal-info-page">
             <h3 className="page-title">Personal Information</h3>
-            <div className="personal-info-form">
-                <div className="form-group">
-                    <label htmlFor="firstName">First Name:</label>
-                    <input
-                        type="text"
-                        id="firstName"
-                        value={firstName}
-                        onChange={(e) => setFirstName(e.target.value)}
-                        placeholder="Enter your first name"
-                    />
+            <div className="personal-info-display">
+                <div className="info-item">
+                    <label>First Name:</label>
+                    <div className="info-value">{editing ? (
+                        <input
+                            type="text"
+                            name="firstName"
+                            value={personalInfo.firstName}
+                            onChange={handleInputChange}
+                        />
+                    ) : personalInfo.firstName}</div>
                 </div>
-                <div className="form-group">
-                    <label htmlFor="lastName">Last Name:</label>
-                    <input
-                        type="text"
-                        id="lastName"
-                        value={lastName}
-                        onChange={(e) => setLastName(e.target.value)}
-                        placeholder="Enter your last name"
-                    />
+                <div className="info-item">
+                    <label>Last Name:</label>
+                    <div className="info-value">{editing ? (
+                        <input
+                            type="text"
+                            name="lastName"
+                            value={personalInfo.lastName}
+                            onChange={handleInputChange}
+                        />
+                    ) : personalInfo.lastName}</div>
                 </div>
-                <div className="form-group">
-                    <label htmlFor="dateOfBirth">Date of Birth:</label>
-                    <input
-                        type="date"
-                        id="dateOfBirth"
-                        value={dateOfBirth}
-                        onChange={(e) => setDateOfBirth(e.target.value)}
-                        placeholder="Select your date of birth"
-                    />
+                <div className="info-item">
+                    <label>Date of Birth:</label>
+                    <div className="info-value">{editing ? (
+                        <input
+                            type="date"
+                            name="dateOfBirth"
+                            value={personalInfo.dateOfBirth}
+                            onChange={handleInputChange}
+                        />
+                    ) : personalInfo.dateOfBirth}</div>
                 </div>
-                <div className="form-group">
-                    <label htmlFor="phoneNumber">Phone Number:</label>
-                    <input
-                        type="text"
-                        id="phoneNumber"
-                        value={phoneNumber}
-                        onChange={(e) => setPhoneNumber(e.target.value)}
-                        placeholder="Enter your phone number"
-                    />
+                <div className="info-item">
+                    <label>Phone Number:</label>
+                    <div className="info-value">{editing ? (
+                        <input
+                            type="text"
+                            name="phoneNumber"
+                            value={personalInfo.phoneNumber}
+                            onChange={handleInputChange}
+                        />
+                    ) : personalInfo.phoneNumber}</div>
                 </div>
-                <button className="save-btn" onClick={handleSavePersonalInfo}>Save Personal Info</button>
+            </div>
+            <div className="action-buttons">
+                {editing ? (
+                    <button className="save-btn" onClick={handleSavePersonalInfo}>Save</button>
+                ) : (
+                    <button className="edit-btn" onClick={handleEditClick}>Edit</button>
+                )}
             </div>
         </div>
     );
