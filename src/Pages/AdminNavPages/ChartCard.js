@@ -46,7 +46,7 @@ const ChartCard = ({ frequentlyPurchasedData }) => {
   }, [frequentlyPurchasedData]);
 
   return (
-    <div className="card">
+    <div className="card bg-transparent mt-6">
       <div className="card-header">Frequently Purchased Items</div>
       <div className="card-body">
         <canvas ref={chartRef}></canvas>

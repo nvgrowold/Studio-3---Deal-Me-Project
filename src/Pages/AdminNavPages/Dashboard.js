@@ -6,6 +6,7 @@ import SideNav from '../SideNav';
 import StatisticBox from './Infor/StatisticBox';
 import ChartCard from './ChartCard';
 import { Bar } from 'react-chartjs-2';
+import CommissionRanking from '../../Components/CommissionRanking';
 
 function Dashboard() {
   const [loading, setLoading] = useState(true);
@@ -136,42 +137,45 @@ function Dashboard() {
           <div className="dashboard-container" style={{ marginLeft: '2%', textAlign: 'center' }}>
             <div className="statistics-box">
               <div className="row">
-                <div className="col-md-3">
+                <div className="col-md-4">
                   <StatisticBox title="Total Users" value={totalUsers} loading={loading} />
                 </div>
-                <div className="col-md-3">
+                <div className="col-md-4">
                   <StatisticBox title="Total Listings" value={totalListings} loading={loading} />
                 </div>
-                <div className="col-md-3">
+                <div className="col-md-4">
                   <StatisticBox title="Total Orders" value={totalOrders} loading={loading} />
                 </div>
-                <div className="col-md-3">
+                {/* <div className="col-md-3">
                   <StatisticBox title="Sales Revenue" value={`$${totalSalesRevenue.toFixed(2)}`} loading={loading} />
-                </div>
+                </div> */}
               </div>
             </div>
-            <div className="chart-card" style={{ display: 'flex', justifyContent: 'space-between' }}>
+            {/* <div className="chart-card" style={{ display: 'flex', justifyContent: 'space-between' }}>
               <div style={{ width: '48%' }}>
-                <h2 className="chart-title">Frequently Purchased Items</h2>
                 <ChartCard />
               </div>
               <div style={{ width: '48%' }}>
-                <h2 className="chart-title">Categories</h2>
                 {loading ? (
                   <p>Loading...</p>
                 ) : (
                   <Bar data={categoryChartData} />
                 )}
               </div>
+            </div> */}
+            <div className="chart-card shadow-2xl mt-12 mb-12" style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <div className='w-full bg-transparent'>
+                <CommissionRanking />
+              </div>
             </div>
-            <div className="row" style={{ marginTop: '20px' }}> {/* Adjust margin top as needed */}
-              <div className="col-md-6">
+            <div className="row shadow-xl mt-30"> {/* Adjust margin top as needed */}
+              <div className="col-md-6 shadow-2xl">
                 <div className="activities-container" style={{ paddingRight: '10px', marginRight: '5px' }}> {/* Adjust right margin */}
-                  <h2 className="activities-heading">Recent Activities</h2>
+                  <h2 className="activities-heading text-center text-lg font-medium pt-6">Recent Activities</h2>
                   {loading ? (
                     <p>Loading...</p>
                   ) : (
-                    <table className="activities-table">
+                    <table className="activities-table items-center ml-28">
                       <thead>
                         <tr>
                           <th>ID</th>
@@ -192,9 +196,9 @@ function Dashboard() {
                   )}
                 </div>
               </div>
-              <div className="col-md-6">
+              <div className="col-md-6 shadow-2xl">
                 <div className="users-container" style={{ paddingLeft: '5px', marginLeft: '10px' }}> {/* Adjust left margin */}
-                  <h2 className="users-heading">Users</h2>
+                  <h2 className="users-heading text-center text-lg font-medium pt-6">List of Users</h2>
                   {loading ? (
                     <p>Loading...</p>
                   ) : (

@@ -7,7 +7,7 @@ const StatisticBox = ({ title, value, loading }) => {
 
   return (
     <div className="card shadow-lg bg-transparent border-transparent mb-4">
-      <div className="card-body">
+      <div className="card-body bg-transparent">
         <h5 className="card-title text-primary fw-bold mb-4" style={{ fontSize: cardTitleSize }}>{title}</h5>
         <p className="card-text text-dark fw-bold" style={{ fontSize: cardValueSize }}>{loading ? 'Loading...' : value}</p>
       </div>
