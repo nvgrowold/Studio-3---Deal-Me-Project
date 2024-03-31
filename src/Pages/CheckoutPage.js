@@ -49,11 +49,6 @@ const CheckoutPage = () => {
       const auth = getAuth();
       const db = getFirestore();
       const user = auth.currentUser; // Get the currently signed-in user
-  
-      if (!user) {
-        alert('No user signed in.');
-        return;
-      }
       
       // Combine user information and purchased items into a single object
       const orderData = {
@@ -63,6 +58,7 @@ const CheckoutPage = () => {
           name: item.data.name,
           price: item.data.price,
           quantity: item.data.quantity,
+          delivery: item.data.delivery,
           // include any other item data you need to send
         })),
         userRef: auth.currentUser.uid, // Add userRef here
@@ -93,11 +89,12 @@ const CheckoutPage = () => {
       }
 
       // Create the order in Firestore and get the generated document ID
-      const orderRef = await addDoc(collection(db, 'orderitems'), orderData);
-      const orderId = orderRef.id;  // The unique order ID
+     // const orderRef = await addDoc(collection(db, 'orderitems'), orderData);
+      //const orderId = orderRef.id;  // The unique order ID
 
       // Notify user about successful payment
       toast.success('Payment successful! Your order has been placed.');
+
 
       // Show QR code with formatted order details
       const orderSummary = {
@@ -144,7 +141,6 @@ const CheckoutPage = () => {
         setQRCodeData(data);
         setShowQRCode(true);
       };
-
   };
   
   return (
@@ -184,7 +180,8 @@ const CheckoutPage = () => {
           <p><strong>Total Price:</strong> ${totalPrice}</p>
 
           {/* Payment Button */}
-          <button className="payment-button w-full bg-gradient-to-r from-purple-300 to-teal-300 text-slate-800 px-7 py-2 mb-6 text-sm font-medium uppercase rounded shadow-lg hover:bg-sky-800 transition duration-150 ease-in-out hover:shadow-xl active:bg-blue-900" onClick={handlePayment}>Make Payment</button>
+          <button className="payment-button w-full bg-gradient-to-r from-purple-300 to-teal-300 text-slate-800 px-7 py-2 mb-6 text-sm font-medium uppercase rounded shadow-lg hover:bg-sky-800 transition duration-150 ease-in-out hover:shadow-xl active:bg-blue-900" 
+          onClick={handlePayment}>Make Payment</button>
         </div>
 
          {/* QRCode */}

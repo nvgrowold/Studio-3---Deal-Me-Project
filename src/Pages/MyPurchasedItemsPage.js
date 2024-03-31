@@ -5,7 +5,7 @@ import { db } from '../firebase';
 import { getAuth } from 'firebase/auth';
 import OrderHistory from '../Components/OrderHistory';
 //import { useNavigate } from 'react-router-dom';
-import OrderItem from '../Components/OrderItem';
+//import OrderItem from '../Components/OrderItem';
 
 export default function MyPurchasedItemsPage() {
 
