@@ -3,7 +3,6 @@ import Header from '../Components/Header';
 import { collection, query, orderBy, where, getDocs, deleteDoc, doc,  } from 'firebase/firestore';
 import { db } from '../firebase';
 import { getAuth } from 'firebase/auth';
-import SoldListingItem from '../Components/SoldListingItem';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import SoldItem from '../Components/SoldItem';
@@ -27,11 +26,12 @@ export default function MySoldItemsPage() {
             const querySnapshot = await getDocs(q);
             let listings = [];
             querySnapshot.forEach((doc) => {
+                const listingData = doc.data();
                 // Include soldPrice, commission calculation, and buyerInfo in the data pushed to the listings array
-                return listings.push({
+                listings.push({
                 id:doc.id,
-                data:doc.data(),
-                commission: doc.data().soldPrice * 0.06, // Assuming a 6% commission rate
+                data:listingData,
+                commission: listingData.soldPrice * 0.06, // Assuming a 6% commission rate
                 });
             });
             setListings(listings); // Update the listings state with the fetched data
@@ -64,19 +64,19 @@ export default function MySoldItemsPage() {
                 </h2>
                 {!loading && listings.length > 0 && (
                 <>
-                  <ul className="sm:grid grid-row-2 lg:grid-row-3 xl:grid-cols-4 2xl:grid-cols-5">
+                  <ul className="sm:grid grid-row-1 lg:grid-row-2 xl:grid-cols-3 2xl:grid-cols-4">
                     {listings.map((listing) => (
-                        <div>
-                         <SoldListingItem
-                            key={listing.id}
-                            id={listing.id}
-                            listing={listing.data} />
-                            
+                        <div key={listing.id}>                     
                         <SoldItem // Only use the SoldItem component
+                            id={listing.id}
+                            listing={listing.data}
                             soldPrice={listing.data.soldPrice}
                             commission={listing.commission}
-                            buyerFirstName={listing.data.userInfo?.firstName}
-                            buyerLastName={listing.data.userInfo?.lastName} />
+                            buyerFirstName={listing.data.buyerInfo?.firstName}
+                            buyerLastName={listing.data.buyerInfo?.lastName}
+                            buyerEmail={listing.data.buyerInfo?.email}
+                            buyerDeliveryAddress={listing.data.buyerInfo?.deliveryAddress}
+                            buyerMobileNumber={listing.data.buyerInfo?.mobileNumber} />
                         </div>
                       ))}
                     </ul>
@@ -88,7 +88,6 @@ export default function MySoldItemsPage() {
                     <p>Oops! You haven't sold any items yet ...</p>
                     </div>
                 )}
-
             </div>           
         </div>
     );
