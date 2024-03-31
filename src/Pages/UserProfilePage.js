@@ -96,7 +96,7 @@ export default function UserProfilePage() {
         await updateProfile(auth.currentUser, {
           username: username,
         });
-        //update the name in the firestore
+        //update the username in the firestore
         const docRef = doc(db, 'users', auth.currentUser.uid)
         await updateDoc(docRef, {
           username: username,

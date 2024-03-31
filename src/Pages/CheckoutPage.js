@@ -49,11 +49,6 @@ const CheckoutPage = () => {
       const auth = getAuth();
       const db = getFirestore();
       const user = auth.currentUser; // Get the currently signed-in user
-  
-      if (!user) {
-        alert('No user signed in.');
-        return;
-      }
       
       // Combine user information and purchased items into a single object
       const orderData = {
@@ -94,11 +89,12 @@ const CheckoutPage = () => {
       }
 
       // Create the order in Firestore and get the generated document ID
-      const orderRef = await addDoc(collection(db, 'orderitems'), orderData);
-      const orderId = orderRef.id;  // The unique order ID
+     // const orderRef = await addDoc(collection(db, 'orderitems'), orderData);
+      //const orderId = orderRef.id;  // The unique order ID
 
       // Notify user about successful payment
       toast.success('Payment successful! Your order has been placed.');
+
 
       // Show QR code with formatted order details
       const orderSummary = {
@@ -210,7 +206,7 @@ const CheckoutPage = () => {
                 </ul>
               </div>
               <button onClick={hideQRCodeModal} className="w-full mt-6 cursor-pointer bg-gradient-to-r from-purple-300 to-teal-300 text-white px-7 text-sm font-medium uppercase rounded shadow-lg hover:scale-105 transition-scale transition duration-150 ease-in-out hover:shadow-xl">
-                <Link to='/MyPuchasedItemPage' className='no-underline text-white'>
+                <Link to='/GuestPage' className='no-underline text-white'>
                   Continue Shopping</Link>
               </button>
             </div>

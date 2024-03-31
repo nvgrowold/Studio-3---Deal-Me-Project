@@ -11,7 +11,7 @@ import { db } from '../firebase';
 import { useNavigate, useParams } from "react-router-dom";
 import profileSideImage from "../assets/profileSideImage.jpg";
 
-export default function CreateListing() {
+export default function EditListing() {
     //a hook to track image uploading progress
     const [uploadProgress, setUploadProgress] = useState([]);
 
@@ -69,31 +69,62 @@ export default function CreateListing() {
       fetchListing();
     }, [navigate, params.listingID]);
 
-    //handle all changes in the form all-in-one here
-    function onChange(e){ //e: is the event, the input
-      let boolean = null; //for input with text,number, files together, need to create a boolean to handle if save the data 
-      if(e.target.value === "true"){ //this is for shipping field, have the value true or false
-        boolean = true;
-      }
-      if(e.target.value === "false"){
-        boolean = false;
-      }
-      //for files
-      if(e.target.files){ //uploading the files
-        setFormData((prevState) => ({ //first, keep the previous state, keep the changes that made before
-          ...prevState,  //then, return an object copy the previous state
-          images:e.target.files, //set the images to e.target.files
-        }))
-      }
-      //for text/boolean/number
-      if(!e.target.files){
-        setFormData((prevState) => ({
-          ...prevState,
-          [e.target.id]: boolean ?? e.target.value, //if boolean exists, if boolean is not null, put boolean=e.target.id, else, put boolean=e.target.value
-        }))                                         // using "??": if boolean is not null, consider first option(e.target.id), else if is null, consider the second option(e.target.value)
-      }
-    }
+    // //handle all changes in the form all-in-one here
+    // function onChange(e){ //e: is the event, the input
+    //   let boolean = null; //for input with text,number, files together, need to create a boolean to handle if save the data 
+    //   if(e.target.value === "true"){ //this is for shipping field, have the value true or false
+    //     boolean = true;
+    //   }
+    //   if(e.target.value === "false"){
+    //     boolean = false;
+    //   }
+    //   //for files
+    //   if(e.target.files){ //uploading the files
+    //     setFormData((prevState) => ({ //first, keep the previous state, keep the changes that made before
+    //       ...prevState,  //then, return an object copy the previous state
+    //       images:e.target.files, //set the images to e.target.files
+    //     }))
+    //   }
+    //   //for text/boolean/number
+    //   if(!e.target.files){
+    //     setFormData((prevState) => ({
+    //       ...prevState,
+    //       [e.target.id]: boolean ?? e.target.value, //if boolean exists, if boolean is not null, put boolean=e.target.id, else, put boolean=e.target.value
+    //                                                 // using "??": if boolean is not null, consider first option(e.target.id), else if is null, consider the second option(e.target.value)
+    //       // Reset deliveryFee to 0 if shipping is set to false
+    //       deliveryFee: e.target.id === "shipping" && boolean === false ? 0 : prevState.deliveryFee,
+        
+    //     }))                                         
+    //   }
+    // }
 
+    function onChange(e) {
+      // For handling file inputs like images
+      if (e.target.files) {
+          setFormData((prevState) => ({
+              ...prevState,
+              images: e.target.files,
+          }));
+      } else {
+          // For handling text and number inputs
+          setFormData((prevState) => ({
+              ...prevState,
+              [e.target.id]: e.target.value,
+          }));
+      }
+  }
+  
+  // Separate function to handle shipping method change
+  function onShippingChange(e) {
+      const isShipping = e.target.value === "true";
+  
+      setFormData((prevState) => ({
+          ...prevState,
+          shipping: isShipping,
+          // Reset deliveryFee to 0 if shipping is false (pickup only)
+          deliveryFee: !isShipping ? 0 : prevState.deliveryFee,
+      }));
+  }
 
 
     //handle form submit
@@ -260,7 +291,7 @@ export default function CreateListing() {
               type="button"
               id="shipping"
               value={true}
-              onClick={onChange}
+              onClick={onShippingChange}
               className={`mr-3 px-7 py-2 font-medium text-sm uppercase shadow-md rounded hover:shadow-lg focus:shadow-lg active:shadow-lg transition duration-150 ease-in-out w-full ${
                 !shipping ? "bg-white text-gray-500" : "bg-teal-400 text-white"
               } hover:bg-purple-300`}
@@ -271,7 +302,7 @@ export default function CreateListing() {
               type="button"
               id="shipping"
               value={false}
-              onClick={onChange}
+              onClick={onShippingChange}
               className={`ml-3 px-7 py-2 font-medium text-sm uppercase shadow-md rounded hover:shadow-lg focus:shadow-lg active:shadow-lg transition duration-150 ease-in-out w-full ${
                 shipping ? "bg-white text-gray-500" : "bg-teal-400 text-white"
               }  hover:bg-purple-300`}
