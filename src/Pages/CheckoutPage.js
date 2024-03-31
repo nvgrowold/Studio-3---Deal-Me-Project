@@ -48,7 +48,7 @@ const CheckoutPage = () => {
     try {
       const auth = getAuth();
       const db = getFirestore();
-      const user = auth.currentUser; // Get the currently signed-in user
+     // const user = auth.currentUser; // Get the currently signed-in user
       
       // Combine user information and purchased items into a single object
       const orderData = {
@@ -64,10 +64,14 @@ const CheckoutPage = () => {
         userRef: auth.currentUser.uid, // Add userRef here
         timestamp: serverTimestamp(), // Optional: Add a timestamp
       };
+
+       // Create the order in Firestore and get the generated document ID
+       const orderRef = await addDoc(collection(db, 'orderitems'), orderData);
+       const orderId = orderRef.id;
   
       // Store combined data in the 'orderitems' collection
       //await db.collection('orderitems').add(orderData);
-      await addDoc(collection(db, 'orderitems'), orderData);
+     // await addDoc(collection(db, 'orderitems'), orderData);
 
 
       // After successful payment, update each item's status to 'sold'
@@ -83,7 +87,8 @@ const CheckoutPage = () => {
                 lastName: userInfo.lastName,
                 email: userInfo.email,
                 mobileNumber: userInfo.mobileNumber,
-                deliveryAddress: userInfo.deliveryAddress
+                deliveryAddress: userInfo.deliveryAddress,
+                orderId: orderId  // Add the orderId to each sold listing
               }
             });
       }
@@ -105,10 +110,10 @@ const CheckoutPage = () => {
         Items: purchasedItems.map(item => `${item.data.quantity}x ${item.data.name} at $${item.data.price} each`).join(', ')
     };
 
-      const qrData = `**Order for: ${orderSummary.Name}\n` + `###################`+
-                     `**Email: ${orderSummary.Email}\n` + `############`+
-                     `**Delivery Address: ${orderSummary.Address}\n` + `################`+
-                     `**Total Price: ${orderSummary.TotalPrice}\n` + `################`+
+      const qrData = `**Order for: ${orderSummary.Name}\n` + `          `+
+                     `**Email: ${orderSummary.Email}\n` + `           `+
+                     `**Delivery Address: ${orderSummary.Address}\n` + `               `+
+                     `**Total Price: ${orderSummary.TotalPrice}\n` + `                `+
                      `**Items: ${orderSummary.Items}`;
 
       // Show QR code with order details
