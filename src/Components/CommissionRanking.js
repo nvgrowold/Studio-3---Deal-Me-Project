@@ -70,16 +70,16 @@ export default function CommissionRanking() {
     return (
         <div className="card bg-transparent w-full">
             <div className="card-header font-medium">Top 3 Users with Highest Commissions</div>
-            <div className="card-body w-full">
-                <div className="max-w-full px-3 mx-auto">
+            <div className="card-body flex justify-center w-full max-w-4xl">
+                <div className="max-w-full px-3">
                     {/* Check if data is loaded and display user data */}
                     {!loading && usersWithCommissions.length > 0 && (
                         <ul>
-                            <table className="activities-table items-center ml-28">
+                            <table className="items-center ml-28 w-full">
                                  <thead>
                                    <tr>
                                      <th>Ranking</th>
-                                     <th>User ID</th>
+                                     <th style={{ width: '40%' }}>User ID</th>
                                      <th>Username</th>
                                      <th>User Email</th>
                                      <th>Total Commission</th>

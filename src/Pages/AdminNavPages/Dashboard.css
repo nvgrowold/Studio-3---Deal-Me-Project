@@ -9,6 +9,7 @@
 .statistics-box {
   display:inline-flex;
   justify-content: space-between;
+  color: black;
 }
 
 .card.statistics-item {
