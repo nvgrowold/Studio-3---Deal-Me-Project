@@ -93,6 +93,7 @@ function Dashboard() {
 
       } catch (error) {
         console.error('Error fetching data: ', error);
+        toast.error('Failed to fetch data. Please try again later.');
       } finally {
         setLoading(false);
       }
