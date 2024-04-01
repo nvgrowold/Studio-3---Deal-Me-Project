@@ -27,6 +27,7 @@ function Register(){
         email: "",
         password:"",
         isVerified: false,
+        isUser:true,
         timestamp: serverTimestamp(),
     });
     //Hook for show password, the initial state is false not showing

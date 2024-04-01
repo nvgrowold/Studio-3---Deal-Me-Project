@@ -4,8 +4,6 @@ import { db } from '../../firebase';
 import Header from '../../Components/Header';
 import SideNav from '../SideNav';
 import StatisticBox from './Infor/StatisticBox';
-import ChartCard from './ChartCard';
-import { Bar } from 'react-chartjs-2';
 import CommissionRanking from '../../Components/CommissionRanking';
 
 function Dashboard() {
