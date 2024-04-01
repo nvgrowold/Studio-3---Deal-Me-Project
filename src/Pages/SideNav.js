@@ -5,7 +5,7 @@ import '../Pages/SideNav.css'; // Import CSS for styling
 const SideNav = () => {
   return (
     <div className="side-nav">
-      <div className="nav-item">
+      <div className="nav-item pt-10">
         <Link to='/AdminDashboard' className="nav-link">
           <span className="nav-icon">📊</span>
           Dashboard
