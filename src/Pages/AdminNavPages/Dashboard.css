@@ -1,33 +1,3 @@
-/* Overall container styles */
-/* Card container */
-
-
-/* Card style */
-.total-users-card {
-  /* Add your unique styles here */
-  background-color: clear;
-  color: #333;
-  /* Add any other styles you want */
-}
-
-
-/* Title styles */
-.title {
-  font-size: 24px;
-  margin-bottom: 20px;
-}
-/* Card style */
-.card {
-  background-color: clear;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  margin-bottom: 20px;
-  margin-right: 20px;
-  width: calc(33.33% - 20px); /* Adjust width as needed for 3 cards per row */
-}
-
-
 /* Statistics box styles */
 .statistics-box {
   display: flex;
@@ -35,22 +5,20 @@
   margin-bottom: 20px;
 }
 
-.statistics-item {
+/* Add this CSS to your stylesheet */
+.statistics-box {
+  display:inline-flex;
+  justify-content: space-between;
+  color: black;
+}
+
+.card.statistics-item {
   flex: 1;
-  text-align: center;
-  padding: 20px;
-  background-color: clear;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-right: 10px; /* Adjust as needed */
 }
 
-.statistics-item h2 {
-  font-size: 18px;
-  margin-bottom: 8px;
-}
-
-.statistics-item p {
-  font-size: 16px;
+.card.statistics-item:last-child {
+  margin-right: 0; /* Remove margin from the last item */
 }
 
 /* Table container styles */
@@ -84,5 +52,30 @@
   
   .table {
     width: 100%;
+  }
+}
+/* Dashboard.css */
+.statistic-box {
+  position: relative;
+}
+
+.animated-circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #ff5722; /* Adjust color as needed */
+  animation: pulse 2s infinite alternate; /* Adjust animation properties */
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.8);
+  }
+  100% {
+    transform: scale(1.2);
   }
 }

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import Header from '../../Components/Header';
 import SideNav from '../SideNav';
-import { db } from '../../firebase'; // Import the Firebase instance with Firestore
+import { db } from '../../firebase'; // Import the Firestore instance
+import { collection, addDoc } from 'firebase/firestore'; // Import Firestore methods
 import '../AdminNavPages/Report.css';
 import Calendar from 'react-calendar';
 import { toast } from 'react-toastify';
@@ -32,14 +33,16 @@ const Reports = () => {
       toast.error('Please fill in all the notes!');
     } else {
       try {
+        console.log('Firestore instance:', db);
         // Save notes to Firestore
-        await db.collection('Reports').add({
+        const docRef = await addDoc(collection(db, 'reports'), {
           userActivity: notes.userActivity,
           sales: notes.sales,
           productInventory: notes.productInventory,
           customerFeedback: notes.customerFeedback,
           timestamp: new Date()
         });
+        console.log('Document reference:', docRef);
         toast.success('Notes saved successfully!');
         setNotes({
           userActivity: '',
@@ -84,101 +87,101 @@ const Reports = () => {
     <div className="min-h-screen bg-gradient-to-r from-purple-100 to-teal-100">
       <Header />
       <div className='flex'>
-          <div className="w-1/6 min-h-screen shadow-lg">
-              <SideNav />
-          </div>
-          <div className="w-5/6 p-8">
-      <div className="main-content">
-        <h2 className="page-title"></h2>
-        <div className="reports-section">
-          <div className="report-table-container">
-            <table className="report-table">
-              <thead>
-                <tr>
-                  <th>Report Type</th>
-                  <th>Notes</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>User Activity Report</td>
-                  <td>
-                    <textarea
-                      value={notes.userActivity}
-                      onChange={(e) => handleNoteChange('userActivity', e)}
-                      rows="4"
-                      cols="50"
-                      className="report-textarea"
-                    />
-                  </td>
-                </tr>
-                <tr>
-                  <td>Sales Report</td>
-                  <td>
-                    <textarea
-                      value={notes.sales}
-                      onChange={(e) => handleNoteChange('sales', e)}
-                      rows="4"
-                      cols="50"
-                      className="report-textarea"
-                    />
-                  </td>
-                </tr>
-                <tr>
-                  <td>Product Inventory Report</td>
-                  <td>
-                    <textarea
-                      value={notes.productInventory}
-                      onChange={(e) => handleNoteChange('productInventory', e)}
-                      rows="4"
-                      cols="50"
-                      className="report-textarea"
-                    />
-                  </td>
-                </tr>
-                <tr>
-                  <td>Customer Feedback Report</td>
-                  <td>
-                    <textarea
-                      value={notes.customerFeedback}
-                      onChange={(e) => handleNoteChange('customerFeedback', e)}
-                      rows="4"
-                      cols="50"
-                      className="report-textarea"
-                    />
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <button onClick={saveNotes} className="save-button">Save Notes</button>
+        <div className="w-1/6 min-h-screen shadow-lg">
+          <SideNav />
         </div>
-        <div className="calendar-section">
-          <h2>Normal Calendar</h2>
-          <Calendar
-            onChange={setDate}
-            value={date}
-            tileContent={tileContentFunction}
-          />
-          <div>
-            <h3>Add Reminder</h3>
-            <input
-              type="date"
-              value={date.toISOString().split('T')[0]}
-              disabled
-            />
-            <input
-              type="text"
-              placeholder="Enter reminder"
-              value={reminder}
-              onChange={handleReminderChange}
-            />
-            <button onClick={addReminder}>Add Reminder</button>
-          </div>       
+        <div className="w-5/6 p-8">
+          <div className="main-content">
+            <h2 className="page-title"></h2>
+            <div className="reports-section">
+              <div className="report-table-container">
+                <table className="report-table">
+                  <thead>
+                    <tr>
+                      <th>Report Type</th>
+                      <th>Notes</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>User Activity Report</td>
+                      <td>
+                        <textarea
+                          value={notes.userActivity}
+                          onChange={(e) => handleNoteChange('userActivity', e)}
+                          rows="4"
+                          cols="50"
+                          className="report-textarea"
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Sales Report</td>
+                      <td>
+                        <textarea
+                          value={notes.sales}
+                          onChange={(e) => handleNoteChange('sales', e)}
+                          rows="4"
+                          cols="50"
+                          className="report-textarea"
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Product Inventory Report</td>
+                      <td>
+                        <textarea
+                          value={notes.productInventory}
+                          onChange={(e) => handleNoteChange('productInventory', e)}
+                          rows="4"
+                          cols="50"
+                          className="report-textarea"
+                        />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Customer Feedback Report</td>
+                      <td>
+                        <textarea
+                          value={notes.customerFeedback}
+                          onChange={(e) => handleNoteChange('customerFeedback', e)}
+                          rows="4"
+                          cols="50"
+                          className="report-textarea"
+                        />
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <button onClick={saveNotes} className="save-button">Save Notes</button>
+            </div>
+            <div className="calendar-section">
+              <h2>Normal Calendar</h2>
+              <Calendar
+                onChange={setDate}
+                value={date}
+                tileContent={tileContentFunction}
+              />
+              <div>
+                <h3>Add Reminder</h3>
+                <input
+                  type="date"
+                  value={date.toISOString().split('T')[0]}
+                  disabled
+                />
+                <input
+                  type="text"
+                  placeholder="Enter reminder"
+                  value={reminder}
+                  onChange={handleReminderChange}
+                />
+                <button onClick={addReminder}>Add Reminder</button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-    </div>
     </div>
   );
 };
