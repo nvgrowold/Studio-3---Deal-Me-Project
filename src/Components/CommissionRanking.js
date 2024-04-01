@@ -5,6 +5,7 @@ import { db } from '../firebase';
 export default function CommissionRanking() {
     const [usersWithCommissions, setUsersWithCommissions] = useState([]);
     const [loading, setLoading] = useState(true);
+    const number = 1;
 
     useEffect(() => {
         // Function to fetch users with the highest commissions
@@ -77,6 +78,7 @@ export default function CommissionRanking() {
                             <table className="activities-table items-center ml-28">
                                  <thead>
                                    <tr>
+                                     <th>Ranking</th>
                                      <th>User ID</th>
                                      <th>Username</th>
                                      <th>User Email</th>
@@ -84,9 +86,10 @@ export default function CommissionRanking() {
                                    </tr>
                                  </thead>
                                  <tbody>
-                                 {usersWithCommissions.map((user) => (
+                                 {usersWithCommissions.map((user,index) => (
                                      <tr key={user.userRef}>
-                                        <td>{user.userRef}</td>
+                                       <td>No.{index+1}</td>
+                                       <td>{user.userRef}</td>
                                        <td>{user.username}</td>
                                        <td>{user.email}</td>
                                        <td>{"$" + user.totalCommission.toFixed(2)}</td>
