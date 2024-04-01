@@ -22,37 +22,21 @@ export default function Header() {
   //update the page state based on the authentication
   const auth = getAuth();
 
-  
-   useEffect(() => {
-    const user = auth.currentUser;
-    const fetchUserData = async () => {
+  useEffect(() => {
+    onAuthStateChanged(auth, async (user) => {
       if (user) {
+        setIsLoggedIn(true);
         const userDocRef = doc(db, 'users', user.uid);
         const userDoc = await getDoc(userDocRef);
-
         if (userDoc.exists()) {
-          setUserInfo(userDoc.data());
+          setUserInfo({ email: user.email, ...userDoc.data() });
         }
-      }
-    };
-  
-     fetchUserData();
-   }, [auth.currentUser]);
-
-  //useEffect to check the changes of auth
-  useEffect(()=>{
-    const unsubscribe = onAuthStateChanged(auth, (user)=>{ //use firebase onAuthStateChange() to check
-      if(user){  //if the user is authenticated set the page state to Use Profile, otherwise, set to Log In
-        setIsLoggedIn(true);
       } else {
         setIsLoggedIn(false);
         setUserInfo({});
       }
     });
-
-    return () => unsubscribe();
-
-  }, [auth])//each time this auth change, check auth for the dependencies
+  }, [auth]);
 
   const handleLogout = async () => {
     try {
@@ -67,6 +51,8 @@ export default function Header() {
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+
+  const isAdmin = userInfo.isAdmin && userInfo.email === 'dealmeadmin@gmail.com';
 
   // //event listener auto log out user when user close the website
   // useEffect(() => {
@@ -107,20 +93,23 @@ export default function Header() {
                 <li className='no-underline  text-white hover:text-sky-500 hover:font-extrabold transition duration-150 ease-in-out'
                       onClick={() => navigate("/ContactUsPage")}>Contact Us</li>
         
-            {isLoggedIn ? (
-                  <>
-                  <li className='cursor-pointer text-white hover:text-sky-500 hover:font-extrabold transition duration-150 ease-in-out'
-                      onClick={() => navigate("/UserProfilePage")}>My DealMe</li>
-                  <div className='flex flex-col -mt-3'>
-                      <li className='cursor-pointer text-purple-100 hover:text-purple-300 hover:font-extrabold transition duration-150 ease-in-out'
-                        onClick={() => navigate("/UserProfilePage")}>Hi, {userInfo.username || 'User'}</li>
-                      <li className='cursor-pointer text-sm text-teal-100 hover:text-teal-300 hover:font-extrabold transition duration-150 ease-in-out'
-                        onClick={handleLogout}>Logout</li>
-                  </div>
-                  </>
-                ) : (
-                  <li className='text-white hover:text-sky-500 transition duration-150 ease-in-out'
-                    onClick={() => navigate("/Login")}>Log In</li>
+                {isLoggedIn && (
+                        <li className={`cursor-pointer text-white hover:text-sky-500 hover:font-extrabold transition duration-150 ease-in-out ${isAdmin ? 'text-red-500' : ''}`}
+                            onClick={() => navigate(isAdmin ? "/AdminDashboard" : "/UserProfilePage")}>
+                            {isAdmin ? 'AdminDashboard' : 'My DealMe'}
+                        </li>
+                    )}
+
+                    {isLoggedIn ? (
+                        <div className='flex flex-col -mt-3'>
+                            <li className='cursor-pointer text-purple-100 hover:text-purple-300 hover:font-extrabold transition duration-150 ease-in-out'
+                              onClick={() => navigate("/UserProfilePage")}>Hi, {userInfo.username || 'User'}</li>
+                            <li className='cursor-pointer text-sm text-teal-100 hover:text-teal-300 hover:font-extrabold transition duration-150 ease-in-out'
+                              onClick={handleLogout}>Logout</li>
+                        </div>
+                    ) : (
+                        <li className='cursor-pointer text-white hover:text-sky-500 hover:font-extrabold transition duration-150 ease-in-out'
+                          onClick={() => navigate("/Login")}>Log In</li>
                 )}           
             </ul>
         </div>
