@@ -6,6 +6,8 @@ import SideNav from '../SideNav';
 import StatisticBox from './Infor/StatisticBox';
 import ChartCard from './ChartCard';
 import { Bar } from 'react-chartjs-2';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'; // Import toast styles
 
 function Dashboard() {
   const [loading, setLoading] = useState(true);
@@ -90,8 +92,20 @@ function Dashboard() {
         });
         setCategoryData(categoryData);
 
+        // Notify for new registrations
+        if (usersSnapshot.docs.length > totalUsers) {
+          toast.info('New user registration!');
+        }
+
+        // Notify for active users
+        const activeUsers = recentActivitiesData.filter(activity => activity.activity === 'Active');
+        if (activeUsers.length > 0) {
+          toast.info('Some users are active!');
+        }
+
       } catch (error) {
         console.error('Error fetching data: ', error);
+        toast.error('Failed to fetch data. Please try again later.');
       } finally {
         setLoading(false);
       }
