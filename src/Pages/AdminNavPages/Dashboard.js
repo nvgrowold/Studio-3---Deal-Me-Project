@@ -166,10 +166,10 @@ function Dashboard() {
                 <CommissionRanking />
               </div>
             </div>
-            <div className="row shadow-xl mt-30"> {/* Adjust margin top as needed */}
-              <div className="col-md-6 shadow-2xl">
+            {/* <div className="row shadow-xl mt-30"> Adjust margin top as needed */}
+              {/* <div className="col-md-6 shadow-2xl">
                 <div className="activities-container" style={{ paddingRight: '10px', marginRight: '5px' }}> {/* Adjust right margin */}
-                  <h2 className="activities-heading text-center text-lg font-medium pt-6">Recent Activities</h2>
+                  {/* <h2 className="activities-heading text-center text-lg font-medium pt-6">Recent Activities</h2>
                   {loading ? (
                     <p>Loading...</p>
                   ) : (
@@ -193,14 +193,14 @@ function Dashboard() {
                     </table>
                   )}
                 </div>
-              </div>
-              <div className="col-md-6 shadow-2xl">
+              </div> */}
+              <div className="shadow-2xl">
                 <div className="users-container" style={{ paddingLeft: '5px', marginLeft: '10px' }}> {/* Adjust left margin */}
                   <h2 className="users-heading text-center text-lg font-medium pt-6">List of Users</h2>
                   {loading ? (
                     <p>Loading...</p>
                   ) : (
-                    <table className="users-table">
+                    <table className="w-full px-3">
                       <thead>
                         <tr>
                           <th>ID</th>
@@ -221,7 +221,7 @@ function Dashboard() {
                   )}
                 </div>
               </div>
-            </div>
+            {/* </div> */}
           </div>
         </div>
       </div>
