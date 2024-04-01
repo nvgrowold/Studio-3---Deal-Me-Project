@@ -46,6 +46,7 @@ export default function GoogleSignIn() {
           email: user.email,
           username: emailPrefix, // Assign the username here
           isVerified: false,
+          isUser:true,
           timestamp: serverTimestamp(),
         })
       }

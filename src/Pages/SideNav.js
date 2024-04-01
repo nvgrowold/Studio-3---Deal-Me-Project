@@ -11,19 +11,19 @@ const SideNav = () => {
           Dashboard
         </Link>
       </div>
-      <div className="nav-item">
+      {/* <div className="nav-item">
         <Link to='/Reports' className="nav-link">
           <span className="nav-icon">📈</span>
           Reports
         </Link>
-      </div>
+      </div> */}
       <div className="nav-item">
         <Link to='/AdminPage' className="nav-link">
           <span className="nav-icon">👤</span>
           User Verification
         </Link>
       </div>
-      <div className="nav-item">
+      {/* <div className="nav-item">
         <Link to='/Inventory' className="nav-link">
           <span className="nav-icon"> 📦</span>
           Inventory
@@ -37,10 +37,10 @@ const SideNav = () => {
       </div>
       <div className="nav-item logout">
         <Link to='/' className="nav-link"> {/* Changed to home page route */}
-          <span className="nav-icon">🚪</span>
+          {/* <span className="nav-icon">🚪</span>
           Log out
         </Link>
-      </div>
+      </div>  */}
     </div>
   );
 };
