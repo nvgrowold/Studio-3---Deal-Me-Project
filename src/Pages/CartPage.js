@@ -97,6 +97,10 @@ function CartPage() {
     const handleRemove = (index) => {
         const updatedItems = cartItems.filter((_, i) => i !== index);
         setCartItems(updatedItems);
+        sessionStorage.setItem('productList', JSON.stringify(updatedItems.reduce((acc, item) => {
+            acc[item.id] = item.data;
+            return acc;
+        }, {})));
     };
 
     return (

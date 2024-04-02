@@ -69,7 +69,7 @@ export default function CommissionRanking() {
 
     return (
         <div className="card bg-transparent w-full">
-            <div className="card-header font-medium">Top 3 Users with Highest Commissions</div>
+            <div className="card-header font-medium">Top Commissioned Users</div>
             <div className="card-body flex justify-center w-full max-w-4xl">
                 <div className="max-w-full px-3">
                     {/* Check if data is loaded and display user data */}

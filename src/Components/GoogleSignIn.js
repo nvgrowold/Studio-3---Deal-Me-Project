@@ -46,9 +46,11 @@ export default function GoogleSignIn() {
           email: user.email,
           username: emailPrefix, // Assign the username here
           isVerified: false,
+          isUser:true,
           timestamp: serverTimestamp(),
         })
       }
+      toast.success("Successfully logged in with your authorized Google account");
       navigate("/UserProfilePage");
     } catch (error){
       toast.error("Could not authorize with Google");

@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Link, useNavigate} from 'react-router-dom';
 import Header from "../Components/Header";
+import { getFirestore, doc, getDoc } from "firebase/firestore";
+
 
 //import eye icons
 import { AiFillEye , AiFillEyeInvisible } from "react-icons/ai";
@@ -43,21 +45,32 @@ function Login(){
         e.preventDefault()
         
         // using try - catch to sign in the user and catch the error
-        try{
-            //1. get authentication
-            const auth = getAuth()
-            //2. get the user credentials
-            const userCredential = await signInWithEmailAndPassword(auth, email, password)
-            if (email === 'dealmeadmin@gmail.com')
-             {
-                // If it's the admin email, navigate to the dashboard
-                navigate("/AdminDashboard");
+        try {
+            const auth = getAuth();
+            const userCredential = await signInWithEmailAndPassword(auth, email, password);
+            const user = userCredential.user;
+
+            // Querying Firestore to get the user role
+            const db = getFirestore();
+            const userDoc = await getDoc(doc(db, "users", user.uid));
+            if (userDoc.exists()) {
+                const userData = userDoc.data();
+                const isAdmin = userData.isAdmin;  // Access the isAdmin attribute
+    
+                toast.success("Login successful!");
+    
+                if (isAdmin) {
+                    navigate("/AdminDashboard");
+                } else {
+                    navigate("/UserProfilePage");
+                }
             } else {
-                // Otherwise, navigate to the user profile page
-                navigate("/UserProfilePage");
+                console.log("No user data found");
             }
-        } catch (error){
-          toast.error("Bad user credential")  
+        } catch (error) {
+            const errorMessage = error.message;
+            // Display a more specific error message to the user
+            toast.error(errorMessage || "Login failed, please try again.");
         }
     }
     
