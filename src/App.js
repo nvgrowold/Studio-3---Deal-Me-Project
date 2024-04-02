@@ -32,6 +32,8 @@ import Deal from "./Components/Deal";
 import MyPurchasedItemsPage from "./Pages/MyPurchasedItemsPage";
 import MySoldItemsPage from "./Pages/MySoldItemsPage";
 import PrivateRouteAdmin from "./Components/PrivateRouteAdmin";
+import PrivateRouteVerifiedUser from "./Components/PrivateRouteVerifiedUser";
+
 function App() {
   return (
     <div className="App">
@@ -58,7 +60,7 @@ function App() {
              <Route path="/VerifyUser" element={<VerifyUser />} />
           </Route>          
           {/* private route for CreateListing, only after login could create listing*/}
-          <Route path="/CreateListing" element={<PrivateRoute />}>
+          <Route path="/CreateListing" element={<PrivateRouteVerifiedUser/>}>
             <Route path="/CreateListing" element={<CreateListing />} />
           </Route>
           {/* private route for EditListing, according to listingID to target the right listing. Only after login could edit listing*/}
