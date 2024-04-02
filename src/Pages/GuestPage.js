@@ -77,8 +77,8 @@ const ProductList = () => {
       return (
         (selectedCategory === '' || listing.data.category === selectedCategory) &&
         (selectedRegion === '' || listing.data.region === selectedRegion) &&
-        (selectedPrice === '' || listing.data.price <= parseInt(selectedPrice)) &&
-        (searchTerm === '' || listing.data.name.toLowerCase().includes(searchTerm.toLowerCase()))
+        (selectedPrice === '' || listing.data.regularPrice <= parseInt(selectedPrice)) &&
+        (searchTerm === '' || listing.data.productName.toLowerCase().includes(searchTerm.toLowerCase()))
       );
     });
 

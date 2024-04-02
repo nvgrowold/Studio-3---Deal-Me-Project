@@ -97,8 +97,7 @@ const CheckoutPage = () => {
      // const orderRef = await addDoc(collection(db, 'orderitems'), orderData);
       //const orderId = orderRef.id;  // The unique order ID
 
-      // Notify user about successful payment
-      toast.success('Payment successful! Your order has been placed.');
+
 
 
       // Show QR code with formatted order details
@@ -119,6 +118,10 @@ const CheckoutPage = () => {
       // Show QR code with order details
       setShowQRCode(true);
       setQRCodeData(qrData);
+
+
+      // Notify user about successful payment
+      toast.success('Payment successful! Your order has been placed.');
 
       //######################################################################################## */
 

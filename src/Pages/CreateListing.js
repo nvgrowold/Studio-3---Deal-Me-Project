@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from '../Components/Header';
 import UserProfileMenu from '../Components/UserProfileMenu';
 import Spinner from '../Components/Spinner';
@@ -8,7 +8,7 @@ import { getAuth } from 'firebase/auth';
 
 //A UUID – that's short for Universally Unique IDentifier, by the way – is a 36-character alphanumeric string that can be used to identify information. They are often used, for example, to identify rows of data within a database table, with each row assigned a specific UUID.
 import {v4 as uuidv4} from "uuid"; //https://www.npmjs.com/package/uuid
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import {doc, getDoc, addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { db } from '../firebase';
 import { useNavigate } from "react-router-dom";
 import profileSideImage from "../assets/profileSideImage.jpg";
@@ -20,8 +20,28 @@ export default function CreateListing() {
     //const [selectedCategory, setSelectedCategory] = useState('');
     const navigate = useNavigate();
     const auth = getAuth();
+     //fetch data for users collection
+     const [userInfo, setUserInfo] = useState({});
     //hook state for loading spinner, after click submit, state will change to true
     const [loading, setLoading] =useState(false);
+
+
+    const user = auth.currentUser;
+   
+    useEffect(() => {
+      const fetchUserData = async () => {
+        if (user) {
+          const userDocRef = doc(db, 'users', user.uid);
+          const userDoc = await getDoc(userDocRef);
+   
+          if (userDoc.exists()) {
+            setUserInfo(userDoc.data());
+          }
+        }
+      };
+   
+      fetchUserData();
+    }, [user]);
 
     //hook state for delivery or pickup only button + destructure it
     const[formData, setFormData] = useState({
@@ -171,7 +191,7 @@ export default function CreateListing() {
     <div className="min-h-screen bg-gradient-to-r from-purple-100 to-teal-100">
       <Header/>
       <div className='grid gap-8 md:w-auto justify-center mt-10 lg:w-full lg:grid-cols-3 lg:justify-start'>
-      <UserProfileMenu/>
+      <UserProfileMenu isVerified={userInfo.isVerified}/>
         <section>
 
         <div className="max-w-md px-2 mx-auto shadow-lg">      

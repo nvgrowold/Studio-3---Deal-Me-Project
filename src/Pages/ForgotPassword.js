@@ -22,16 +22,30 @@ function ForgotPassword(){
     //handle onSubmit event
     async function onSubmit(e){
         e.preventDefault()
-        try{
-            const auth = getAuth();
-            const userCredential = await sendPasswordResetEmail(auth, email);
-            if(userCredential.user){
-                toast.success("Email was sent");
-                navigate("/Login");
-            }            
-        } catch (error) {
-            toast.error("Not a registered email address")
-        }
+        const auth = getAuth();
+
+        sendPasswordResetEmail(auth, email)
+                .then(() => {
+                    // Email sent
+                    toast.success("Reset email sent. Check your inbox.");
+                    navigate("/Login");
+                })
+                .catch((error) => {
+                    // Handle errors
+                    switch (error.code) {//unregistered email address does not produce an error; the operation is considered successful to avoid exposing which email addresses are registered. 
+                        // case 'auth/user-not-found':
+                        //     toast.error("No user found with this email address.");   // this approach might compromise privacy and security by revealing whether an email is registered.
+                        //     break;
+                        case 'auth/invalid-email':
+                            toast.error("Invalid email address.");
+                            break;
+                        // case 'auth/wrong-password':
+                        //     toast.error("Wrong password for email.");
+                        //     break;
+                        default:
+                            toast.error("An error occurred. Please try again.");
+                    }
+            });
     }
     
     return(
