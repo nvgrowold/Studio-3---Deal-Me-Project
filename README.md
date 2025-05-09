@@ -71,11 +71,11 @@ Deal Me connects buyers and sellers in a friendly and simple marketplace where e
 
 ## Screenshots
 
-![Screenshot 1](./Picture1.gif)
-![Screenshot 2](./Picture2.gif)
+![Screenshot 1](./Picture1.png)
+![Screenshot 2](./Picture2.png)
 ![Screenshot 3](./Picture3.png)
 ![Screenshot 4](./Picture4.png)
-![Screenshot 5](./Picture5.gif)
+![Screenshot 5](./Picture5.png)
 
 ## How to Run
 
